@@ -1,1 +1,1 @@
-# event-management
+# Cool App bro :)
