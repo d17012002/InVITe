@@ -1,4 +1,3 @@
-
 # Running a Next.js app locally
 
 This guide will show you how to run a Next.js app located in the `client` folder on your local machine.
@@ -7,8 +6,8 @@ This guide will show you how to run a Next.js app located in the `client` folder
 
 Before you start, you will need to have the following installed on your machine:
 
-* [Node.js](https://nodejs.org/en/download/)
-* [npm](https://www.npmjs.com/get-npm)
+- [Node.js](https://nodejs.org/en/download/)
+- [npm](https://www.npmjs.com/get-npm)
 
 ## Installation
 

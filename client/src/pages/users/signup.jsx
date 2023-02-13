@@ -14,9 +14,7 @@ export default function signup() {
       <div className="text-3xl font-bold">Signup Page</div>
 
       {/* Page Content */}
-      <div>
-        First, you'll have to enter your phone number and press 'Send-OTP'
-      </div>
+      <div>First, you'll have to enter your phone number and press 'Send-OTP'</div>
       <div>{"[ Input tag for Phone Number ] [ 'Send-OTP' Button ]"}</div>
       <br />
 
@@ -25,8 +23,7 @@ export default function signup() {
       <br />
 
       <div>
-        Enter your Name, Registration No. & EmailID and press 'Signup' to enter
-        user dashboard
+        Enter your Name, Registration No. & EmailID and press 'Signup' to enter user dashboard
       </div>
       <div>{"[ Input field for name ]"}</div>
       <div>{"[ Input field for Reg No. ]"}</div>

@@ -19,11 +19,7 @@ export default function signin() {
       <br />
 
       <div>Enter your OTP in the OTP field and press 'signin' button</div>
-      <div>
-        {
-          "[ Input tag for OTP ] [ 'Signin' Button (open user dashboard after verifying) ]"
-        }
-      </div>
+      <div>{"[ Input tag for OTP ] [ 'Signin' Button (open user dashboard after verifying) ]"}</div>
     </div>
   );
 }
