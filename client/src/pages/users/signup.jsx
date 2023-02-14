@@ -1,51 +1,57 @@
-import React, {useState} from "react";
+import { useState } from "react";
 
 export default function signup() {
+  const [step, setStep] = useState(1);
 
-  const [email, setEmail] = useState('');
-  const [otp, setOtp] = useState('');
-  const [contactNumber, setContactNumber] = useState('');
-  const [regNumber, setRegNumber] = useState('');
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState("");
+  const [otp, setOtp] = useState("");
+  const [contactNumber, setContactNumber] = useState("");
+  const [regNumber, setRegNumber] = useState("");
+  const [username, setUsername] = useState("");
 
+  // Take Email, give OTP
+  const handleVerifyEmail = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/signup`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+        }),
+      });
+      const data = await response.json();
+      console.log(data);
 
+      setStep(2); // Move to next step on the same page
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // Take all info, return account creating
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/signup/verify`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           contactNumber: contactNumber,
           otp: otp,
           email: email,
           regNumber: regNumber,
-          username: username
-        })
+          username: username,
+        }),
       });
       const data = await response.json();
       console.log(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
-  const handleVerify = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/signup`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email: email
-        })
-      });
-      const data = await response.json();
-      console.log(data);
+      setStep(3); // Move to next step on the same page
     } catch (error) {
       console.error(error);
     }
@@ -56,105 +62,198 @@ export default function signup() {
       {/* Back Button */}
       <div className="mb-4">
         <a href="/">
-          <button class="text-blue-600">{"< "}back</button>
+          <button className="text-red-500">{"< "}back</button>
         </a>
       </div>
 
       {/* Page heading */}
-      <div className="text-3xl font-bold">Signup Page</div>
+      <div className="text-center text-3xl font-bold">Signup Page</div>
 
       {/* Page Content */}
-      <div>
-        <form onSubmit={handleVerify} class="bg-white p-6 rounded-lg shadow-md">
-          <div class="mb-4">
-            <label class="block text-gray-700 font-medium mb-2" htmlFor="email">
-              Email
-            </label>
-            <input
-              class="w-full border border-gray-400 p-2"
-              type="email"
-              id="email"
-              name="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-            />
+      <div className="max-w-3xl mx-auto mt-10">
+        {/* Steps Nav */}
+        <div className="flex items-center justify-center">
+          {/* Step 1: normal-height:fit; mobile-view: 6rem*/}
+          <div className={`w-full h-24 lg:h-fit ${step === 1 ? `font-medium` : ``}`}>
+            <div
+              className={`h-full border-2 rounded-l-lg px-5 py-2 ${
+                step >= 1 ? `border-red-500` : `border-red-300 border-dashed`
+              }`}
+            >
+              <div>01</div>
+              Verify Email
+            </div>
           </div>
 
-          <button class="bg-indigo-500 text-white py-2 px-4 rounded-full hover:bg-indigo-600">
-            Verify
-          </button>
-        </form>
+          {/* Step 2: normal-height:fit; mobile-view: 6rem */}
+          <div className={`w-full h-24 lg:h-fit ${step === 2 ? `font-medium` : ``}`}>
+            <div
+              className={`h-full border-2 border-l-0 px-5 py-2 ${
+                step >= 2 ? `border-red-500` : `border-red-300 border-dashed`
+              }`}
+            >
+              <div>02</div>
+              Complete Signup
+            </div>
+          </div>
 
-        <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md">
-          <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2" htmlFor="contactNumber">
-              Contact Number
-            </label>
-            <input
-              className="w-full border border-gray-400 p-2"
-              type="text"
-              id="contactNumber"
-              name="contactNumber"
-              value={contactNumber}
-              onChange={(event) => setContactNumber(event.target.value)}
-            />
+          {/* Step 3: normal-height:fit; mobile-view: 6rem */}
+          <div className={`w-full h-24 lg:h-fit ${step === 3 ? `font-medium` : ``}`}>
+            <div
+              className={`h-full border-2 border-l-0 rounded-r-lg px-5 py-2 ${
+                step >= 3 ? `border-red-500` : `border-red-300 border-dashed`
+              }`}
+            >
+              <div>03</div>
+              Go to Dashboard!
+            </div>
           </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2" htmlFor="otp">
-              OTP
-            </label>
-            <input
-              className="w-full border border-gray-400 p-2"
-              type="text"
-              id="otp"
-              name="otp"
-              value={otp}
-              onChange={(event) => setOtp(event.target.value)}
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2" htmlFor="email">
-              Email
-            </label>
-            <input
-              className="w-full border border-gray-400 p-2"
-              type="email"
-              id="email"
-              name="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2" htmlFor="regNumber">
-              Registration Number
-            </label>
-            <input
-              className="w-full border border-gray-400 p-2"
-              type="text"
-              id="regNumber"
-              name="regNumber"
-              value={regNumber}
-              onChange={(event) => setRegNumber(event.target.value)}
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2" htmlFor="username">
-              User Name
-            </label>
-            <input
-              className="w-full border border-gray-400 p-2"
-              type="text"
-              id="username"
-              name="username"
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
-            />
-          </div>
-          <button className="bg-indigo-500 text-white py-2 px-4 rounded-full hover:bg-indigo-600">
-            Submit
-          </button>
-        </form>
+        </div>
+
+        {/* Steps Content */}
+        <div className="bg-white p-5 rounded-lg mt-2">
+          {
+            /* Step 1 Content */
+            step === 1 && (
+              <form onSubmit={handleVerifyEmail}>
+                <label className="block mb-2 text-sm font-medium text-gray-700">
+                  Enter your email address
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={email}
+                  className="bg-gray-100 p-2 mx-2 mb-4 focus:outline-none rounded-lg w-full"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <button
+                  type="submit"
+                  className="mt-4 bg-red-400 text-white py-2 px-4 rounded hover:bg-red-500"
+                >
+                  Verify
+                </button>
+              </form>
+            )
+          }
+
+          {
+            /* Step 2 Content */
+            step === 2 && (
+              <form onSubmit={handleSubmit}>
+                {/* EMAIL */}
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-gray-700">
+                    Your email address
+                  </label>
+                  <input
+                    type="text"
+                    id="email"
+                    name="email"
+                    defaultValue={email}
+                    disabled
+                    className="bg-gray-100 p-2 mx-2 mb-4 focus:outline-none rounded-lg w-10/12"
+                    // onChange={(e) => setOtp(e.target.value)}
+                  />
+                </div>
+
+                {/* OTP */}
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-gray-700">
+                    Enter Verification Code
+                  </label>
+                  <input
+                    type="text"
+                    id="otp"
+                    name="otp"
+                    autoComplete="none"
+                    required
+                    value={otp}
+                    className="bg-gray-100 p-2 mx-2 mb-4 focus:outline-none rounded-lg w-10/12"
+                    onChange={(e) => setOtp(e.target.value)}
+                  />
+                </div>
+
+                {/* USERNAME */}
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-gray-700">Full Name</label>
+                  <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    value={username}
+                    autoComplete="none"
+                    required
+                    className="bg-gray-100 p-2 mx-2 mb-4 focus:outline-none rounded-lg w-10/12"
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
+                </div>
+
+                {/* REG-NUMBER */}
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-gray-700">
+                    Enter VIT Registration Number
+                  </label>
+                  <input
+                    type="text"
+                    id="regNumber"
+                    name="regNumber"
+                    value={regNumber}
+                    autoComplete="none"
+                    required
+                    className="bg-gray-100 p-2 mx-2 mb-4 focus:outline-none rounded-lg w-10/12"
+                    onChange={(e) => setRegNumber(e.target.value)}
+                  />
+                </div>
+
+                {/* CONTACT-NUMBER */}
+                <div>
+                  <label className="block mb-2 text-sm font-medium text-gray-700">
+                    Enter Contact Number
+                  </label>
+                  <input
+                    type="text"
+                    id="contactNumber"
+                    name="contactNumber"
+                    value={contactNumber}
+                    autoComplete="none"
+                    required
+                    className="bg-gray-100 p-2 mx-2 mb-4 focus:outline-none rounded-lg w-10/12"
+                    onChange={(e) => setContactNumber(e.target.value)}
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="mt-4 bg-red-400 text-white py-2 px-4 rounded hover:bg-red-500"
+                >
+                  Complete Signup
+                </button>
+              </form>
+            )
+          }
+
+          {
+            /* Step 3 Content */
+            step === 3 && (
+              <div>
+                <div className="bg-green-50 border-b border-green-400 text-green-800 text-sm p-4 flex justify-between">
+                  <div>
+                    <div className="flex items-center">
+                      <p>
+                        <span className="font-bold">Success : </span>
+                        Your account has been created!
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <button className="mt-4 bg-red-400 text-white py-2 px-4 rounded hover:bg-red-500">
+                  Go to Dashboard
+                </button>
+              </div>
+            )
+          }
+        </div>
       </div>
     </div>
   );
