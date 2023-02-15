@@ -26,7 +26,7 @@ app.use(cors());
 app.use("/user", userRouter);
 
 app.get("/", (req, res) => {
-  res.send("Event Management services API.");
+  res.send("Event Management micro services API.");
 });
 
 app.listen(process.env.PORT || 5000, () => {

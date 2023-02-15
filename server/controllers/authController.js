@@ -8,6 +8,9 @@ const { sendSMS } = require("./smsController");
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = "some super secret key here...";
 
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
+
 const signIn = async (req, res) => {
   const Email = req.body.email;
 
@@ -107,7 +110,14 @@ const verifyLogin = async (req, res) => {
 
       if (Email === docs[0].email && validUser) {
         User.find({ email: Email }, async function (err, user) {
-          res.status(200).send({ msg: `Success signin` });
+          console.log("Cookie setting");
+          res
+            .cookie("user_id", user.user_token, {
+              expires: new Date(Date.now() + 86400000),
+              httpOnly: true,
+            })
+            .status(200)
+            .send({ msg: `Success signin` });
         });
       } else {
         return res.status(406).send({ msg: `wrong otp` });
@@ -160,7 +170,15 @@ const verifyOtp = async (req, res) => {
           }
         });
 
-        return res.status(200).send({ msg: "New User Added" });
+        console.log("setting cookie");
+
+        return res
+          .cookie("user_id", token, {
+            expires: new Date(Date.now() + 86400000),
+            httpOnly: true,
+          })
+          .status(200)
+          .send({ msg: "New User Added" });
       } else {
         return res.status(400).send({ msg: "Failed" });
       }
