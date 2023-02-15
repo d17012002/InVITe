@@ -1,3 +1,5 @@
+const express = require("express");
+const app = express();
 const OtpAuth = require("../models/otpAuth");
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
@@ -110,7 +112,6 @@ const verifyLogin = async (req, res) => {
 
       if (Email === docs[0].email && validUser) {
         User.find({ email: Email }, async function (err, user) {
-          console.log("Cookie setting");
           res
             .cookie("user_id", user.user_token, {
               expires: new Date(Date.now() + 86400000),

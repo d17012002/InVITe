@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const userRouter = require("./routes/authRoutes");
+const dashboardRouter = require("./routes/dashboardRoutes");
 const cookieParser = require("cookie-parser");
 
 dotenv.config();
@@ -24,6 +25,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/user", userRouter);
+app.use("/user", dashboardRouter);
 
 app.get("/", (req, res) => {
   res.send("Event Management micro services API.");
