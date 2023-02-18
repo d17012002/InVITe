@@ -3,9 +3,12 @@ const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const userRouter = require("./routes/authRoutes");
-const dashboardRouter = require("./routes/dashboardRoutes");
 const cookieParser = require("cookie-parser");
+const bodyParser = require('body-parser');
+
+const userRouter = require("./routes/authRoutes");
+const paymentRouter = require("./routes/paymentRoute");
+const dashboardRouter = require("./routes/dashboardRoutes");
 
 dotenv.config();
 
@@ -20,10 +23,13 @@ mongoose
 require("./models/otpAuth");
 require("./models/user");
 
+app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.json())
 app.use(cookieParser());
-app.use(express.json());
+// app.use(express.json());
 app.use(cors());
 
+app.use("/", paymentRouter);
 app.use("/user", userRouter);
 app.use("/user", dashboardRouter);
 

@@ -11,7 +11,6 @@ function payment() {
     })
 
     const handleToken = async (event, token, addresses) => {
-        event.preventDefault();
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/payment`, {
                 method: "POST",
@@ -19,12 +18,13 @@ function payment() {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    token: token,
-                    address: addresses
+                    token,
+                    product,
+                    addresses
                 }),
             });
             const data = await response.json();
-            console.log(data);
+            console.log(data.status);
         } catch (error) {
             console.error(error);
         }
@@ -37,8 +37,10 @@ function payment() {
             <StripeCheckout
                 className="flex justify-center w-max"
                 stripeKey={process.env.NEXT_PUBLIC_STRIPE_KEY}
-                amount={product.price * 100}
+                amount={product.price*100}
+                token={handleToken}
                 name={product.name}
+                currency="INR"
                 billingAddress
                 shippingAddress
             />
