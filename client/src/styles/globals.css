@@ -7,7 +7,10 @@
 :root {
   --font-base: "DM Sans", sans-serif;
 
-  --primary-color: #ffffff;
+  --primary-color: #e85a5a;
+  --secondary-color: #ed7e7e;
+  --white-color: #ffffff;
+  --gray-color: #242424;
 }
 
 * {
@@ -17,4 +20,10 @@
   margin: 0;
   scroll-behavior: smooth;
   /* cursor: none; */
+}
+
+@layer components {
+  .filterInput {
+    @apply outline-none w-full bg-[color:var(--secondary-color)] rounded-lg border-b pl-4 py-3 lg:pl-6 lg:py-4 border-[color:var(--gray-color)] text-[color:var(--gray-color)] placeholder-[color:var(--gray-color)] transition-all focus:border-[color:var(--white-color)] hover:border-[color:var(--white-color)] hover:placeholder-[color:var(--white-color)] focus:placeholder-[color:var(--white-color)]
+  }
 }
