@@ -1,14 +1,12 @@
-import React from 'react'
-import StripeCheckout from 'react-stripe-checkout';
-import { useState } from 'react';
+import React, { useState } from "react";
+import StripeCheckout from "react-stripe-checkout";
 
 function payment() {
-
     const [product] = useState({
         name: "Sample Game",
         price: 2,
-        description: "This is a sample demo"
-    })
+        description: "This is a sample demo",
+    });
 
     const handleToken = async (event, token, addresses) => {
         try {
@@ -20,7 +18,7 @@ function payment() {
                 body: JSON.stringify({
                     token,
                     product,
-                    addresses
+                    addresses,
                 }),
             });
             const data = await response.json();
@@ -37,7 +35,7 @@ function payment() {
             <StripeCheckout
                 className="flex justify-center w-max"
                 stripeKey={process.env.NEXT_PUBLIC_STRIPE_KEY}
-                amount={product.price*100}
+                amount={product.price * 100}
                 token={handleToken}
                 name={product.name}
                 currency="INR"
@@ -48,4 +46,4 @@ function payment() {
     );
 }
 
-export default payment
+export default payment;

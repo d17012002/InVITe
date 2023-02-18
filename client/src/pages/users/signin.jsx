@@ -1,23 +1,21 @@
 import React, { useState } from "react";
 
 export default function signin() {
-
-  const [email, setEmail] = useState('');
-  const [otp, setOtp] = useState('');
-
+  const [email, setEmail] = useState("");
+  const [otp, setOtp] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/signin/verify`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           email: email,
-          otp: otp
-        })
+          otp: otp,
+        }),
       });
       const data = await response.json();
       console.log(data);
@@ -30,13 +28,13 @@ export default function signin() {
     event.preventDefault();
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/signin`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: email
-        })
+          email: email,
+        }),
       });
       const data = await response.json();
       console.log(data);
@@ -44,7 +42,6 @@ export default function signin() {
       console.error(error);
     }
   };
-
 
   return (
     <div className="m-2">
