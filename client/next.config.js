@@ -3,4 +3,8 @@ const nextConfig = {
   reactStrictMode: true,
 };
 
-module.exports = nextConfig;
+module.exports = {
+  images: {
+    domains: ["assets-in.bmscdn.com"],
+  },
+};

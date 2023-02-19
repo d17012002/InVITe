@@ -1,5 +1,5 @@
 .rc-slider-rail{
-    background-color: #ffffff !important;
+    background-color: var(--white-color) !important;
 }
 
 .rc-slider-track{

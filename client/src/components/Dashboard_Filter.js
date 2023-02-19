@@ -42,7 +42,7 @@ function Dashboard_Filter() {
 
     return (
         // Add filter options to the DOM element
-        <div className="text-white">
+        <div>
             <h2 className="text-lg font-medium mb-2">Filter Options</h2>
             <form className="flex flex-col gap-y-3" onSubmit={handleSubmit}>
                 {/* Input to search through keyword */}
@@ -107,7 +107,7 @@ function Dashboard_Filter() {
                 {/* Button to apply filters */}
                 <button
                     type="submit"
-                    className="bg-[color:var(--secondary-color)] text-white py-2 px-4 rounded-lg hover:bg-[#ed7e7e]/50"
+                    className="bg-[color:var(--secondary-color)] text-white py-2 px-4 rounded-lg hover:bg-[color:var(--darker-secondary-color)]"
                 >
                     Apply Filters
                 </button>
