@@ -28,6 +28,37 @@ function sendSMS(Email, otp) {
   });
 }
 
+
+function sendTicket(Details) {
+  let transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "the4musketeeers@gmail.com",
+      pass: "jyestailmwokdibd",
+    },
+    tls: {
+      rejectUnauthorized: false,
+    },
+  });
+
+  let mailOptions = {
+    from: "the4musketeeers@gmail.com",
+    to: Details.email,
+    subject: `Online Event Pass for ${Details.event_name} - InVITe✨`,
+    html: `Thankyou ${Details.name} for believing in us. We are all set and eagerly waiting for you to JOIN! <br> Your online pass has been generated. Do not share your pass with anyone else and carry this pass with yourself to the venue.<br><br><strong>Pass Number: ${Details.pass}</strong><br><br>Details:<br>Name: ${Details.name}<br>Amount Paid: ${Details.price}<br>Address: ${Details.address1} <br> City: ${Details.city} <br> PinCode: ${Details.zip}`
+  };
+
+  transporter.sendMail(mailOptions, function (err, success) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Email sent successfully");
+    }
+  });
+}
+
+
 module.exports = {
   sendSMS,
+  sendTicket
 };

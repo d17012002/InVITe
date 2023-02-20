@@ -114,6 +114,9 @@ const verifyLogin = async (req, res) => {
         User.find({ email: Email }, async function (err, user) {
           res
             .cookie("user_id", user.user_token, {
+              // path: "/*",
+              // domain: ".localhost",
+              // secure: false,
               expires: new Date(Date.now() + 86400000),
               httpOnly: true,
             })

@@ -22,7 +22,7 @@ function payment() {
                 }),
             });
             const data = await response.json();
-            console.log(data.status);
+            console.log(data);
         } catch (error) {
             console.error(error);
         }
@@ -31,7 +31,15 @@ function payment() {
     return (
         <div className="flex flex-col m-auto max-w-screen-xl">
             <h1>Stripe Payment</h1>
-            <br />
+            <p>Payment is currently in Test Mode</p><br />
+            <p>You can make the payment using our test credentials provided below:</p><br/>
+            <ul>
+                <li>Card Number: <i>4242 4242 4242 4242</i></li>
+                <li>Expiry: Any future date (eg: 11/25)</li>
+                <li>CVC: Any 3 digit number</li>
+            </ul>
+            <br/>
+            
             <StripeCheckout
                 className="flex justify-center w-max"
                 stripeKey={process.env.NEXT_PUBLIC_STRIPE_KEY}
