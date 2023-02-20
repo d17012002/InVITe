@@ -1,7 +1,11 @@
 import { useState } from "react";
+import Cookies from "universal-cookie";
 
 export default function signup() {
+  const cookies = new Cookies();
+
   const [step, setStep] = useState(1);
+  const [message, setMessage] = useState({ errorMsg: "", successMsg: "" });
 
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
@@ -12,48 +16,51 @@ export default function signup() {
   // Take Email, give OTP
   const handleVerifyEmail = async (event) => {
     event.preventDefault();
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/signup`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-        }),
-      });
-      const data = await response.json();
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+      }),
+    });
+    const data = await response.json();
+    if (response.status === 200) {
+      setMessage({ errorMsg: "", successMsg: data.msg });
       console.log(data);
-
       setStep(2); // Move to next step on the same page
-    } catch (error) {
-      console.error(error);
+    } else {
+      console.error(`Failed with status code ${response.status}`);
+      setMessage({ errorMsg: data.msg, successMsg: "" });
     }
   };
 
   // Take all info, return account creating
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/signup/verify`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          contactNumber: contactNumber,
-          otp: otp,
-          email: email,
-          regNumber: regNumber,
-          username: username,
-        }),
-      });
-      const data = await response.json();
+    // try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/user/signup/verify`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        contactNumber: contactNumber,
+        otp: otp,
+        email: email,
+        regNumber: regNumber,
+        username: username,
+      }),
+    });
+    const data = await response.json();
+    if (response.status === 200) {
+      setMessage({ errorMsg: "", successMsg: data.msg });
       console.log(data);
-
       setStep(3); // Move to next step on the same page
-    } catch (error) {
-      console.error(error);
+    } else {
+      console.error(`Failed with status code ${response.status}`);
+      setMessage({ errorMsg: data.msg, successMsg: "" });
     }
   };
 
@@ -109,6 +116,20 @@ export default function signup() {
             </div>
           </div>
         </div>
+
+        {/* Error Message */}
+        {message.errorMsg && (
+          <h1 className="rounded p-3 my-2 bg-red-200 text-red-600 font-medium">
+            {message.errorMsg}
+          </h1>
+        )}
+
+        {/* Success Message */}
+        {message.successMsg && (
+          <h1 className="rounded p-3 my-2 bg-green-200 text-green-600 font-medium">
+            {message.successMsg}
+          </h1>
+        )}
 
         {/* Steps Content */}
         <div className="bg-white p-5 rounded-lg mt-2">
@@ -247,7 +268,10 @@ export default function signup() {
                     </div>
                   </div>
                 </div>
-                <button className="mt-4 bg-red-400 text-white py-2 px-4 rounded hover:bg-red-500">
+                <button
+                  onClick={() => setCookie("dhuedhuhaiudhiaudheudhaiuhciaehhciaeuh")}
+                  className="mt-4 bg-red-400 text-white py-2 px-4 rounded hover:bg-red-500"
+                >
                   Go to Dashboard
                 </button>
               </div>
