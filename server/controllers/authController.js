@@ -50,7 +50,9 @@ const signIn = async (req, res) => {
 
       return res.status(200).send({ msg: "Otp sent successfully!" });
     } else {
-      return res.status(400).send({ msg: "User not registered." });
+      return res
+        .status(400)
+        .send({ msg: "This Email ID is not registered. Try Signing Up instead!" });
     }
   });
 };
@@ -61,7 +63,9 @@ const signUp = async (req, res) => {
   //validating whether user already exists or not
   User.find({ email: Email }, async function (err, docs) {
     if (docs.length !== 0) {
-      return res.status(400).send({ msg: "user already registered" });
+      return res
+        .status(400)
+        .send({ msg: "This Email ID is already registered. Try Signing In instead!" });
     } else {
       // generate otp for new user
       const OTP = otpGenerator.generate(6, {
@@ -93,7 +97,7 @@ const signUp = async (req, res) => {
         else console.log("Saved::otp::ready for validation");
       });
 
-      return res.status(200).send({ msg: "Otp sent successfully" });
+      return res.status(200).send({ msg: "Otp sent successfully!" });
     }
   });
 };
@@ -104,7 +108,7 @@ const verifyLogin = async (req, res) => {
 
   OtpAuth.find({ email: Email }, async function (err, docs) {
     if (docs.length === 0) {
-      return res.status(400).send({ msg: "You used an expired OTP" });
+      return res.status(400).send({ msg: "The OTP expired. Please try again!" });
     } else {
       const generatedOtp = docs[0].otp;
 
@@ -114,17 +118,14 @@ const verifyLogin = async (req, res) => {
         User.find({ email: Email }, async function (err, user) {
           res
             .cookie("user_id", user.user_token, {
-              // path: "/*",
-              // domain: ".localhost",
-              // secure: false,
               expires: new Date(Date.now() + 86400000),
               httpOnly: true,
             })
             .status(200)
-            .send({ msg: `Success signin` });
+            .send({ msg: "Sign-In successful!" });
         });
       } else {
-        return res.status(406).send({ msg: `wrong otp` });
+        return res.status(406).send({ msg: "OTP does not match. Please try again!" });
       }
     }
   });
@@ -139,7 +140,7 @@ const verifyOtp = async (req, res) => {
 
   OtpAuth.find({ email: Email }, async function (err, docs) {
     if (docs.length === 0) {
-      return res.status(400).send("You used an expired OTP!");
+      return res.status(400).send("The OTP expired. Please try again!");
     } else {
       const generatedOtp = docs[0].otp;
 
@@ -182,9 +183,9 @@ const verifyOtp = async (req, res) => {
             httpOnly: true,
           })
           .status(200)
-          .send({ msg: "New User Added" });
+          .send({ msg: "Account creation successful!" });
       } else {
-        return res.status(400).send({ msg: "Failed" });
+        return res.status(400).send({ msg: "OTP does not match. Please try again!" });
       }
     }
   });
