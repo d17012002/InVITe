@@ -1,6 +1,7 @@
 import Dashboard_Filter from "@/components/Dashboard_Filter";
 import UserImages from "@/utils/user_dashboard_images";
 import React from "react";
+import Image from "next/image";
 import { AiOutlineStar } from "react-icons/ai";
 
 function UserDashboard() {
@@ -18,7 +19,13 @@ function UserDashboard() {
                 className=" mt-5 bg-[color:var(--white-color)] rounded-lg shadow-md px-3 py-3"
                 key={image.id}
               >
-                <img className="w-full rounded-lg bg-cover" src={image.src} alt="" />
+                <Image 
+                  width={500}
+                  height={500}
+                  className="w-full rounded-lg bg-cover" 
+                  src={image.src} 
+                  alt="" 
+                />
                 <div className="flex flex-row justify-between items-start mt-4">
                   <div>
                     <p className="text-sm text-gray-800 font-bold">Event, XYZ Club</p>
