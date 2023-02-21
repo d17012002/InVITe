@@ -1,6 +1,7 @@
 const { sendTicket } = require("./smsController");
 const express = require("express");
 const app = express();
+const User = require("../models/user");
 
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
@@ -20,10 +21,10 @@ const uuid = require("uuid").v4;
 const payment = async (req, res) => {
   console.log(req.body);
   let charge, status, Email;
-  var { product, token } = req.body;
+  var { product, token, user_id } = req.body;
 
   console.log("*************");
-  console.log(product, token);
+  console.log(product, token, user_id);
 
   var key = uuid();
 
@@ -63,26 +64,31 @@ const payment = async (req, res) => {
     status = "success";
   }
 
-  var header = req.headers.cookie;
-  var token = header.split("="); // split is undefined
-  console.log(token);
-  res.send({ msg: "Getting tokken from cookie", user_token: token[1] });
 
   // collecting ticket details
-  // var Details = {
-  //   "email": Email,
-  //   "event_name": product.name,
-  //   "name": token.billing_name,
-  //   "pass": key,
-  //   "price": product.price,
-  //   "address1": token.shipping_address_line1,
-  //   "city":token.shipping_address_city,
-  //   "zip":token.shipping_address_zip
-  // }
+  User.find({ user_token: user_id }, async function (err, docs) {
+    if (docs.length !== 0) {
+      Email = docs.email;
+    } else {
+      status = "error";
+      res.status(401).send({ msg: "User is unauthorized" });
+    }
+  });
 
-  // console.log("All details before email: ", Details)
+  var Details = {
+    email: Email,
+    event_name: product.name,
+    name: token.billing_name,
+    pass: key,
+    price: product.price,
+    address1: token.shipping_address_line1,
+    city: token.shipping_address_city,
+    zip: token.shipping_address_zip,
+  };
 
-  // sendTicket(Details);
+  console.log("All details before email: ", Details);
+
+  sendTicket(Details);
 
   //NOTE-
   //add this user into events-> registerted people-> [(name, pass)] //no need to get from cookies

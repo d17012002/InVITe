@@ -117,12 +117,8 @@ const verifyLogin = async (req, res) => {
       if (Email === docs[0].email && validUser) {
         User.find({ email: Email }, async function (err, user) {
           res
-            .cookie("user_id", user.user_token, {
-              expires: new Date(Date.now() + 86400000),
-              httpOnly: true,
-            })
             .status(200)
-            .send({ msg: "Sign-In successful!" });
+            .send({ msg: "Sign-In successful!", user_id: user.user_token});
         });
       } else {
         return res.status(406).send({ msg: "OTP does not match. Please try again!" });
@@ -178,12 +174,8 @@ const verifyOtp = async (req, res) => {
         console.log("setting cookie");
 
         return res
-          .cookie("user_id", token, {
-            expires: new Date(Date.now() + 86400000),
-            httpOnly: true,
-          })
           .status(200)
-          .send({ msg: "Account creation successful!" });
+          .send({ msg: "Account creation successful!", user_id: token });
       } else {
         return res.status(400).send({ msg: "OTP does not match. Please try again!" });
       }
