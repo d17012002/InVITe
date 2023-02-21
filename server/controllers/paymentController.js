@@ -19,12 +19,10 @@ const stripe = require("stripe")(
 const uuid = require("uuid").v4;
 
 const payment = async (req, res) => {
-  console.log(req.body);
-  let charge, status, Email;
+
+  let charge, status;
   var { product, token, user } = req.body;
 
-  console.log("*************");
-  // console.log(product, token, user_id);
   console.log(user.user_id);
 
   var key = uuid();
@@ -67,28 +65,29 @@ const payment = async (req, res) => {
 
   // collecting ticket details
   User.find({ user_token: user.user_id }, async function (err, docs) {
+    console.log("Inside DB ***********")
+    console.log(docs)
     if (docs.length !== 0) {
-      Email = docs.email;
+
+      var Details = {
+        email: docs[0].email,
+        event_name: product.name,
+        name: token.billing_name,
+        pass: key,
+        price: product.price,
+        address1: token.shipping_address_line1,
+        city: token.shipping_address_city,
+        zip: token.shipping_address_zip,
+      };
+    
+      console.log("All details before email: ", Details);
+    
+      sendTicket(Details);
     } else {
       status = "error";
       res.status(401).send({ msg: "User is unauthorized" });
     }
   });
-
-  var Details = {
-    email: Email,
-    event_name: product.name,
-    name: token.billing_name,
-    pass: key,
-    price: product.price,
-    address1: token.shipping_address_line1,
-    city: token.shipping_address_city,
-    zip: token.shipping_address_zip,
-  };
-
-  console.log("All details before email: ", Details);
-
-  sendTicket(Details);
 
   //NOTE-
   //add this user into events-> registerted people-> [(name, pass)] //no need to get from cookies
@@ -97,5 +96,5 @@ const payment = async (req, res) => {
 };
 
 module.exports = {
-  payment,
+  payment
 };
