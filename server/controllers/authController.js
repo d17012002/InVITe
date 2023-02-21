@@ -13,6 +13,7 @@ const JWT_SECRET = "some super secret key here...";
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 
+// route - http://localhost:5000/user/signin
 const signIn = async (req, res) => {
   const Email = req.body.email;
 
@@ -57,6 +58,7 @@ const signIn = async (req, res) => {
   });
 };
 
+// route - http://localhost:5000/user/signup
 const signUp = async (req, res) => {
   const Email = req.body.email;
 
@@ -102,6 +104,7 @@ const signUp = async (req, res) => {
   });
 };
 
+// route - http://localhost:5000/user/signin/verify
 const verifyLogin = async (req, res) => {
   const Email = req.body.email;
   const inputOtp = req.body.otp;
@@ -116,7 +119,8 @@ const verifyLogin = async (req, res) => {
 
       if (Email === docs[0].email && validUser) {
         User.find({ email: Email }, async function (err, user) {
-          res.status(200).send({ msg: "Sign-In successful!", user_id: user.user_token });
+          console.log(user);
+          res.status(200).send({ msg: "Sign-In successful!", user_id: user[0].user_token });
         });
       } else {
         return res.status(406).send({ msg: "OTP does not match. Please try again!" });
@@ -125,6 +129,7 @@ const verifyLogin = async (req, res) => {
   });
 };
 
+// route - http://localhost:5000/user/signup/verify
 const verifyOtp = async (req, res) => {
   const number = req.body.contactNumber;
   const inputOtp = req.body.otp;

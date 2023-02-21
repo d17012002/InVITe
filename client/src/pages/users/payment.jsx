@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import StripeCheckout from "react-stripe-checkout";
-import Cookies from "universal-cookie";
+import { getUserToken } from "@/utils/getUserToken";
 
 function payment() {
   const [product] = useState({
@@ -10,8 +10,8 @@ function payment() {
   });
 
   const handleToken = async (event, token, addresses) => {
-    const cookies = new Cookies();
-    const user_id = cookies.get("user_token");
+    // Fetching user_token cookie value in user_id
+    const user_id = getUserToken();
     console.log("Payment gateway cookie fetch - ", user_id);
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/payment`, {
