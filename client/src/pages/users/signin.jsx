@@ -69,7 +69,9 @@ export default function signin() {
             {/* Back Button */}
             <div className="mb-4">
                 <a href="/">
-                    <button className="text-red-500">{"< "}back</button>
+                    <button className="text-[color:var(--secondary-color)]">
+                        {"< "}back
+                    </button>
                 </a>
             </div>
 
@@ -89,8 +91,8 @@ export default function signin() {
                         <div
                             className={`h-full border-2 rounded-l-lg px-5 py-2 ${
                                 step >= 1
-                                    ? `border-red-500`
-                                    : `border-red-300 border-dashed`
+                                    ? `border-[color:var(--secondary-color)]`
+                                    : `border-[color:var(--secondary-color)] border-dashed`
                             }`}
                         >
                             <div>01</div>
@@ -107,8 +109,8 @@ export default function signin() {
                         <div
                             className={`h-full border-2 border-l-0 px-5 py-2 ${
                                 step >= 2
-                                    ? `border-red-500`
-                                    : `border-red-300 border-dashed`
+                                    ? `border-[color:var(--secondary-color)]`
+                                    : `border-[color:var(--secondary-color)] border-dashed`
                             }`}
                         >
                             <div>02</div>
@@ -125,8 +127,8 @@ export default function signin() {
                         <div
                             className={`h-full border-2 border-l-0 rounded-r-lg px-5 py-2 ${
                                 step >= 3
-                                    ? `border-red-500`
-                                    : `border-red-300 border-dashed`
+                                    ? `border-[color:var(--secondary-color)]`
+                                    : `border-[color:var(--secondary-color)] border-dashed`
                             }`}
                         >
                             <div>03</div>
@@ -169,7 +171,7 @@ export default function signin() {
 
                                 <button
                                     type="submit"
-                                    className="mt-4 bg-red-400 text-white py-2 px-4 rounded hover:bg-red-500"
+                                    className="mt-4 bg-[color:var(--secondary-color)] text-white py-2 px-4 rounded hover:bg-[color:var(--darker-secondary-color)]"
                                 >
                                     Verify
                                 </button>
@@ -200,7 +202,7 @@ export default function signin() {
 
                                 <button
                                     type="submit"
-                                    className="mt-4 bg-red-400 text-white py-2 px-4 rounded hover:bg-red-500"
+                                    className="mt-4 bg-[color:var(--secondary-color)] text-white py-2 px-4 rounded hover:bg-[color:var(--darker-secondary-color)]"
                                 >
                                     Submit
                                 </button>
@@ -228,7 +230,7 @@ export default function signin() {
                                     onClick={() =>
                                         router.push("/users/dashboard")
                                     }
-                                    className="mt-4 bg-red-400 text-white py-2 px-4 rounded hover:bg-red-500"
+                                    className="mt-4 bg-[color:var(--secondary-color)] text-white py-2 px-4 rounded hover:bg-[color:var(--darker-secondary-color)] transition ease-in-out"
                                 >
                                     Go to your dashboard
                                 </button>
