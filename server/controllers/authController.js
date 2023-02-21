@@ -130,7 +130,7 @@ const verifyLogin = async (req, res) => {
 };
 
 // route - http://localhost:5000/user/signup/verify
-const verifyOtp = async (req, res) => {
+  const verifyOtp = async (req, res) => {
   const number = req.body.contactNumber;
   const inputOtp = req.body.otp;
   const Email = req.body.email;

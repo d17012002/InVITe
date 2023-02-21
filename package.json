@@ -1,0 +1,12 @@
+{
+  "devDependencies": {
+    "husky": "^8.0.3",
+    "prettier": "^2.8.4"
+  },
+  "prettier": {
+    "singleQuote": true
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,css,scss,md}": "prettier --write"
+  }  
+}
