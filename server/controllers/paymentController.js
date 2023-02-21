@@ -21,10 +21,11 @@ const uuid = require("uuid").v4;
 const payment = async (req, res) => {
   console.log(req.body);
   let charge, status, Email;
-  var { product, token, user_id } = req.body;
+  var { product, token, user } = req.body;
 
   console.log("*************");
-  console.log(product, token, user_id);
+  // console.log(product, token, user_id);
+  console.log(user.user_id);
 
   var key = uuid();
 
@@ -64,9 +65,8 @@ const payment = async (req, res) => {
     status = "success";
   }
 
-
   // collecting ticket details
-  User.find({ user_token: user_id }, async function (err, docs) {
+  User.find({ user_token: user.user_id }, async function (err, docs) {
     if (docs.length !== 0) {
       Email = docs.email;
     } else {

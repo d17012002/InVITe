@@ -58,10 +58,19 @@ export default function signup() {
       setMessage({ errorMsg: "", successMsg: data.msg });
       console.log(data);
       setStep(3); // Move to next step on the same page
+
+      setCookie(data.user_id); // set cookie when signed up
     } else {
       console.error(`Failed with status code ${response.status}`);
       setMessage({ errorMsg: data.msg, successMsg: "" });
     }
+  };
+
+  const setCookie = (user_id) => {
+    console.log("user id state value ", user_id);
+    cookies.set("user_token", user_id, {
+      expires: new Date(Date.now() + 86400000),
+    });
   };
 
   return (
@@ -268,10 +277,7 @@ export default function signup() {
                     </div>
                   </div>
                 </div>
-                <button
-                  onClick={() => setCookie("dhuedhuhaiudhiaudheudhaiuhciaehhciaeuh")}
-                  className="mt-4 bg-red-400 text-white py-2 px-4 rounded hover:bg-red-500"
-                >
+                <button className="mt-4 bg-red-400 text-white py-2 px-4 rounded hover:bg-red-500">
                   Go to Dashboard
                 </button>
               </div>

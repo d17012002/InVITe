@@ -3,8 +3,12 @@ import UserImages from "@/utils/user_dashboard_images";
 import React from "react";
 import Image from "next/image";
 import { AiOutlineStar } from "react-icons/ai";
+import Cookies from "universal-cookie";
 
 function UserDashboard() {
+  const cookies = new Cookies();
+  console.log("Found this from cookies ", cookies. get("user_token"));
+
   return (
     <div className="flex m-auto h-screen w-screen bg-[color:var(--primary-color)]">
       <div className="flex m-auto container">
@@ -19,12 +23,12 @@ function UserDashboard() {
                 className=" mt-5 bg-[color:var(--white-color)] rounded-lg shadow-md px-3 py-3"
                 key={image.id}
               >
-                <Image 
+                <Image
                   width={500}
                   height={500}
-                  className="w-full rounded-lg bg-cover" 
-                  src={image.src} 
-                  alt="" 
+                  className="w-full rounded-lg bg-cover"
+                  src={image.src}
+                  alt=""
                 />
                 <div className="flex flex-row justify-between items-start mt-4">
                   <div>
