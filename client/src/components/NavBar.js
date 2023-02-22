@@ -49,7 +49,7 @@ export default function NavBar() {
                         <li className="mr-4 cursor-pointer">
                             <button
                                 onClick={toggleDropdown}
-                                className="flex items-center justify-center bg-[color:var(--secondary-color)] text-[color:var(--primary-color)] text-sm font-medium rounded-md w-28 h-10 focus:outline-none"
+                                className="flex items-center justify-center bg-[color:var(--darker-secondary-color)] text-white text-sm font-medium rounded-md w-28 h-10 focus:outline-none"
                             >
                                 <span className="mr-2">Username</span>
                                 <FaAngleDown
