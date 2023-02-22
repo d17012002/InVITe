@@ -50,6 +50,6 @@
 
 @layer components {
   .filterInput {
-    @apply outline-none w-full bg-[color:var(--white-color)] rounded-lg border-b pl-4 py-3 lg:pl-6 lg:py-4 border-[color:var(--gray-color)] placeholder-black transition-all;
+    @apply outline-none w-full bg-[color:var(--white-color)] rounded-lg border-b pl-4 py-3 lg:pl-6 lg:py-4 placeholder-black transition-all !shadow-lg;
   }
 }

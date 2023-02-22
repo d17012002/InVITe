@@ -1,0 +1,6 @@
+This favicon was generated using the following font:
+
+- Font Title: DM Sans
+- Font Author: Copyright 2014-2017 Indian Type Foundry (info@indiantypefoundry.com) with Reserved Font Name 'Poppins'. Copyright 2019 Google LLC.
+- Font Source: http://fonts.gstatic.com/s/dmsans/v11/rP2Hp2ywxg089UriOZSCHBeHFl0.ttf
+- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))

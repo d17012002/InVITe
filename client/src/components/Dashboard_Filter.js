@@ -61,7 +61,10 @@ function Dashboard_Filter() {
                 </div>
                 {/* Selection menu to choose a category */}
                 <div className="mb-2">
-                    <label htmlFor="category" className="font-medium block mb-1">
+                    <label
+                        htmlFor="category"
+                        className="font-medium block mb-1"
+                    >
                         Category
                     </label>
                     <select
@@ -78,7 +81,10 @@ function Dashboard_Filter() {
                 </div>
                 {/* Input field to filter through a date range */}
                 <div className="mb-2">
-                    <label htmlFor="dateRange" className="font-medium block mb-1">
+                    <label
+                        htmlFor="dateRange"
+                        className="font-medium block mb-1"
+                    >
                         Date Range
                     </label>
                     <input
@@ -107,7 +113,7 @@ function Dashboard_Filter() {
                 {/* Button to apply filters */}
                 <button
                     type="submit"
-                    className="bg-[color:var(--secondary-color)] text-white py-2 px-4 rounded-lg hover:bg-[color:var(--darker-secondary-color)]"
+                    className="bg-[color:var(--darker-secondary-color)] text-white py-2 px-4 rounded-lg hover:bg-[color:var(--secondary-color)]"
                 >
                     Apply Filters
                 </button>

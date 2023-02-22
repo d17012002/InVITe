@@ -1,20 +1,20 @@
 .rc-slider-rail{
-    background-color: var(--white-color) !important;
+    background-color: rgb(0 0 0 / 0.1) !important;
 }
 
 .rc-slider-track{
-    background-color: var(--secondary-color) !important
+    background-color: var(--darker-secondary-color) !important
 }
 
 .rc-slider-handle{
-    border-color: var(--secondary-color) !important
+    border-color: var(--darker-secondary-color) !important
 }
 
 .rc-slider-handle:hover{
-    border-color: var(--secondary-color) !important
+    border-color: var(--darker-secondary-color) !important
 }
 
 .rc-slider-handle-dragging.rc-slider-handle-dragging.rc-slider-handle-dragging{
-    border-color: var(--secondary-color) !important;
-    box-shadow: 0 0 0 5px var(--secondary-color) !important
+    border-color: var(--darker-secondary-color) !important;
+    box-shadow: 0 0 0 5px var(--darker-secondary-color) !important
 }
