@@ -8,11 +8,35 @@
   --font-base: "DM Sans", sans-serif;
 
   --primary-color: #f6f6f6;
-  --secondary-color: #ec816b;
-  --darker-secondary-color: #e68d7b;
+  --secondary-color: #f87171;
+  --darker-secondary-color: #f05454;
   /* --darker-secondary-color: #ec816b; */
   --white-color: #ffffff;
   --gray-color: #242424;
+  --light-gray: #494949;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  /* box-shadow: inset 0 0 5px grey;  */
+  background: var(--secondary-color);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--light-gray);
 }
 
 * {
@@ -26,6 +50,6 @@
 
 @layer components {
   .filterInput {
-    @apply outline-none w-full bg-[color:var(--white-color)] rounded-lg border-b pl-4 py-3 lg:pl-6 lg:py-4 border-[color:var(--gray-color)] placeholder-black transition-all 
+    @apply outline-none w-full bg-[color:var(--white-color)] rounded-lg border-b pl-4 py-3 lg:pl-6 lg:py-4 border-[color:var(--gray-color)] placeholder-black transition-all;
   }
 }

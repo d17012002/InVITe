@@ -7,12 +7,12 @@ function LandingPage() {
       <div className="text-xl">you have two options: </div>
       <div>
         <a href="/users/signin">
-          <button className="mr-4 bg-red-400 text-white py-2 px-4 rounded hover:bg-red-500">
+          <button className="mr-4 bg-[color:var(--darker-secondary-color)] text-white py-2 px-4 rounded hover:bg-[color:var(--secondary-color)]">
             Signin
           </button>
         </a>
         <a href="/users/signup">
-          <button className="mr-4 bg-red-400 text-white py-2 px-4 rounded hover:bg-red-500">
+          <button className="mr-4 bg-[color:var(--darker-secondary-color)] text-white py-2 px-4 rounded hover:bg-[color:var(--secondary-color)]">
             Signup
           </button>
         </a>
