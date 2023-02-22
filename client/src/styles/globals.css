@@ -8,8 +8,9 @@
   --font-base: "DM Sans", sans-serif;
 
   --primary-color: #f6f6f6;
-  --secondary-color: #e68d7b;
-  --darker-secondary-color: #ec816b;
+  --secondary-color: #ec816b;
+  --darker-secondary-color: #e68d7b;
+  /* --darker-secondary-color: #ec816b; */
   --white-color: #ffffff;
   --gray-color: #242424;
 }
