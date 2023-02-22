@@ -19,6 +19,19 @@ const signIn = async (req, res) => {
 
   User.find({ email: Email }, async function (err, docs) {
     if (docs.length !== 0) {
+      //clearing otp auth table
+      try {
+        await OtpAuth.deleteMany({ email: Email }, function (err) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log("Users deleted successfully");
+          }
+        });
+      } catch (e) {
+        console.log(e);
+      }
+
       // generate otp for new user
       const OTP = otpGenerator.generate(6, {
         digits: true,
@@ -51,9 +64,9 @@ const signIn = async (req, res) => {
 
       return res.status(200).send({ msg: "Otp sent successfully!" });
     } else {
-      return res
-        .status(400)
-        .send({ msg: "This Email ID is not registered. Try Signing Up instead!" });
+      return res.status(400).send({
+        msg: "This Email ID is not registered. Try Signing Up instead!",
+      });
     }
   });
 };
@@ -63,12 +76,26 @@ const signUp = async (req, res) => {
   const Email = req.body.email;
 
   //validating whether user already exists or not
+
   User.find({ email: Email }, async function (err, docs) {
     if (docs.length !== 0) {
-      return res
-        .status(400)
-        .send({ msg: "This Email ID is already registered. Try Signing In instead!" });
+      return res.status(400).send({
+        msg: "This Email ID is already registered. Try Signing In instead!",
+      });
     } else {
+      //clearing otp auth table
+      try {
+        await OtpAuth.deleteMany({ email: Email }, function (err) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log("Users deleted successfully");
+          }
+        });
+      } catch (e) {
+        console.log(e);
+      }
+
       // generate otp for new user
       const OTP = otpGenerator.generate(6, {
         digits: true,
@@ -111,7 +138,9 @@ const verifyLogin = async (req, res) => {
 
   OtpAuth.find({ email: Email }, async function (err, docs) {
     if (docs.length === 0) {
-      return res.status(400).send({ msg: "The OTP expired. Please try again!" });
+      return res
+        .status(400)
+        .send({ msg: "The OTP expired. Please try again!" });
     } else {
       const generatedOtp = docs[0].otp;
 
@@ -120,17 +149,21 @@ const verifyLogin = async (req, res) => {
       if (Email === docs[0].email && validUser) {
         User.find({ email: Email }, async function (err, user) {
           console.log(user);
-          res.status(200).send({ msg: "Sign-In successful!", user_id: user[0].user_token });
+          res
+            .status(200)
+            .send({ msg: "Sign-In successful!", user_id: user[0].user_token });
         });
       } else {
-        return res.status(406).send({ msg: "OTP does not match. Please try again!" });
+        return res
+          .status(406)
+          .send({ msg: "OTP does not match. Please try again!" });
       }
     }
   });
 };
 
 // route - http://localhost:5000/user/signup/verify
-  const verifyOtp = async (req, res) => {
+const verifyOtp = async (req, res) => {
   const number = req.body.contactNumber;
   const inputOtp = req.body.otp;
   const Email = req.body.email;
@@ -174,9 +207,13 @@ const verifyLogin = async (req, res) => {
           }
         });
 
-        return res.status(200).send({ msg: "Account creation successful!", user_id: token });
+        return res
+          .status(200)
+          .send({ msg: "Account creation successful!", user_id: token });
       } else {
-        return res.status(400).send({ msg: "OTP does not match. Please try again!" });
+        return res
+          .status(400)
+          .send({ msg: "OTP does not match. Please try again!" });
       }
     }
   });

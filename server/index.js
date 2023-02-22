@@ -8,7 +8,6 @@ const bodyParser = require('body-parser');
 
 const userRouter = require("./routes/authRoutes");
 const paymentRouter = require("./routes/paymentRoute");
-const dashboardRouter = require("./routes/dashboardRoutes");
 
 dotenv.config();
 
@@ -31,7 +30,6 @@ app.use(cors());
 
 app.use("/", paymentRouter);
 app.use("/user", userRouter);
-app.use("/user", dashboardRouter);
 
 app.get("/", (req, res) => {
   res.send("Event Management micro services API.");
