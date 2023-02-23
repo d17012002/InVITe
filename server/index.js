@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require('body-parser');
 
 const userRouter = require("./routes/authRoutes");
+const dashboardRouter = require("./routes/userDashboardRoutes")
 const paymentRouter = require("./routes/paymentRoute");
 
 dotenv.config();
@@ -25,11 +26,11 @@ require("./models/user");
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 app.use(cookieParser());
-// app.use(express.json());
 app.use(cors());
 
 app.use("/", paymentRouter);
 app.use("/user", userRouter);
+app.use("/user", dashboardRouter);
 
 app.get("/", (req, res) => {
   res.send("Event Management micro services API.");
