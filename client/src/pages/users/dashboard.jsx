@@ -2,17 +2,39 @@ import Dashboard_Filter from "@/components/Dashboard_Filter";
 import NavBar from "@/components/NavBar";
 import UserImages from "@/utils/user_dashboard_images";
 import Image from "next/image";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { AiOutlineStar } from "react-icons/ai";
 import Cookies from "universal-cookie";
 
 function UserDashboard() {
     const cookies = new Cookies();
-    console.log("Found this from cookies ", cookies.get("user_token"));
+    const userIdCookie = cookies.get("user_token");
+    const [userData, setUserData] = useState({});
+
+    const fetchUserData = async () => {
+        const response = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/user/details`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    user_token: userIdCookie,
+                }),
+            }
+        );
+        const data = await response.json();
+        setUserData(data);
+    };
+
+    useEffect(() => {
+        fetchUserData();
+    }, []);
 
     return (
         <div className="h-full overflow-y-hidden">
-            <NavBar />
+            <NavBar data={userData} />
             <div className="flex m-auto pt-28 overflow-y-hidden h-[calc(100vh)]">
                 <div className="flex mx-auto container ">
                     <div className="flex flex-col p-4 sticky top-0 w-1/4">

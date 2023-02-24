@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
 
-export default function NavBar() {
+export default function NavBar({ data }) {
     const router = useRouter();
     const [showDropdown, setShowDropdown] = useState(false);
     const dropdownRef = useRef(null);
@@ -90,19 +90,25 @@ export default function NavBar() {
                                 />
                             </button>
                             {showDropdown && (
-                                <div className="absolute right-0 mt-2 w-56 bg-white rounded-md overflow-hidden shadow-lg z-10">
+                                <div className="absolute right-0 mt-2 bg-white rounded-md overflow-hidden shadow-lg z-10">
                                     <div className="px-4 py-2">
                                         <div className="text-gray-800 font-medium">
                                             Full Name
                                         </div>
                                         <div className="text-gray-600">
-                                            {/* Full name here */} Saksham Gupta
+                                            {data.username}
                                         </div>
                                         <div className="text-gray-800 font-medium mt-2">
                                             Email
                                         </div>
                                         <div className="text-gray-600">
-                                            {/* Email here */} test123@gmail.com
+                                            {data.email}
+                                        </div>
+                                        <div className="text-gray-800 font-medium mt-2">
+                                            Registration No.
+                                        </div>
+                                        <div className="text-gray-600">
+                                            {data.reg_number}
                                         </div>
                                         {/* Add other details here */}
                                     </div>
