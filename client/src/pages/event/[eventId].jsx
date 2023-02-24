@@ -34,15 +34,15 @@ function EventPage() {
                                 {eventId}
                             </h1>
                             <div className="flex flex-col md:flex-row">
-                                <div className="text-md text-gray-700 mr-4">
+                                <div className="text-md text-gray-800 mr-4">
                                     <span className="font-bold">Date:</span>{" "}
                                     Sun, 15 Aug 2023
                                 </div>
-                                <div className="text-md text-gray-700 mr-4">
+                                <div className="text-md text-gray-800 mr-4">
                                     <span className="font-bold">Time:</span>{" "}
                                     6:00 PM
                                 </div>
-                                <div className="text-md text-gray-700 mr-4">
+                                <div className="text-md text-gray-800 mr-4">
                                     <span className="font-bold">Venue:</span>{" "}
                                     Jawaharlal Nehru Indoor Stadium
                                 </div>
@@ -60,7 +60,7 @@ function EventPage() {
                             <h3 className="text-xl font-semibold text-gray-900 mb-2">
                                 Ticket Pricing
                             </h3>
-                            <p className="text-gray-700">
+                            <p className="text-gray-800">
                                 General Admission - ₹500
                             </p>
                         </div>
