@@ -18,3 +18,7 @@
     border-color: var(--darker-secondary-color) !important;
     box-shadow: 0 0 0 5px var(--darker-secondary-color) !important
 }
+
+.event__image{
+    background-image: url("https://assets-in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-jo-bolta-hai-wohi-hota-hai-ft-harsh-gujral-0-2023-2-3-t-9-23-51.jpg");
+}
