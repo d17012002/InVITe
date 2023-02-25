@@ -8,6 +8,14 @@ import StripeCheckout from "react-stripe-checkout";
 export default function payment() {
     const router = useRouter();
 
+    const now = new Date();
+    const future = new Date(now.getFullYear() + 2, now.getMonth());
+    const month =
+        future.getMonth() < 9
+            ? `0${future.getMonth() + 1}`
+            : future.getMonth() + 1;
+    const year = future.getFullYear().toString().substr(-2);
+
     // Get Event-Id from URL
     const eventId = router.query.eventId;
 
@@ -95,7 +103,15 @@ export default function payment() {
                                     >
                                         Card Number
                                     </th>
-                                    <td class="px-6 py-4">
+                                    <td
+                                        class="px-6 py-4"
+                                        onClick={() => {
+                                            navigator.clipboard.writeText(
+                                                "4242 4242 4242 4242"
+                                            );
+                                        }}
+                                        title="Click to copy"
+                                    >
                                         4242 4242 4242 4242
                                     </td>
                                 </tr>
@@ -107,7 +123,7 @@ export default function payment() {
                                         Expiry
                                     </th>
                                     <td class="px-6 py-4">
-                                        Any future date (eg: 11/25)
+                                        Any future date (eg: {month}/{year})
                                     </td>
                                 </tr>
                                 <tr class="bg-white hover:bg-gray-50">

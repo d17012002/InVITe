@@ -57,12 +57,12 @@ export default function NavBar({ children }) {
                             alt="Logo"
                             className="h-8 w-8"
                         />
-                        <h1 className="m-2 text-gray-800 font-bold text-4xl">
-                            In
-                            <span className="text-[color:var(--secondary-color)]">
+                        <h1 className="m-2 text-black font-bold text-4xl">
+                            {"<In"}
+                            <span className="text-[color:var(--darker-secondary-color)]">
                                 VIT
                             </span>
-                            e✨
+                            {"e />"}
                         </h1>
                     </div>
                     <nav className="text-sm">
