@@ -23,7 +23,6 @@ export default function signin({ userIdCookie }) {
     const [message, setMessage] = useState({ errorMsg: "", successMsg: "" });
     const router = useRouter();
 
-    console.log(userIdCookie);
     useEffect(() => {
         // If cookie found, Redirect to dashboard
         if (userIdCookie) {

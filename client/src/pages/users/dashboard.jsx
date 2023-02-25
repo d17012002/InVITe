@@ -5,13 +5,23 @@ import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { AiOutlineStar } from "react-icons/ai";
 import Cookies from "universal-cookie";
+import { useRouter } from "next/router";
 
 function UserDashboard() {
     const cookies = new Cookies();
     const userIdCookie = cookies.get("user_token");
     const [userData, setUserData] = useState({});
+    const router = useRouter();
 
     const fetchUserData = async () => {
+        // If cookie was manually removed from browser
+        if (!userIdCookie) {
+            console.error("No cookie found! Please signin");
+            // redirect to signin
+            router.push("/users/signin");
+            return;
+        }
+
         const response = await fetch(
             `${process.env.NEXT_PUBLIC_API_URL}/user/details`,
             {
@@ -24,6 +34,11 @@ function UserDashboard() {
                 }),
             }
         );
+
+        if (!response.ok) {
+            throw new Error(`${response.status} ${response.statusText}`);
+        }
+
         const data = await response.json();
         setUserData(data);
     };
