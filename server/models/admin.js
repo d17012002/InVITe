@@ -10,6 +10,10 @@ const adminSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    name: {
+      type: String,
+      required: true,
+    },
     expireAt: {
       type: Date,
       default: Date.now,
@@ -23,6 +27,7 @@ const Admin = mongoose.model("Admin", adminSchema);
 
 const test_credential = new Admin ({
     email: "invite.testing@gmail.com",
+    name: "test",
     pass: "invite123"
 })
 

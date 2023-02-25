@@ -4,5 +4,4 @@ const { setAdmin } = require("../controllers/adminController");
 
 router.route("/setadmin").post(setAdmin);
 
-
 module.exports = router;
