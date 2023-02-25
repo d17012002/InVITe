@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 const userRouter = require("./routes/authRoutes");
 const dashboardRouter = require("./routes/userDashboardRoutes")
 const paymentRouter = require("./routes/paymentRoute");
+const adminRouter = require("./routes/adminRoute")
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ mongoose
 
 require("./models/otpAuth");
 require("./models/user");
+require("./models/admin");
 
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
@@ -31,6 +33,8 @@ app.use(cors());
 app.use("/", paymentRouter);
 app.use("/user", userRouter);
 app.use("/user", dashboardRouter);
+
+app.use("/", adminRouter);
 
 app.get("/", (req, res) => {
   res.send("Event Management micro services API.");
