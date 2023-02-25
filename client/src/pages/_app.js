@@ -9,7 +9,7 @@ export default function App({ Component, pageProps }) {
                 <link rel="shortcut icon" href="/favicon_io/favicon.ico" />
                 <title>InVITe</title>
             </Head>
-            <Component {...pageProps} />;
+            <Component {...pageProps} />
         </>
     );
 }
