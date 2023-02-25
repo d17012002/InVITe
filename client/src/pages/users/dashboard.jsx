@@ -2,57 +2,28 @@ import Dashboard_Filter from "@/components/Dashboard_Filter";
 import NavBar from "@/components/NavBar";
 import UserImages from "@/utils/user_dashboard_images";
 import Image from "next/image";
-import React, { useState, useEffect } from "react";
-import { AiOutlineStar } from "react-icons/ai";
-import Cookies from "universal-cookie";
 import { useRouter } from "next/router";
+import { AiOutlineStar } from "react-icons/ai";
 
 function UserDashboard() {
-    const cookies = new Cookies();
-    const userIdCookie = cookies.get("user_token");
-    const [userData, setUserData] = useState({});
     const router = useRouter();
-
-    const fetchUserData = async () => {
-        // If cookie was manually removed from browser
-        if (!userIdCookie) {
-            console.error("No cookie found! Please signin");
-            // redirect to signin
-            router.push("/users/signin");
-            return;
-        }
-
-        const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/user/details`,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    user_token: userIdCookie,
-                }),
-            }
-        );
-
-        if (!response.ok) {
-            throw new Error(`${response.status} ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        setUserData(data);
-    };
-
-    useEffect(() => {
-        fetchUserData();
-    }, []);
-
     return (
-        <div className="h-full overflow-y-hidden">
-            <NavBar data={userData} />
-            <div className="flex m-auto pt-28 overflow-y-hidden h-[calc(100vh)]">
+        <NavBar>
+            <div className="flex m-auto overflow-y-hidden h-[calc(100vh)]">
                 <div className="flex mx-auto container ">
                     <div className="flex flex-col p-4 sticky top-0 w-1/4">
+                        <button
+                            onClick={() => router.push("/event/123")}
+                            className="m-4 bg-[color:var(--darker-secondary-color)] text-white py-2 px-4 rounded hover:bg-[color:var(--secondary-color)]"
+                        >
+                            Test Event Page
+                        </button>
+                        <button
+                            onClick={() => router.push("/event/123/payment")}
+                            className="m-4 bg-[color:var(--darker-secondary-color)] text-white py-2 px-4 rounded hover:bg-[color:var(--secondary-color)]"
+                        >
+                            Test Payment Page
+                        </button>
                         <Dashboard_Filter />
                     </div>
                     <div className="w-3/4 p-4 overflow-y-auto h-[calc(80vh)]">
@@ -98,7 +69,7 @@ function UserDashboard() {
                     </div>
                 </div>
             </div>
-        </div>
+        </NavBar>
     );
 }
 

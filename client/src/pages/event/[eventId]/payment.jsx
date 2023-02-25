@@ -1,22 +1,141 @@
-import React from "react";
-export async function getServerSideProps(context) {
-  const { eventId } = context.query;
+import NavBar from "@/components/NavBar";
+import { getUserToken } from "@/utils/getUserToken";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import StripeCheckout from "react-stripe-checkout";
 
-  // Pass the payment data as props to the page component
-  return {
-    props: {
-      eventId,
-    },
-  };
-}
+export default function payment() {
+    const router = useRouter();
 
-export default function payment({ eventId }) {
-  return (
-    <div>
-      payment {eventId}
-      <h1 className="m-2 text-gray-700 font-bold text-4xl">
-        In<span className="text-red-500">VIT</span>e✨
-      </h1>
-    </div>
-  );
+    // Get Event-Id from URL
+    const eventId = router.query.eventId;
+
+    const [product] = useState({
+        name: "Event_Name",
+        price: 100,
+        description: "Pay Rs. 100 for the most awaited event, Event_Name",
+    });
+
+    const handleToken = async (event, token, addresses) => {
+        // Fetching user_token cookie value in user_id
+        const user_id = getUserToken();
+        console.log("Payment gateway cookie fetch - ", user_id);
+        try {
+            const response = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}/payment`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        token,
+                        product,
+                        addresses,
+                        user: { user_id },
+                    }),
+                }
+            );
+            const data = await response.json();
+            console.log(data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    return (
+        <NavBar>
+            <Head>
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link
+                    rel="preconnect"
+                    href="https://fonts.gstatic.com"
+                    crossorigin
+                />
+                <link
+                    href="https://fonts.googleapis.com/css2?family=Puritan&display=swap"
+                    rel="stylesheet"
+                />
+            </Head>
+            <div className="flex flex-col m-6">
+                <div className="text-3xl">
+                    Pay using{" "}
+                    <span
+                        className="text-4xl font-bold"
+                        style={{ color: "#5F57F7", fontFamily: "Puritan" }}
+                    >
+                        stripe
+                    </span>
+                </div>
+                <div className="text-sm text-gray-400">
+                    Payment is currently in Test Mode
+                </div>
+
+                <div className="m-6 flex flex-col ">
+                    <div>Use the following test credentials: </div>
+
+                    <div class="relative mb-6 overflow-x-auto shadow-md sm:rounded-lg w-full lg:w-1/3 ">
+                        <table class="w-full text-sm text-left my-2">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">
+                                        Field
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Value
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <th
+                                        scope="row"
+                                        class="px-6 py-4 font-medium whitespace-nowrap"
+                                    >
+                                        Card Number
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        4242 4242 4242 4242
+                                    </td>
+                                </tr>
+                                <tr class="bg-white border-b hover:bg-gray-50">
+                                    <th
+                                        scope="row"
+                                        class="px-6 py-4 font-medium whitespace-nowrap"
+                                    >
+                                        Expiry
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        Any future date (eg: 11/25)
+                                    </td>
+                                </tr>
+                                <tr class="bg-white hover:bg-gray-50">
+                                    <th
+                                        scope="row"
+                                        class="px-6 py-4 font-medium whitespace-nowrap"
+                                    >
+                                        CVC
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        Any 3 digit number (eg: 345)
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <StripeCheckout
+                        className="flex justify-center w-max"
+                        stripeKey={process.env.NEXT_PUBLIC_STRIPE_KEY}
+                        amount={product.price * 100}
+                        token={handleToken}
+                        name={product.name}
+                        currency="INR"
+                        billingAddress
+                        shippingAddress
+                    />
+                </div>
+            </div>
+        </NavBar>
+    );
 }

@@ -1,10 +1,46 @@
+import { getUserToken } from "@/utils/getUserToken";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
 
-export default function NavBar({ data }) {
+export default function NavBar({ children }) {
     const router = useRouter();
+
+    const userIdCookie = getUserToken();
+    const [userData, setUserData] = useState({});
+
+    const fetchUserData = async () => {
+        // If cookie was manually removed from browser
+        if (!userIdCookie) {
+            console.error("No cookie found! Please signin");
+            // redirect to signin
+            router.push("/users/signin");
+        }
+        const response = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/user/details`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    user_token: userIdCookie,
+                }),
+            }
+        );
+        if (!response.ok)
+            throw new Error(`${response.status} ${response.statusText}`);
+
+        // User Details fetched from API `/user/details`
+        const data = await response.json();
+        setUserData(data);
+    };
+
+    useEffect(() => {
+        fetchUserData();
+    }, []);
+
     const [showDropdown, setShowDropdown] = useState(false);
     const dropdownRef = useRef(null);
 
@@ -31,103 +67,125 @@ export default function NavBar({ data }) {
     }, [dropdownRef]);
 
     return (
-        <header className="bg-[color:var(--white-color)] fixed top-0 z-50 w-full shadow-md text-[color:var(--darker-secondary-color)]">
-            <div className="container mx-auto flex items-center flex-col lg:flex-row justify-between p-4">
-                <div
-                    onClick={() => router.push("/users/dashboard")}
-                    className="flex items-center gap-x-3 cursor-pointer"
-                >
-                    <Image
-                        src="/favicon_io/android-chrome-192x192.png"
-                        width={500}
-                        height={500}
-                        alt="Logo"
-                        className="h-8 w-8"
-                    />
-                    <h1 className="m-2 text-gray-800 font-bold text-4xl">
-                        In
-                        <span className="text-[color:var(--secondary-color)]">
-                            VIT
-                        </span>
-                        e✨
-                    </h1>
-                </div>
-                <nav className="text-sm">
-                    <ul className="flex items-center">
-                        <li
-                            onClick={() => router.push("/users/dashboard")}
-                            className="mr-4 cursor-pointer"
-                        >
-                            <a>Home</a>
-                        </li>
-                        <li
-                            onClick={() => router.push("/users/dashboard")}
-                            className="mr-4 cursor-pointer"
-                        >
-                            <a>Events</a>
-                        </li>
-                        <li
-                            onClick={() => router.push("/users/dashboard")}
-                            className="mr-4 cursor-pointer"
-                        >
-                            <a>Team</a>
-                        </li>
-                        <li
-                            className="mr-4 cursor-pointer relative"
-                            ref={dropdownRef}
-                        >
-                            <button
-                                onClick={toggleDropdown}
-                                className="flex items-center justify-center bg-[color:var(--darker-secondary-color)] text-white text-sm font-medium rounded-md w-28 h-10 focus:outline-none"
+        <div>
+            <header className="bg-[color:var(--white-color)] fixed top-0 z-50 w-full shadow-md text-[color:var(--darker-secondary-color)]">
+                <div className="container mx-auto flex items-center flex-col lg:flex-row justify-between p-4">
+                    <div
+                        // onClick={() => router.push("/users/dashboard")}
+                        className="flex items-center gap-x-3 cursor-pointer"
+                    >
+                        <Image
+                            src="/favicon_io/android-chrome-192x192.png"
+                            width={500}
+                            height={500}
+                            alt="Logo"
+                            className="h-8 w-8"
+                        />
+                        <h1 className="m-2 text-gray-800 font-bold text-4xl">
+                            In
+                            <span className="text-[color:var(--secondary-color)]">
+                                VIT
+                            </span>
+                            e✨
+                        </h1>
+                    </div>
+                    <nav className="text-sm">
+                        <ul className="flex items-center">
+                            <li
+                                // onClick={() => router.push("/users/dashboard")}
+                                className="mr-4 cursor-pointer"
                             >
-                                <span className="mr-2">Profile</span>
-                                <FaAngleDown
-                                    className={`h-4 w-4 ${
-                                        showDropdown
-                                            ? "transform rotate-180"
-                                            : ""
-                                    }`}
-                                />
-                            </button>
-                            {showDropdown && (
-                                <div className="absolute right-0 mt-2 bg-white rounded-md overflow-hidden shadow-lg z-10">
-                                    <div className="px-4 py-2">
-                                        <div className="text-gray-800 font-medium">
-                                            Full Name
+                                <a>Home</a>
+                            </li>
+                            <li
+                                // onClick={() => router.push("/users/dashboard")}
+                                className="mr-4 cursor-pointer"
+                            >
+                                <a>Events</a>
+                            </li>
+                            <li
+                                // onClick={() => router.push("/users/dashboard")}
+                                className="mr-4 cursor-pointer"
+                            >
+                                <a>Team</a>
+                            </li>
+                            <li
+                                className="mr-4 cursor-pointer relative"
+                                ref={dropdownRef}
+                            >
+                                <button
+                                    onClick={toggleDropdown}
+                                    className="flex items-center justify-center bg-[color:var(--darker-secondary-color)] text-white text-sm font-medium rounded-md w-28 h-10 focus:outline-none"
+                                >
+                                    <span className="mr-2">Profile</span>
+                                    <FaAngleDown
+                                        className={`h-4 w-4 ${
+                                            showDropdown
+                                                ? "transform rotate-180"
+                                                : ""
+                                        }`}
+                                    />
+                                </button>
+                                {showDropdown && (
+                                    <div className="absolute right-0 mt-2 bg-white rounded-md overflow-hidden shadow-lg z-10">
+                                        <div className="px-4 py-2">
+                                            <div className="text-gray-800 font-medium">
+                                                Full Name
+                                            </div>
+                                            <div className="text-gray-600">
+                                                {userData.username}
+                                            </div>
+                                            <div className="text-gray-800 font-medium mt-2">
+                                                Email
+                                            </div>
+                                            <div className="text-gray-600">
+                                                {userData.email}
+                                            </div>
+                                            <div className="text-gray-800 font-medium mt-2">
+                                                Registration No.
+                                            </div>
+                                            <div className="text-gray-600">
+                                                {userData.reg_number}
+                                            </div>
+                                            <div className="text-gray-800 font-medium mt-2">
+                                                Member since
+                                            </div>
+                                            <div className="text-gray-600">
+                                                {new Date(
+                                                    userData.createdAt
+                                                ).getDate()}
+                                                -
+                                                {new Date(
+                                                    userData.createdAt
+                                                ).getUTCMonth() + 1}
+                                                -
+                                                {new Date(
+                                                    userData.createdAt
+                                                ).getFullYear()}
+                                            </div>
+                                            {/* Add other details here */}
                                         </div>
-                                        <div className="text-gray-600">
-                                            {data.username}
+                                        <div className="py-1">
+                                            <button
+                                                onClick={() =>
+                                                    router.push("/users/signin")
+                                                }
+                                                className="text-left w-full px-4 py-2 text-gray-800 hover:bg-[color:var(--primary-color)]"
+                                            >
+                                                Logout
+                                            </button>
                                         </div>
-                                        <div className="text-gray-800 font-medium mt-2">
-                                            Email
-                                        </div>
-                                        <div className="text-gray-600">
-                                            {data.email}
-                                        </div>
-                                        <div className="text-gray-800 font-medium mt-2">
-                                            Registration No.
-                                        </div>
-                                        <div className="text-gray-600">
-                                            {data.reg_number}
-                                        </div>
-                                        {/* Add other details here */}
                                     </div>
-                                    <div className="py-1">
-                                        <button
-                                            onClick={() =>
-                                                router.push("/users/signin")
-                                            }
-                                            className="text-left w-full px-4 py-2 text-gray-800 hover:bg-[color:var(--primary-color)]"
-                                        >
-                                            Logout
-                                        </button>
-                                    </div>
-                                </div>
-                            )}
-                        </li>
-                    </ul>
-                </nav>
+                                )}
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </header>
+            <div className="pt-36 lg:pt-28">
+                {/* Display everything that's inside <NavBar> & </NavBar> Here */}
+                {children}
             </div>
-        </header>
+        </div>
     );
 }

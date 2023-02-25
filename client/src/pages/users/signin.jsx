@@ -28,7 +28,7 @@ export default function signin({ userIdCookie }) {
         if (userIdCookie) {
             setStep(3); // Skip login steps
 
-            setInterval(() => {
+            setTimeout(() => {
                 // Set success message
                 setMessage({
                     errorMsg: "",
@@ -37,11 +37,11 @@ export default function signin({ userIdCookie }) {
             }, 500);
 
             // Redirect to dashboard
-            setInterval(() => {
+            setTimeout(() => {
                 router.push("/users/dashboard");
             }, 800);
         }
-    }, [router, userIdCookie]);
+    }, []);
 
     const handleVerifyEmail = async (event) => {
         event.preventDefault();

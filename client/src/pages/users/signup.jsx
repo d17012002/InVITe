@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
 import { setUserToken } from "@/utils/setUserToken";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
 
 export async function getServerSideProps(context) {
@@ -32,7 +32,7 @@ export default function signup({ userIdCookie }) {
         if (userIdCookie) {
             setStep(3); // Skip login steps
 
-            setInterval(() => {
+            setTimeout(() => {
                 // Set success message
                 setMessage({
                     errorMsg: "",
@@ -41,11 +41,11 @@ export default function signup({ userIdCookie }) {
             }, 500);
 
             // Redirect to dashboard
-            setInterval(() => {
+            setTimeout(() => {
                 router.push("/users/dashboard");
-            }, 1000);
+            }, 800);
         }
-    }, [router, userIdCookie]);
+    }, []);
 
     // Take Email, give OTP
     const handleVerifyEmail = async (event) => {
