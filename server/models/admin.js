@@ -4,15 +4,12 @@ const adminSchema = new mongoose.Schema(
   {
     email: {
       type: String,
-      required: true,
     },
     pass: {
       type: String,
-      required: true,
     },
     name: {
       type: String,
-      required: true,
     },
     expireAt: {
       type: Date,

@@ -23,7 +23,7 @@ function Form() {
         const data = await response.json();
         if (response.status === 200) {
             console.log(data);
-            setMessage("Account created!");
+            setMessage("* Status:  New admin credentials added!");
         } else {
             console.error(`Failed with status code ${response.status}`);
         }
@@ -31,39 +31,48 @@ function Form() {
 
     return (
         <div className="form-container">
+            <center>
+
             <fieldset>
-                <legend>Registration</legend>
-                <form>Form will come here</form>
-            </fieldset>
+                <legend>Admin Registration</legend>
 
             <form onSubmit={handleSubmit}>
-                <label>Enter your Email Address</label>
+                <label>Enter your Email Address: </label>
                 <input
                     type="email"
                     id="email"
                     name="email"
+                    placeholder="xyz@gmail.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
-                <label>Enter your Name </label>
+                <br />
+                <label>Enter your Name: </label>
                 <input
                     type="text"
                     id="name"
                     name="name"
+                    placeholder="Admin name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                 />
-                <label>Enter Password</label>
+                <br />
+                <label>Enter Password: </label>
                 <input
                     type="password"
                     id="password"
                     name="password"
+                    placeholder="New password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                />
+                    />
+                <br />
+                <span className="status">{message && <span>{message}</span>} </span>
                 <button type="submit">Submit</button>
             </form>
-            {message && <span>{message}</span>}
+            </fieldset>
+            
+            </center>
         </div>
     );
 }

@@ -27,17 +27,31 @@ p{
 
 /* form */
 
+.form-container {
+  color: white;
+}
+
+fieldset{
+  font-size: large;
+  width: 50%;
+  margin: 4%;
+  padding-top: 3%;
+  padding-bottom: 4%;
+  text-align: left;
+  color: rgb(197, 197, 197);
+}
+
 form {
   display: flex;
   flex-direction: column;
   max-width: 500px;
+  font-size: medium;
   margin: 0 auto;
 }
 
 label {
   color: #fff;
   margin-bottom: 0.5rem;
-  font-weight: bold;
 }
 
 input {
@@ -54,4 +68,17 @@ button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  width: 20%;
+}
+
+.status{
+  color: rgb(0, 156, 0);
+}
+
+/* Footer */
+.foot-text {
+  position: relative;
+  bottom: 20px;
+  color: #616161;
+  font-size: medium;
 }
