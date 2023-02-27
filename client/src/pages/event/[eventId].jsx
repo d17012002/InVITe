@@ -32,10 +32,15 @@ function EventPage() {
                         <div className="flex flex-col lg:flex-row lg:items-center justify-between">
                             <div className="flex flex-col">
                                 <h1 className="text-4xl font-bold text-gray-900 mb-2">
-                                    Tehelka Stand-Up Comedy Feat. Shubham
-                                    Shandilya {eventId}
+                                    Jo Bolta Hai Wohi Hota Hai Ft. Harsh Gujral
                                 </h1>
                                 <div className="flex flex-col md:flex-row">
+                                    <div className="text-md text-gray-800 mr-4">
+                                        <span className="font-bold">
+                                            Event-Id:
+                                        </span>{" "}
+                                        {eventId}
+                                    </div>
                                     <div className="text-md text-gray-800 mr-4">
                                         <span className="font-bold">Date:</span>{" "}
                                         Sun, 15 Aug 2023
@@ -53,7 +58,12 @@ function EventPage() {
                                 </div>
                             </div>
                             <div className="text-left lg:text-right mt-4 lg:mt-0">
-                                <button className="px-6 py-2 bg-[color:var(--darker-secondary-color)] text-white rounded hover:bg-[color:var(--secondary-color)] focus:outline-none">
+                                <button
+                                    onClick={() =>
+                                        router.push(`/event/${eventId}/payment`)
+                                    }
+                                    className="px-6 py-2 bg-[color:var(--darker-secondary-color)] text-white rounded hover:bg-[color:var(--secondary-color)] focus:outline-none"
+                                >
                                     Buy Tickets
                                 </button>
                             </div>
