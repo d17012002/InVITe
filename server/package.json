@@ -10,19 +10,19 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
-    "body-parser": "^1.20.1",
+    "body-parser": "^1.20.2",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "https": "^1.0.0",
     "jsonwebtoken": "^9.0.0",
-    "mongoose": "^6.9.2",
+    "mongoose": "^6.10.0",
     "nodemailer": "^6.9.1",
     "nodemon": "^2.0.20",
     "otp-generator": "^4.0.1",
     "querystring": "^0.2.1",
-    "stripe": "^11.11.0",
+    "stripe": "^11.12.0",
     "util": "^0.12.5",
     "uuid": "^9.0.0"
   }
