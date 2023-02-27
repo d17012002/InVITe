@@ -34,8 +34,12 @@ export default function NavBar({ children }) {
             throw new Error(`${response.status} ${response.statusText}`);
 
         // User Details fetched from API `/user/details`
-        const data = await response.json();
-        setUserData(data);
+        try {
+            const data = await response.json();
+            setUserData(data);
+        } catch (error) {
+            console.error("Invalid JSON string:", error.message);
+        }
     };
 
     useEffect(() => {
