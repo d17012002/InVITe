@@ -1,12 +1,20 @@
 import React, { useState, useRef, useEffect } from "react";
 import { FaAngleDown } from "react-icons/fa";
+import { useRouter } from "next/router";
+import { removeUserToken } from "@/utils/removeUserToken";
 
 export default function Dropdown({ userData }) {
+    const router = useRouter();
     const [showDropdown, setShowDropdown] = useState(false);
     const dropdownRef = useRef(null);
     const toggleDropdown = () => {
         setShowDropdown(!showDropdown);
     };
+
+    const handleLogout = () => {
+        removeUserToken();
+        router.push("/users/signin");
+    }
 
     // Attaches an event listener for the 'mousedown' event to detect a click outside the dropdown
     useEffect(() => {
@@ -38,9 +46,9 @@ export default function Dropdown({ userData }) {
                 />
             </button>
             {showDropdown && (
-                <div className="absolute right-0 pt-2 bg-white rounded-md overflow-hidden shadow-lg z-10">
-                    <div className="py-4">
-                        <div className="px-4 pb-2 cursor-default hover:bg-[color:var(--primary-color)]">
+                <div className="absolute right-0 bg-white rounded-md overflow-hidden shadow-lg z-10">
+                    <div className="">
+                        <div className="px-4 py-2 cursor-default hover:bg-[color:var(--primary-color)]">
                             <div className="text-gray-800 font-medium">
                                 Full Name
                             </div>
@@ -80,10 +88,11 @@ export default function Dropdown({ userData }) {
                         <hr />
                         {/* Add other details here */}
                     </div>
-                    <div className="py-1">
+                    <div className="py-4 group hover:bg-[color:var(--secondary-color)] transition-all ease-in-out">
                         <button
-                            onClick={() => router.push("/users/signin")}
-                            className="text-left w-full px-4 pb-2 text-gray-800 hover:bg-[color:var(--primary-color)]"
+                            // onClick={() => router.push("/users/signin")}
+                            onClick={handleLogout}
+                            className="text-left w-full px-4 pb-2 text-gray-800 group-hover:text-white transition-all ease-in-out"
                         >
                             Logout
                         </button>
