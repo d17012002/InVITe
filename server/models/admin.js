@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 
 const adminSchema = new mongoose.Schema(
   {
+    admin_id: {
+      type: String,
+      requird: true
+    },
     email: {
       type: String,
     },
@@ -14,7 +18,7 @@ const adminSchema = new mongoose.Schema(
     expireAt: {
       type: Date,
       default: Date.now,
-      index: { expires: "86400s" },
+      index: { expires: "2592000s" },
     },
   },
   { timestamps: true }
@@ -23,6 +27,7 @@ const adminSchema = new mongoose.Schema(
 const Admin = mongoose.model("Admin", adminSchema);
 
 const test_credential = new Admin ({
+    admin_id: "hqwkufywealufyewf.weiugbfre654wegreg",
     email: "invite.testing@gmail.com",
     name: "test",
     pass: "invite123"
