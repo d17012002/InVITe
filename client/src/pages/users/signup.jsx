@@ -70,39 +70,57 @@ export default function signup({ userIdCookie }) {
         } else {
             console.error(`Failed with status code ${response.status}`);
             setMessage({ errorMsg: data.msg, successMsg: "" });
+            // Redirecting to singin if shown "This Email ID is already registered. Try Signing In instead!"
+            setTimeout(() => {
+                // Set success message
+                setMessage({
+                    errorMsg: "Redirecting you to SignIn ...",
+                    successMsg: "",
+                });
+            }, 1700);
+
+            // Redirect to dashboard
+            setTimeout(() => {
+                router.push("/users/signin");
+            }, 2500);
         }
     };
 
     // Take all info, return account creating
     const handleSubmit = async (event) => {
         event.preventDefault();
-        // try {
-        const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/user/signup/verify`,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    contactNumber: contactNumber,
-                    otp: otp,
-                    email: email,
-                    regNumber: regNumber.toUpperCase(),
-                    username: username,
-                }),
+        // test to check that registration number is in correct format
+        const regExp = /^\d{2}[A-Za-z]{3}\d{5}$/; // regular expression pattern for nnttnnnnn format
+        if (regExp.test(regNumber)) {
+            const response = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}/user/signup/verify`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        contactNumber: contactNumber,
+                        otp: otp,
+                        email: email,
+                        regNumber: regNumber.toUpperCase(),
+                        username: username,
+                    }),
+                }
+            );
+            const data = await response.json();
+            if (response.status === 200) {
+                setMessage({ errorMsg: "", successMsg: data.msg });
+                console.log(data);
+                setStep(3); // Move to next step on the same page
+    
+                setUserToken(data.user_id); // set cookie when signed up
+            } else {
+                console.error(`Failed with status code ${response.status}`);
+                setMessage({ errorMsg: data.msg, successMsg: "" });
             }
-        );
-        const data = await response.json();
-        if (response.status === 200) {
-            setMessage({ errorMsg: "", successMsg: data.msg });
-            console.log(data);
-            setStep(3); // Move to next step on the same page
-
-            setUserToken(data.user_id); // set cookie when signed up
         } else {
-            console.error(`Failed with status code ${response.status}`);
-            setMessage({ errorMsg: data.msg, successMsg: "" });
+            setMessage({ errorMsg: "Registeration Number is not valid", successMsg: "" });
         }
     };
 
@@ -221,7 +239,7 @@ export default function signup({ userIdCookie }) {
                                         Your email address
                                     </label>
                                     <input
-                                        type="text"
+                                        type="email"
                                         id="email"
                                         name="email"
                                         defaultValue={email}
@@ -237,7 +255,7 @@ export default function signup({ userIdCookie }) {
                                         Enter Verification Code
                                     </label>
                                     <input
-                                        type="text"
+                                        type="number"
                                         id="otp"
                                         name="otp"
                                         autoComplete="none"
@@ -292,7 +310,7 @@ export default function signup({ userIdCookie }) {
                                         Enter Contact Number
                                     </label>
                                     <input
-                                        type="text"
+                                        type="number"
                                         id="contactNumber"
                                         name="contactNumber"
                                         value={contactNumber}

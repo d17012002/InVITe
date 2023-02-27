@@ -19,18 +19,6 @@ function LandingPage() {
                     <Developers images={[dev1, dev2, dev3]} />
                 </main>
             </div>
-            {/* <div>
-              <a href="/users/signin">
-                  <button className="mr-4 bg-[color:var(--darker-secondary-color)] text-white py-2 px-4 rounded hover:bg-[color:var(--secondary-color)]">
-                      Signin
-                  </button>
-              </a>
-              <a href="/users/signup">
-                  <button className="mr-4 bg-[color:var(--darker-secondary-color)] text-white py-2 px-4 rounded hover:bg-[color:var(--secondary-color)]">
-                      Signup
-                  </button>
-              </a>
-          </div> */}
         </div>
     );
 }

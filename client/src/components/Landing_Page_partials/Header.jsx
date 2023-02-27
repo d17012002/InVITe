@@ -4,7 +4,7 @@ function Header() {
             <div className="max-w-6xl mx-auto px-4 sm:px-6">
                 <div className="flex items-center justify-between h-20">
                     {/* Desktop navigation */}
-                    <nav className="hidden md:flex md:grow">
+                    <nav className="flex grow">
                         {/* Desktop sign in links */}
                         <ul className="flex grow justify-end flex-wrap items-center">
                             <li>

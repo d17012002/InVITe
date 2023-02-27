@@ -1,6 +1,6 @@
 import { setUserToken } from "@/utils/setUserToken";
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
 
 export async function getServerSideProps(context) {
@@ -65,6 +65,19 @@ export default function signin({ userIdCookie }) {
         } else {
             console.error(`Failed with status code ${response.status}`);
             setMessage({ errorMsg: data.msg, successMsg: "" });
+            // redirect to signup if shown "This Email ID is not registered. Try Signing Up instead!"
+            setTimeout(() => {
+                // Set success message
+                setMessage({
+                    errorMsg: "Redirecting you to SignUp ...",
+                    successMsg: "",
+                });
+            }, 1700);
+
+            // Redirect to dashboard
+            setTimeout(() => {
+                router.push("/users/signup");
+            }, 2500);
         }
     };
 
