@@ -1,4 +1,8 @@
+import { useRouter } from "next/router";
+
 function Header() {
+    const router = useRouter();
+
     return (
         <header className="absolute w-full z-30">
             <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -8,7 +12,12 @@ function Header() {
                         {/* Desktop sign in links */}
                         <ul className="flex grow justify-end flex-wrap items-center">
                             <li>
-                                <a className="btn-sm text-white bg-[color:var(--darker-secondary-color)] hover:bg-[color:var(--secondary-color)] ml-3">
+                                <a
+                                    onClick={() =>
+                                        router.push("/admin/auth")
+                                    }
+                                    className="btn-sm text-white bg-[color:var(--darker-secondary-color)] hover:bg-[color:var(--secondary-color)] ml-3 cursor-pointer"
+                                >
                                     Event Manager
                                 </a>
                             </li>

@@ -1,48 +1,25 @@
-import { getUserToken } from "@/utils/getUserToken";
+import { getAdminToken } from "@/utils/getAdminToken";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
-import Dropdown from "@/components/Dropdown";
+import { useEffect } from "react";
+import AdminDropdown from "@/components/AdminDropdown";
 
 export default function NavBar({ children }) {
     const router = useRouter();
 
-    const userIdCookie = getUserToken();
-    const [userData, setUserData] = useState({});
+    const adminIdCookie = getAdminToken();
 
-    const fetchUserData = async () => {
+    const fetchAdminData = async () => {
         // If cookie was manually removed from browser
-        if (!userIdCookie) {
-            console.error("No cookie found! Please signin");
+        if (!adminIdCookie) {
+            console.error("No cookie found! Please authenticate");
             // redirect to signin
-            router.push("/users/signin");
-        }
-        const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/user/details`,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    user_token: userIdCookie,
-                }),
-            }
-        );
-        if (!response.ok)
-            throw new Error(`${response.status} ${response.statusText}`);
-
-        // User Details fetched from API `/user/details`
-        try {
-            const data = await response.json();
-            setUserData(data);
-        } catch (error) {
-            console.error("Invalid JSON string:", error.message);
+            router.push("/admin/auth");
         }
     };
 
     useEffect(() => {
-        fetchUserData();
+        fetchAdminData();
     }, []);
 
     return (
@@ -50,7 +27,7 @@ export default function NavBar({ children }) {
             <header className="bg-[color:var(--white-color)] fixed top-0 z-50 w-full shadow-md text-[color:var(--darker-secondary-color)]">
                 <div className="container mx-auto flex items-center flex-col lg:flex-row justify-between p-4">
                     <div
-                        onClick={() => router.push("/users/dashboard")}
+                        onClick={() => router.push("/admin/dashboard")}
                         className="flex items-center gap-x-3 cursor-pointer"
                     >
                         <Image
@@ -82,7 +59,7 @@ export default function NavBar({ children }) {
                             >
                                 <a>About us</a>
                             </li>
-                            <Dropdown userData={userData} />
+                            <AdminDropdown />
                         </ul>
                     </nav>
                 </div>

@@ -9,7 +9,7 @@ function EventPage() {
 
     return (
         <NavBar>
-            <div className="flex flex-col items-center justify-center bg-[color:var(--primary-color)]">
+            <div className="flex flex-col items-center justify-center">
                 <Head>
                     <title>Event Page {eventId}</title>
                 </Head>

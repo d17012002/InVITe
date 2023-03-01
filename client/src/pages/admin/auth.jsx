@@ -38,7 +38,7 @@ export default function signin({ adminIdCookie }) {
 
             // Redirect to dashboard
             setTimeout(() => {
-                router.push("/users/dashboard");
+                router.push("/admin/dashboard");
             }, 800);
         }
     }, []);
@@ -191,7 +191,7 @@ export default function signin({ adminIdCookie }) {
                                 </div>
                                 <button
                                     onClick={() =>
-                                        router.push("/users/dashboard")
+                                        router.push("/admin/dashboard")
                                     }
                                     className="mt-4 bg-[color:var(--darker-secondary-color)] text-white py-2 px-4 rounded hover:bg-[color:var(--secondary-color)] transition ease-in-out"
                                 >

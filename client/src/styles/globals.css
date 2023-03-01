@@ -52,6 +52,9 @@
   .filterInput {
     @apply outline-none w-full bg-[color:var(--white-color)] rounded-lg border-b pl-4 py-3 lg:pl-6 lg:py-4 placeholder-black transition-all !shadow-md;
   }
+  .adminDropDownInput {
+    @apply outline-none w-full bg-[color:var(--primary-color)] mt-1 rounded-lg border-b pl-4 py-3 lg:pl-4 lg:py-3 placeholder-black transition-all !shadow-md;
+  }
 }
 
 @layer utilities {
