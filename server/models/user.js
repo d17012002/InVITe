@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { eventSchema } = require("./event");
 
 const userSchema = new mongoose.Schema(
   {
@@ -27,6 +28,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    registeredEvents: [eventSchema]
   },
   { timestamps: true }
 );
