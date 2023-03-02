@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { eventSchema } = require("./event");
 
 const adminSchema = new mongoose.Schema(
   {
@@ -15,6 +16,8 @@ const adminSchema = new mongoose.Schema(
     name: {
       type: String,
     },
+    eventCreated: [eventSchema],
+
     expireAt: {
       type: Date,
       default: Date.now,
@@ -33,9 +36,13 @@ const test_credential = new Admin ({
     pass: "invite123"
 })
 
-test_credential.save((error, success) => {
-    if (error) console.log(error);
-    else console.log("Saved::Admin::test credentials.");
+Admin.find({ admin_id: "hqwkufywealufyewf.weiugbfre654wegreg" }, async function (err, docs) {
+  if (docs.length === 0) {
+      test_credential.save((error, success) => {
+        if (error) console.log(error);
+        else console.log("Saved::Admin::test credentials", test_credential);
+    });
+  } 
 });
 
 module.exports = Admin;

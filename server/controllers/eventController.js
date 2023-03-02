@@ -10,7 +10,9 @@ const postEvent = async (req, res) => {
     const Time = req.body.time;
     const Desc = req.body.description;
     const Price = req.body.price;
-    const Url = req.body.poster;
+    const Profile = req.body.profile;
+    const Cover = req.body.cover;
+    const Organizer = req.body.organizer;
 
     const secret = JWT_SECRET;
     const payload = {
@@ -27,7 +29,9 @@ const postEvent = async (req, res) => {
         time: Time,
         description: Desc,
         price: Price,
-        poster: Url,
+        profile: Profile,
+        cover: Cover,
+        organizer: Organizer
     });
 
     await new_event.save((error, success) => {

@@ -24,9 +24,16 @@ const eventSchema = new mongoose.Schema(
     price: {
         type: Number,
     },
-    poster: {
+    cover: {
         type: String,
         default: "https://eventplanning24x7.files.wordpress.com/2018/04/events.png",
+    },
+    profile: {
+      type: String,
+      default: "https://i.etsystatic.com/15907303/r/il/c8acad/1940223106/il_794xN.1940223106_9tfg.jpg",
+    },
+    organizer: {
+      type: String,
     },
     participants: []
   },

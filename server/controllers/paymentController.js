@@ -2,6 +2,7 @@ const { sendTicket } = require("./smsController");
 const express = require("express");
 const app = express();
 const User = require("../models/user");
+const { Event } = require("../models/event");
 
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
@@ -19,11 +20,8 @@ const stripe = require("stripe")(
 const uuid = require("uuid").v4;
 
 const payment = async (req, res) => {
-
   let charge, status;
   var { product, token, user, event } = req.body;
-
-  console.log(event.event_id);
 
   var key = uuid();
 
@@ -65,10 +63,8 @@ const payment = async (req, res) => {
 
   // collecting ticket details
   User.find({ user_token: user.user_id }, async function (err, docs) {
-    console.log("Inside DB ***********")
-    console.log(docs)
+    console.log(docs);
     if (docs.length !== 0) {
-
       var Details = {
         email: docs[0].email,
         event_name: product.name,
@@ -79,10 +75,28 @@ const payment = async (req, res) => {
         city: token.shipping_address_city,
         zip: token.shipping_address_zip,
       };
-    
+
       console.log("All details before email: ", Details);
-    
       sendTicket(Details);
+
+      Event.updateOne(
+        { event_id: event.event_id },
+        {
+          $push: {
+            participants: {
+              name: docs[0].username,
+              email: docs[0].email,
+              passID: key,
+              regno: docs[0].reg_number,
+            },
+          },
+        },
+        function (err) {
+          if (err) {
+            console.log(err);
+          }
+        }
+      );
     } else {
       status = "error";
       res.status(401).send({ msg: "User is unauthorized" });
@@ -91,10 +105,24 @@ const payment = async (req, res) => {
 
   //NOTE-
   //add this user into events-> registerted people-> [(name, pass)] //no need to get from cookies
+  Event.find({ event_id: event.event_id }, async function (err, events) {
+    if (events.length !== 0) {
+      User.updateOne(
+        { user_token: user.user_id },
+
+        { $push: { registeredEvents: events[0] } },
+        function (err) {
+          if (err) {
+            console.log(err);
+          }
+        }
+      );
+    }
+  });
 
   res.send({ status });
 };
 
 module.exports = {
-  payment
+  payment,
 };
