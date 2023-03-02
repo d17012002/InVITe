@@ -13,7 +13,7 @@ export default function Dropdown({ userData }) {
 
     const handleLogout = () => {
         removeUserToken();
-        router.push("/users/signin");
+        router.push("/");
     }
 
     // Attaches an event listener for the 'mousedown' event to detect a click outside the dropdown

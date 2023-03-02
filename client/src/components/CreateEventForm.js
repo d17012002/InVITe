@@ -36,7 +36,7 @@ const CreateEvent = () => {
             poster: formData.poster,
         };
         console.log(requestBody);
-        // TODO: submit the form data to the server here
+        // server post request
         const response = await fetch(
             `${process.env.NEXT_PUBLIC_API_URL}/post/event`,
             {
@@ -152,7 +152,6 @@ const CreateEvent = () => {
                             className="adminDropDownInput"
                             value={formData.poster}
                             onChange={handleChange}
-                            required
                         />
                     </div>
                     <div>

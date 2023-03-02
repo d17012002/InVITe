@@ -21,9 +21,9 @@ const uuid = require("uuid").v4;
 const payment = async (req, res) => {
 
   let charge, status;
-  var { product, token, user } = req.body;
+  var { product, token, user, event } = req.body;
 
-  console.log(user.user_id);
+  console.log(event.event_id);
 
   var key = uuid();
 

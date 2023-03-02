@@ -13,7 +13,7 @@ export default function Dropdown() {
 
     const handleLogout = () => {
         removeAdminToken();
-        router.push("/admin/auth");
+        router.push("/");
     };
 
     // Attaches an event listener for the 'mousedown' event to detect a click outside the dropdown

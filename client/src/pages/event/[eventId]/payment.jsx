@@ -17,7 +17,8 @@ export default function payment() {
     const year = future.getFullYear().toString().substr(-2);
 
     // Get Event-Id from URL
-    const eventId = router.query.eventId;
+    const event_id = router.query.eventId;
+    console.log(event_id);
 
     const [product] = useState({
         name: "Event_Name",
@@ -42,6 +43,7 @@ export default function payment() {
                         product,
                         addresses,
                         user: { user_id },
+                        event: { event_id },
                     }),
                 }
             );
@@ -66,7 +68,7 @@ export default function payment() {
                     rel="stylesheet"
                 />
             </Head>
-            <div className="flex flex-col m-6">
+            <div className="flex flex-col m-6 ">
                 <div className="text-3xl">
                     Pay using{" "}
                     <span
