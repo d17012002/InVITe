@@ -160,14 +160,27 @@ export default function signin({ adminIdCookie }) {
                                     name="password"
                                     value={password}
                                     className="bg-gray-100 p-2 mx-2 mb-4 focus:outline-none rounded-lg w-full"
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    onChange={(e) =>
+                                        setPassword(e.target.value)
+                                    }
                                 />
 
                                 <button
                                     type="submit"
-                                    className="mt-4 bg-[color:var(--darker-secondary-color)] text-white py-2 px-4 rounded hover:bg-[color:var(--secondary-color)]"
+                                    className="btn text-white bg-[color:var(--darker-secondary-color)] hover:bg-[color:var(--secondary-color)] w-full mt-4 mb-4 sm:w-auto sm:mb-0"
                                 >
                                     Verify
+                                </button>
+
+                                <button
+                                    type="submit"
+                                    onClick={() => {
+                                        setEmail("invite.testing@gmail.com");
+                                        setPassword("invite123");
+                                    }}
+                                    className="btn text-white bg-gray-700 hover:bg-gray-800 mt-4 w-full sm:w-auto sm:ml-4"
+                                >
+                                    Use Test Credentials
                                 </button>
                             </form>
                         )

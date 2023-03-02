@@ -6,8 +6,8 @@ import React from "react";
 function eventForm() {
     return (
         <AdminNavBar>
-            <div className="flex flex-col md:flex-row justify-center md:h-screen bg-[color:var(--primary-color)]">
-                <div className="flex-1 mx-6 my-6 bg-[color:var(--primary-color)]">
+            <div className="flex flex-col md:overflow-y-hidden md:h-[calc(88vh)] md:flex-row justify-center bg-[color:var(--primary-color)]">
+                <div className="flex-1 mx-6 mb-6 bg-[color:var(--primary-color)]">
                     <Image
                         src="/img/eventsFormImg.jpg"
                         alt="Event Image"
@@ -16,7 +16,7 @@ function eventForm() {
                         className="w-full h-full object-contain md:object-cover rounded-lg shadow-lg"
                     />
                 </div>
-                <div className="flex-1 m-6 md:m-0 md:mr-6">
+                <div className="flex-1 m-6 md:m-0 md:mr-6 md:mb-6">
                     <CreateEventForm />
                 </div>
             </div>

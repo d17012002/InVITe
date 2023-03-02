@@ -1,15 +1,16 @@
-import Dashboard_Filter from "@/components/Dashboard_Filter";
 import AdminNavBar from "@/components/AdminNavBar";
+import Dashboard_Filter from "@/components/Dashboard_Filter";
 import UserImages from "@/utils/user_dashboard_images";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { AiOutlineStar } from "react-icons/ai";
+import { AiOutlinePlus } from "react-icons/ai";
 
 function UserDashboard() {
     const router = useRouter();
     return (
         <AdminNavBar>
-            <div className="flex m-auto overflow-y-hidden h-[calc(100vh)]">
+            <div className="flex m-auto overflow-y-hidden h-[calc(88vh)]">
                 <div className="flex mx-auto container ">
                     <div className="flex flex-col p-4 sticky top-0 w-1/4">
                         <Dashboard_Filter />
@@ -96,6 +97,15 @@ function UserDashboard() {
                             ))}
                         </div>
                     </div>
+                </div>
+                <div className="fixed bottom-3 right-3 p-4 bg-[color:var(--darker-secondary-color)] hover:bg-[color:var(--secondary-color)] hover:scale-105 shadow-lg rounded-full cursor-pointer transition-all ease-in-out">
+                    <button
+                        onClick={() => router.push("/admin/eventform")}
+                        className="flex items-center justify-center w-12 h-12 text-white focus:outline-none"
+                        title="Create Events"
+                    >
+                        <AiOutlinePlus className="w-6 h-6" />
+                    </button>
                 </div>
             </div>
         </AdminNavBar>

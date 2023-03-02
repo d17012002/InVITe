@@ -4,13 +4,15 @@ const CreateEvent = () => {
     const [formData, setFormData] = useState({
         name: "",
         venue: "",
+        organizer: "",
         datetime: "",
         price: "",
-        poster: "",
+        profile: "",
+        cover: "",
         description: "",
     });
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const datetemp = new Date(formData.datetime);
         const formattedDate = datetemp.toLocaleDateString("en-IN", {
@@ -25,15 +27,16 @@ const CreateEvent = () => {
         });
         const date = `${formattedDate}`;
         const time = `${formattedTime}`;
-        console.log(formData);
         const requestBody = {
             name: formData.name,
             venue: formData.venue,
+            organizer: formData.organizer,
             date: date,
             time: time,
             description: formData.description,
             price: formData.price,
-            poster: formData.poster,
+            profile: formData.profile,
+            cover: formData.cover,
         };
         console.log(requestBody);
         // server post request
@@ -50,8 +53,7 @@ const CreateEvent = () => {
         const data = await response.json();
         if (response.status === 200) {
             console.log(data);
-        }
-        else {
+        } else {
             console.error(`Failed with status code ${response.status}`);
         }
     };
@@ -64,12 +66,12 @@ const CreateEvent = () => {
     };
 
     return (
-        <div className="h-full flex items-center">
-            <div className="bg-white rela p-8 w-full rounded-lg shadow-lg">
+        <div className="flex h-full bg-white rounded-lg shadow-lg items-center">
+            <div className="p-8 w-full">
                 <h1 className="text-2xl font-bold text-gray-700 mb-4">
                     Create an Event
                 </h1>
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-8">
                     <div>
                         <label
                             htmlFor="name"
@@ -87,72 +89,108 @@ const CreateEvent = () => {
                             required
                         />
                     </div>
-                    <div>
-                        <label
-                            htmlFor="venue"
-                            className="block font-medium text-gray-700"
-                        >
-                            Venue:
-                        </label>
-                        <input
-                            type="text"
-                            id="venue"
-                            name="venue"
-                            className="adminDropDownInput"
-                            value={formData.venue}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div className="cursor-default mt-1">
-                        <label
-                            htmlFor="datetime"
-                            className="block font-medium text-gray-700"
-                        >
-                            Date and Time:
-                        </label>
-                        <input
-                            type="datetime-local"
-                            id="datetime"
-                            name="datetime"
-                            className="adminDropDownInput"
-                            value={formData.datetime}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label
-                            htmlFor="price"
-                            className="block font-medium text-gray-700"
-                        >
-                            Price:
-                        </label>
-                        <input
-                            type="number"
-                            id="price"
-                            name="price"
-                            className="adminDropDownInput"
-                            value={formData.price}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
-                    <div>
-                        <label
-                            htmlFor="poster"
-                            className="block font-medium text-gray-700"
-                        >
-                            Poster URL:
-                        </label>
-                        <input
-                            type="url"
-                            id="poster"
-                            name="poster"
-                            className="adminDropDownInput"
-                            value={formData.poster}
-                            onChange={handleChange}
-                        />
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label
+                                htmlFor="venue"
+                                className="block font-medium text-gray-700"
+                            >
+                                Venue:
+                            </label>
+                            <input
+                                type="text"
+                                id="venue"
+                                name="venue"
+                                className="adminDropDownInput"
+                                value={formData.venue}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label
+                                htmlFor="organizer"
+                                className="block font-medium text-gray-700"
+                            >
+                                Organizer:
+                            </label>
+                            <input
+                                type="text"
+                                id="organizer"
+                                name="organizer"
+                                className="adminDropDownInput"
+                                value={formData.organizer}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label
+                                htmlFor="datetime"
+                                className="block font-medium text-gray-700"
+                            >
+                                Date and Time:
+                            </label>
+                            <input
+                                type="datetime-local"
+                                id="datetime"
+                                name="datetime"
+                                className="adminDropDownInput"
+                                value={formData.datetime}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label
+                                htmlFor="price"
+                                className="block font-medium text-gray-700"
+                            >
+                                Price:
+                            </label>
+                            <input
+                                type="number"
+                                id="price"
+                                name="price"
+                                min="0"
+                                className="adminDropDownInput"
+                                value={formData.price}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label
+                                htmlFor="profile"
+                                className="block font-medium text-gray-700"
+                            >
+                                Profile Image URL:
+                            </label>
+                            <input
+                                type="url"
+                                id="profile"
+                                name="profile"
+                                className="adminDropDownInput"
+                                value={formData.profile}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div>
+                            <label
+                                htmlFor="cover"
+                                className="block font-medium text-gray-700"
+                            >
+                                Cover Image URL:
+                            </label>
+                            <input
+                                type="url"
+                                id="cover"
+                                name="cover"
+                                className="adminDropDownInput"
+                                value={formData.cover}
+                                onChange={handleChange}
+                            />
+                        </div>
                     </div>
                     <div>
                         <label

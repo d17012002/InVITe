@@ -88,11 +88,11 @@ export default function Dropdown({ userData }) {
                         <hr />
                         {/* Add other details here */}
                     </div>
-                    <div className="py-4 group hover:bg-[color:var(--secondary-color)] transition-all ease-in-out">
+                    <div className="py-4 group hover:bg-[color:var(--darker-secondary-color)] transition-all ease-in-out">
                         <button
                             // onClick={() => router.push("/users/signin")}
                             onClick={handleLogout}
-                            className="text-left w-full px-4 pb-2 text-gray-800 group-hover:text-white transition-all ease-in-out"
+                            className="text-left w-full px-4 text-gray-800 group-hover:text-white transition-all ease-in-out"
                         >
                             Logout
                         </button>

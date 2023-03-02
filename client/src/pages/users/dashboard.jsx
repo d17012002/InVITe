@@ -9,7 +9,7 @@ function UserDashboard() {
     const router = useRouter();
     return (
         <NavBar>
-            <div className="flex m-auto overflow-y-hidden h-[calc(90vh)]">
+            <div className="flex m-auto overflow-y-hidden h-[calc(88vh)]">
                 <div className="flex mx-auto container ">
                     <div className="flex flex-col p-4 sticky top-0 w-1/4">
                         <Dashboard_Filter />
