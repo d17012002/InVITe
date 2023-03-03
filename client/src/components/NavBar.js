@@ -87,7 +87,7 @@ export default function NavBar({ children }) {
                     </nav>
                 </div>
             </header>
-            <div className="pt-36 lg:pt-28 bg-[color:var(--primary-color)]">
+            <div className="h-screen overflow-y-hidden pt-36 lg:pt-28 bg-[color:var(--primary-color)]">
                 {/* Display everything that's inside <NavBar> & </NavBar> Here */}
                 {children}
             </div>

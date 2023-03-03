@@ -1,12 +1,36 @@
 import Dashboard_Filter from "@/components/Dashboard_Filter";
 import NavBar from "@/components/NavBar";
-import UserImages from "@/utils/user_dashboard_images";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { AiOutlineStar } from "react-icons/ai";
+import { useEffect, useState } from "react";
+import { FaUsers } from "react-icons/fa";
 
 function UserDashboard() {
     const router = useRouter();
+    const picRatio = 0.606;
+
+    const [allEvents, setAllEvents] = useState([]);
+
+    const fetchAllEvents = async () => {
+        const response = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/getallevents`
+        );
+        if (!response.ok) {
+            throw new Error(`${response.status} ${response.statusText}`);
+        }
+        try {
+            const data = await response.json();
+            console.log(data);
+            setAllEvents(data);
+        } catch (error) {
+            console.error("Invalid JSON string:", error.message);
+        }
+    };
+
+    useEffect(() => {
+        fetchAllEvents();
+    }, []);
+
     return (
         <NavBar>
             <div className="flex m-auto overflow-y-hidden h-[calc(88vh)]">
@@ -24,13 +48,14 @@ function UserDashboard() {
                                 className="hover:scale-105 cursor-pointer transition-all mt-5 bg-[color:var(--white-color)] rounded-lg shadow-md px-3 py-3"
                                 key="0"
                             >
-                                <Image
-                                    width={500}
-                                    height={500}
-                                    className="w-full rounded-lg bg-cover"
-                                    src="https://assets-in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:ote-V2VkLCA1IEFwciBvbndhcmRz,ots-29,otc-FFFFFF,oy-612,ox-24:q-80/et00319088-awvqxbtxsl-portrait.jpg"
-                                    alt=""
-                                />
+                                <div className="relative h-[25rem]">
+                                    <Image
+                                        fill
+                                        className="object-cover h-full w-full rounded-md"
+                                        src="https://assets-in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:ote-V2VkLCA1IEFwciBvbndhcmRz,ots-29,otc-FFFFFF,oy-612,ox-24:q-80/et00319088-awvqxbtxsl-portrait.jpg"
+                                        alt=""
+                                    />
+                                </div>
                                 <div className="flex flex-row justify-between items-start mt-4">
                                     <div className="w-3/4 px-2">
                                         <p className="text-sm text-gray-800 font-bold">
@@ -47,8 +72,8 @@ function UserDashboard() {
                                     {/* Star component */}
                                     <div className="flex flex-col items-center w-1/4">
                                         <span className="w-full flex flex-row items-center">
-                                            <AiOutlineStar />
-                                            <span className="text-sm">
+                                            <FaUsers />
+                                            <span className="ml-2 text-sm">
                                                 4,92
                                             </span>
                                         </span>
@@ -58,38 +83,51 @@ function UserDashboard() {
                                     </div>
                                 </div>
                             </div>
-                            {UserImages?.map((image) => (
+
+                            {allEvents.map((event) => (
                                 <div
+                                    onClick={() => {
+                                        router.push(`/event/${event._id}`);
+                                    }}
                                     className="hover:scale-105 cursor-pointer transition-all mt-5 bg-[color:var(--white-color)] rounded-lg shadow-md px-3 py-3"
-                                    key={image.id}
+                                    key={event._id}
                                 >
-                                    <Image
-                                        width={500}
-                                        height={500}
-                                        className="w-full rounded-lg bg-cover"
-                                        src={image.src}
-                                        alt=""
-                                    />
+                                    <div className="relative h-[25rem]">
+                                        <Image
+                                            fill
+                                            className="object-cover h-full w-full rounded-md"
+                                            src={event.poster}
+                                            alt=""
+                                        />
+                                    </div>
                                     <div className="flex flex-row justify-between items-start mt-4">
-                                        <div>
+                                        <div className="px-2">
                                             <p className="text-sm text-gray-800 font-bold">
-                                                Event, XYZ Club
+                                                {event.name.length > 30
+                                                    ? event.name.slice(0, 30) +
+                                                      "..."
+                                                    : event.name}
                                             </p>
                                             <p className="text-sm text-gray-800">
-                                                49 kilometers away
+                                                {event.venue}
                                             </p>
                                             <p className="text-sm text-gray-800">
-                                                Aug 18-25
-                                            </p>
-                                            <p className="text-sm text-gray-800 mt-2">
-                                                {" "}
-                                                <strong>$2,135</strong>
+                                                {event.date}
                                             </p>
                                         </div>
                                         {/* Star component */}
-                                        <div className="flex flex-row items-center">
-                                            <AiOutlineStar />
-                                            <p className="text-sm">4,92</p>
+                                        <div className="flex flex-col justify-end items-center">
+                                            <span className="w-full flex flex-row items-center">
+                                                <FaUsers />
+                                                <span className="ml-2 text-sm">
+                                                    4,92
+                                                </span>
+                                            </span>
+                                            <p className="text-sm text-gray-800 mt-2">
+                                                <strong className="whitespace-nowrap">
+                                                    ₹ {event.price}
+                                                </strong>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
