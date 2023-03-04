@@ -88,6 +88,7 @@ const payment = async (req, res) => {
               email: docs[0].email,
               passID: key,
               regno: docs[0].reg_number,
+              entry: false,
             },
           },
         },
