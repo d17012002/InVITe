@@ -1,6 +1,9 @@
+import { getAdminToken } from "@/utils/getAdminToken";
 import { useState } from "react";
 
 const CreateEvent = () => {
+    const admin_id = getAdminToken();
+
     const [formData, setFormData] = useState({
         name: "",
         venue: "",
@@ -35,8 +38,9 @@ const CreateEvent = () => {
             time: time,
             description: formData.description,
             price: formData.price,
-            profile: formData.profile,
-            cover: formData.cover,
+            profile: formData.profile != "" ? formData.profile : undefined,
+            cover: formData.cover != "" ? formData.cover : undefined,
+            admin_id: admin_id,
         };
         console.log(requestBody);
         // server post request

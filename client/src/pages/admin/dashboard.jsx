@@ -3,8 +3,7 @@ import Dashboard_Filter from "@/components/Dashboard_Filter";
 import UserImages from "@/utils/user_dashboard_images";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { AiOutlineStar } from "react-icons/ai";
-import { AiOutlinePlus } from "react-icons/ai";
+import { AiOutlinePlus, AiOutlineStar } from "react-icons/ai";
 
 function UserDashboard() {
     const router = useRouter();
@@ -20,7 +19,7 @@ function UserDashboard() {
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                             <div
                                 onClick={() => {
-                                    router.push("/event/123");
+                                    router.push("/adminevent/123");
                                 }}
                                 className="hover:scale-105 cursor-pointer transition-all mt-5 bg-[color:var(--white-color)] rounded-lg shadow-md px-3 py-3"
                                 key="0"
@@ -98,15 +97,16 @@ function UserDashboard() {
                         </div>
                     </div>
                 </div>
-                <div className="fixed bottom-3 right-3 p-4 bg-[color:var(--darker-secondary-color)] hover:bg-[color:var(--secondary-color)] hover:scale-105 shadow-lg rounded-full cursor-pointer transition-all ease-in-out">
-                    <button
-                        onClick={() => router.push("/admin/eventform")}
-                        className="flex items-center justify-center w-12 h-12 text-white focus:outline-none"
-                        title="Create Events"
-                    >
-                        <AiOutlinePlus className="w-6 h-6" />
-                    </button>
-                </div>
+                <button
+                    onClick={() => router.push("/admin/eventform")}
+                    title="Create Events"
+                >
+                    <div className="fixed bottom-3 right-3 p-3 bg-[color:var(--darker-secondary-color)] hover:bg-[color:var(--secondary-color)] hover:scale-105 shadow-lg rounded-full cursor-pointer transition-all ease-in-out">
+                        <button className="flex items-center justify-center w-12 h-12 text-white focus:outline-none">
+                            <AiOutlinePlus className="w-6 h-6" />
+                        </button>
+                    </div>
+                </button>
             </div>
         </AdminNavBar>
     );

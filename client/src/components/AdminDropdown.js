@@ -47,6 +47,29 @@ export default function Dropdown() {
             </button>
             {showDropdown && (
                 <div className="absolute min-w-[231px] right-0 bg-white rounded-md overflow-hidden shadow-lg z-10">
+                    <div className="">
+                        <div className="px-4 py-2 cursor-default hover:bg-[color:var(--primary-color)]">
+                            <div className="text-gray-800 font-medium">
+                                Full Name
+                            </div>
+                            <div className="text-gray-600">
+                                {/* {userData.username} */}
+                                invite
+                            </div>
+                        </div>
+                        <hr />
+                        <div className="px-4 pb-2 cursor-default hover:bg-[color:var(--primary-color)]">
+                            <div className="text-gray-800 font-medium pt-2">
+                                Email
+                            </div>
+                            <div className="text-gray-600">
+                                {/* {userData.email} */}
+                                invite123@gmail.com
+                            </div>
+                        </div>
+                        <hr />
+                        {/* Add other details here */}
+                    </div>
                     <div className="py-4 group hover:bg-[color:var(--darker-secondary-color)] transition-all ease-in-out">
                         <button
                             // onClick={() => router.push("/admin/signin")}
