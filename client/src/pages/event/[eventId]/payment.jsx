@@ -55,7 +55,8 @@ export default function payment() {
     };
 
     return (
-        <NavBar>
+        <div className="pt-20 lg:pt-8">
+            <NavBar />
             <Head>
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link
@@ -154,6 +155,6 @@ export default function payment() {
                     />
                 </div>
             </div>
-        </NavBar>
+        </div>
     );
 }

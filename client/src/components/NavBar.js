@@ -46,7 +46,7 @@ export default function NavBar({ children }) {
     }, []);
 
     return (
-        <div>
+        <div className="mb-[8vh]">
             <header className="bg-[color:var(--white-color)] fixed top-0 z-50 w-full shadow-md text-[color:var(--darker-secondary-color)]">
                 <div className="container mx-auto flex items-center flex-col lg:flex-row justify-between p-4">
                     <div
@@ -87,10 +87,6 @@ export default function NavBar({ children }) {
                     </nav>
                 </div>
             </header>
-            <div className="h-screen overflow-y-hidden pt-36 lg:pt-28 bg-[color:var(--primary-color)]">
-                {/* Display everything that's inside <NavBar> & </NavBar> Here */}
-                {children}
-            </div>
         </div>
     );
 }

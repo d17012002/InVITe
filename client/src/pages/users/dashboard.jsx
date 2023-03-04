@@ -32,8 +32,9 @@ function UserDashboard() {
     }, []);
 
     return (
-        <NavBar>
-            <div className="flex m-auto overflow-y-hidden h-[calc(88vh)]">
+        <div className="pt-20 lg:pt-8 overflow-y-hidden">
+            <NavBar />
+            <div className="flex m-auto o">
                 <div className="flex mx-auto container ">
                     <div className="flex flex-col p-4 sticky top-0 w-1/4">
                         <Dashboard_Filter />
@@ -87,7 +88,7 @@ function UserDashboard() {
                             {allEvents.map((event) => (
                                 <div
                                     onClick={() => {
-                                        router.push(`/event/${event._id}`);
+                                        router.push(`/event/${event.event_id}`);
                                     }}
                                     className="hover:scale-105 cursor-pointer transition-all mt-5 bg-[color:var(--white-color)] rounded-lg shadow-md px-3 py-3"
                                     key={event._id}
@@ -136,7 +137,7 @@ function UserDashboard() {
                     </div>
                 </div>
             </div>
-        </NavBar>
+        </div>
     );
 }
 
