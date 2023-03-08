@@ -1,4 +1,4 @@
-import NavBar from "@/components/NavBar";
+import NavBar from "@/components/UserNavBar";
 import { getUserToken } from "@/utils/getUserToken";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -86,28 +86,28 @@ export default function payment() {
                 <div className="m-6 flex flex-col ">
                     <div>Use the following test credentials: </div>
 
-                    <div class="relative mb-6 overflow-x-auto shadow-md sm:rounded-lg w-full lg:w-1/3 ">
-                        <table class="w-full text-sm text-left my-2">
-                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                    <div className="relative mb-6 overflow-x-auto shadow-md sm:rounded-lg w-full lg:w-1/3 ">
+                        <table className="w-full text-sm text-left my-2">
+                            <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr>
-                                    <th scope="col" class="px-6 py-3">
+                                    <th scope="col" className="px-6 py-3">
                                         Field
                                     </th>
-                                    <th scope="col" class="px-6 py-3">
+                                    <th scope="col" className="px-6 py-3">
                                         Value
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="bg-white border-b hover:bg-gray-50">
+                                <tr className="bg-white border-b hover:bg-gray-50">
                                     <th
                                         scope="row"
-                                        class="px-6 py-4 font-medium whitespace-nowrap"
+                                        className="px-6 py-4 font-medium whitespace-nowrap"
                                     >
                                         Card Number
                                     </th>
                                     <td
-                                        class="px-6 py-4"
+                                        className="px-6 py-4"
                                         onClick={() => {
                                             navigator.clipboard.writeText(
                                                 "4242 4242 4242 4242"
@@ -118,25 +118,25 @@ export default function payment() {
                                         4242 4242 4242 4242
                                     </td>
                                 </tr>
-                                <tr class="bg-white border-b hover:bg-gray-50">
+                                <tr className="bg-white border-b hover:bg-gray-50">
                                     <th
                                         scope="row"
-                                        class="px-6 py-4 font-medium whitespace-nowrap"
+                                        className="px-6 py-4 font-medium whitespace-nowrap"
                                     >
                                         Expiry
                                     </th>
-                                    <td class="px-6 py-4">
+                                    <td className="px-6 py-4">
                                         Any future date (eg: {month}/{year})
                                     </td>
                                 </tr>
-                                <tr class="bg-white hover:bg-gray-50">
+                                <tr className="bg-white hover:bg-gray-50">
                                     <th
                                         scope="row"
-                                        class="px-6 py-4 font-medium whitespace-nowrap"
+                                        className="px-6 py-4 font-medium whitespace-nowrap"
                                     >
                                         CVC
                                     </th>
-                                    <td class="px-6 py-4">
+                                    <td className="px-6 py-4">
                                         Any 3 digit number (eg: 345)
                                     </td>
                                 </tr>

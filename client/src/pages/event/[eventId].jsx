@@ -1,4 +1,4 @@
-import NavBar from "@/components/NavBar";
+import UserNavBar from "@/components/UserNavBar";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -10,33 +10,33 @@ function EventPage() {
     const [eventData, setEventData] = useState([]);
 
     const fetchEvent = async () => {
-        const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/getevent`,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    event_id: eventId,
-                }),
-            }
-        );
-        if (!response.ok) {
-            throw new Error(`${response.status} ${response.statusText}`);
-        }
         try {
-            const data = await response.json();
-            console.log(data);
-            setEventData(data);
+            const response = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}/getevent`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        event_id: eventId,
+                    }),
+                }
+            );
+            if (response.ok) {
+                const data = await response.json();
+                setEventData(data);
+            } else {
+                throw new Error(`${response.status} ${response.statusText}`);
+            }
         } catch (error) {
-            console.error("Invalid JSON string:", error.message);
+            console.error("Error fetching event data:", error.message);
         }
     };
 
     useEffect(() => {
         fetchEvent();
-    }, []);
+    }, [eventId]); // fetch event on component mount and when eventId changes
 
     if (!eventData || !eventData.cover)
         // If event data isn't loaded correctly, it should recall API
@@ -44,14 +44,23 @@ function EventPage() {
     else
         return (
             <div className="pt-20 lg:pt-8 ">
-                <NavBar />
+                <UserNavBar />
                 <div className="flex flex-col items-center justify-center">
                     <Head>
                         <title>{eventData.name}</title>
                     </Head>
                     {/* Top div with image */}
                     <div className="relative h-40 sm:h-[25rem] overflow-hidden container shadow-lg">
-                        <div className="event__image h-[25rem] container bg-cover bg-center filter blur hidden lg:block" />
+                        {/* blurred image background */}
+                        <Image
+                            src={eventData.cover}
+                            alt={eventData.name}
+                            fill
+                            placeholder="blur"
+                            blurDataURL={eventData.cover}
+                            className="h-[25rem] container filter blur hidden lg:block object-cover"
+                        />
+
                         <div className="absolute inset-0 w-full h-40 sm:h-[25rem] container">
                             <Image
                                 // src="https://assets-in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-jo-bolta-hai-wohi-hota-hai-ft-harsh-gujral-0-2023-2-3-t-9-23-51.jpg"
@@ -89,6 +98,12 @@ function EventPage() {
                                                 Venue:
                                             </span>{" "}
                                             {eventData.venue}
+                                        </div>
+                                        <div className="text-md text-gray-800 mr-4">
+                                            <span className="font-bold">
+                                                Organizer:
+                                            </span>{" "}
+                                            {eventData.organizer}
                                         </div>
                                     </div>
                                 </div>

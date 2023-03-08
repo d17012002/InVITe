@@ -23,7 +23,8 @@ const Registration = () => {
     }
 
     return (
-        <AdminNavBar>
+        <>
+            <AdminNavBar />
             <div className="container h-screen mx-auto my-4">
                 <div className="flex justify-between items-center mb-4">
                     <div className="flex space-x-2">
@@ -191,7 +192,7 @@ const Registration = () => {
                     </table>
                 )}
             </div>
-        </AdminNavBar>
+        </>
     );
 };
 

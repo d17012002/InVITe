@@ -1,13 +1,15 @@
 import { getAdminToken } from "@/utils/getAdminToken";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import AdminDropdown from "@/components/AdminDropdown";
 
 export default function NavBar({ children }) {
     const router = useRouter();
 
     const adminIdCookie = getAdminToken();
+    console.log(adminIdCookie);
+    const [adminData, setAdminData] = useState({});
 
     const fetchAdminData = async () => {
         // If cookie was manually removed from browser
@@ -16,6 +18,29 @@ export default function NavBar({ children }) {
             // redirect to signin
             router.push("/admin/auth");
         }
+        const response = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/admin/details`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    admin_id: adminIdCookie,
+                }),
+            }
+        );
+        if (!response.ok)
+            throw new Error(`${response.status} ${response.statusText}`);
+
+        // Admin Details fetched from API `/admin/details`
+        try {
+            const data = await response.json();
+            console.log(data);
+            setAdminData(data);
+        } catch (error) {
+            console.error("Invalid JSON string:", error.message);
+        }
     };
 
     useEffect(() => {
@@ -23,7 +48,7 @@ export default function NavBar({ children }) {
     }, []);
 
     return (
-        <div>
+        <div className="mb-[8vh]">
             <header className="bg-[color:var(--white-color)] fixed top-0 z-50 w-full shadow-md text-[color:var(--darker-secondary-color)]">
                 <div className="container mx-auto flex items-center flex-col lg:flex-row justify-between p-4">
                     <div
@@ -59,15 +84,11 @@ export default function NavBar({ children }) {
                             >
                                 <a>About us</a>
                             </li>
-                            <AdminDropdown />
+                            <AdminDropdown adminData={adminData} />
                         </ul>
                     </nav>
                 </div>
             </header>
-            <div className="pt-36 lg:pt-28 bg-[color:var(--primary-color)]">
-                {/* Display everything that's inside <NavBar> & </NavBar> Here */}
-                {children}
-            </div>
         </div>
     );
 }

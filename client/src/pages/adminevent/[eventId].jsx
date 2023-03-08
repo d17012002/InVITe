@@ -1,4 +1,4 @@
-import NavBar from "@/components/NavBar";
+import AdminNavBar from "@/components/AdminNavBar";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -8,7 +8,8 @@ function EventPage() {
     const eventId = router.query.eventId;
 
     return (
-        <NavBar>
+        <div className="pt-20 lg:pt-8">
+            <AdminNavBar />
             <div className="flex flex-col items-center justify-center">
                 <Head>
                     <title>Event Page {eventId}</title>
@@ -16,6 +17,15 @@ function EventPage() {
                 {/* Top div with image */}
                 <div className="relative h-40 sm:h-[25rem] overflow-hidden container shadow-lg">
                     <div className="event__image h-[25rem] container bg-cover bg-center filter blur hidden lg:block" />
+                    {/* blurred image background */}
+                        {/* <Image
+                            src={eventData.cover}
+                            alt={eventData.name}
+                            fill
+                            placeholder="blur"
+                            blurDataURL={eventData.cover}
+                            className="h-[25rem] container filter blur hidden lg:block object-cover"
+                        /> */}
                     <div className="absolute inset-0 w-full h-40 sm:h-[25rem] container">
                         <Image
                             src="https://assets-in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-jo-bolta-hai-wohi-hota-hai-ft-harsh-gujral-0-2023-2-3-t-9-23-51.jpg"
@@ -157,7 +167,7 @@ function EventPage() {
                     </div>
                 </div>
             </div>
-        </NavBar>
+        </div>
     );
 }
 

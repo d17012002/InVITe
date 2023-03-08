@@ -1,6 +1,7 @@
 import { setUserToken } from "@/utils/setUserToken";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { FiArrowLeft } from "react-icons/fi";
 import Cookies from "universal-cookie";
 
 export async function getServerSideProps(context) {
@@ -126,6 +127,12 @@ export default function signup({ userIdCookie }) {
 
     return (
         <div className="m-2">
+            {/* back button */}
+            <FiArrowLeft
+                onClick={() => router.push("/")}
+                size={24}
+                className="cursor-pointer"
+            />
             {/* Page heading */}
             <div className="text-center text-3xl font-bold">Signup Page</div>
 

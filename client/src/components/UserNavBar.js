@@ -1,10 +1,10 @@
 import { getUserToken } from "@/utils/getUserToken";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
-import Dropdown from "@/components/Dropdown";
+import { useEffect, useState } from "react";
+import UserDropdown from "@/components/UserDropdown";
 
-export default function NavBar({ children }) {
+export default function NavBar() {
     const router = useRouter();
 
     const userIdCookie = getUserToken();
@@ -82,7 +82,7 @@ export default function NavBar({ children }) {
                             >
                                 <a>About us</a>
                             </li>
-                            <Dropdown userData={userData} />
+                            <UserDropdown userData={userData} />
                         </ul>
                     </nav>
                 </div>

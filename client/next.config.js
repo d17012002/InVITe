@@ -10,6 +10,10 @@ module.exports = {
                 protocol: "https",
                 hostname: "**",
             },
+            {
+                protocol: "http",
+                hostname: "**",
+            },
         ],
     },
 };

@@ -1,16 +1,13 @@
-import React, { useState } from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
+import React from "react";
+import { GrFormClose } from "react-icons/gr";
 
-function Dashboard_Filter({
-    filterOptions = {
-        keyword: "",
-        category: "",
-        dateRange: "",
-        price: [10, 100],
-    },
+function Popup_Filter({
+    filterOptions,
     setFilterOptions,
     handleFilterApply,
+    handleClose,
 }) {
     // Handle input change for the keyword search
     const handleKeywordChange = (e) => {
@@ -37,12 +34,21 @@ function Dashboard_Filter({
         e.preventDefault();
         // Perform the search/filter operation based on the filter options
         handleFilterApply();
+        handleClose();
     };
 
     return (
         // Add filter options to the DOM element
-        <div>
-            <h2 className="text-lg font-medium mb-2">Filter Options</h2>
+        <div className="fixed top-0 left-0 right-0 bottom-0 z-50 mt-[8rem] bg-white p-4">
+            <div className="flex justify-between items-center mb-4">
+                <h2 className="text-lg font-medium">Filter Options</h2>
+                <button
+                    className="text-gray-500 hover:text-gray-700"
+                    onClick={handleClose}
+                >
+                    <GrFormClose className="h-6 w-6" />
+                </button>
+            </div>
             <form className="flex flex-col gap-y-3" onSubmit={handleSubmit}>
                 {/* Input to search through keyword */}
                 <div className="mb-2">
@@ -121,4 +127,4 @@ function Dashboard_Filter({
     );
 }
 
-export default Dashboard_Filter;
+export default Popup_Filter;

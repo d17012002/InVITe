@@ -3,7 +3,7 @@ import { FaAngleDown } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { removeAdminToken } from "@/utils/removeAdminToken";
 
-export default function Dropdown() {
+export default function Dropdown({ adminData }) {
     const router = useRouter();
     const [showDropdown, setShowDropdown] = useState(false);
     const dropdownRef = useRef(null);
@@ -53,8 +53,7 @@ export default function Dropdown() {
                                 Full Name
                             </div>
                             <div className="text-gray-600">
-                                {/* {userData.username} */}
-                                invite
+                                {adminData.name}
                             </div>
                         </div>
                         <hr />
@@ -63,8 +62,7 @@ export default function Dropdown() {
                                 Email
                             </div>
                             <div className="text-gray-600">
-                                {/* {userData.email} */}
-                                invite123@gmail.com
+                                {adminData.email}
                             </div>
                         </div>
                         <hr />
