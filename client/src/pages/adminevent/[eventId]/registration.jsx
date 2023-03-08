@@ -23,7 +23,7 @@ const Registration = () => {
     }
 
     return (
-        <>
+        <div className="pt-20 lg:pt-8">
             <AdminNavBar />
             <div className="container h-screen mx-auto my-4">
                 <div className="flex justify-between items-center mb-4">
@@ -192,7 +192,7 @@ const Registration = () => {
                     </table>
                 )}
             </div>
-        </>
+        </div>
     );
 };
 
