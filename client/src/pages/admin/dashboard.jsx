@@ -1,3 +1,4 @@
+import { getAdminToken } from "@/utils/getAdminToken";
 import AdminNavBar from "@/components/AdminNavBar";
 import Dashboard_Filter from "@/components/Dashboard_Filter";
 import Popup_Filter from "@/components/Popup_Filter";
@@ -12,18 +13,30 @@ function UserDashboard() {
     const router = useRouter();
 
     const [allEvents, setAllEvents] = useState([]);
+    const adminIdCookie = getAdminToken();
+    // console.log(adminIdCookie);
 
     const fetchAllEvents = async () => {
         const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/getallevents`
+            `${process.env.NEXT_PUBLIC_API_URL}/admin/details`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    admin_id: adminIdCookie,
+                }),
+            }
         );
-        if (!response.ok) {
+        if (!response.ok)
             throw new Error(`${response.status} ${response.statusText}`);
-        }
+
+        // Admin Details fetched from API `/admin/details`
         try {
             const data = await response.json();
-            // console.log(data);
-            setAllEvents(data);
+            // console.log(data.eventCreated);
+            setAllEvents(data.eventCreated);
         } catch (error) {
             console.error("Invalid JSON string:", error.message);
         }
@@ -140,18 +153,16 @@ function UserDashboard() {
                                             key={event._id}
                                         >
                                             <div className="relative h-[25rem]">
-                                                <Image
-                                                    fill
-                                                    className="object-cover h-full w-full rounded-md"
-                                                    src={
-                                                        event.profile
-                                                            ? event.profile
-                                                            : ""
-                                                    }
-                                                    alt=""
-                                                    sizes="(min-width: 640px) 100vw, 50vw"
-                                                    priority
-                                                />
+                                                {event.profile && (
+                                                    <Image
+                                                        fill
+                                                        className="object-cover h-full w-full rounded-md"
+                                                        src={event.profile}
+                                                        alt=""
+                                                        sizes="(min-width: 640px) 100vw, 50vw"
+                                                        priority
+                                                    />
+                                                )}
                                             </div>
                                             <div className="flex flex-row justify-between items-start mt-4">
                                                 <div className="px-2">

@@ -5,7 +5,8 @@ import React from "react";
 
 function eventForm() {
     return (
-        <AdminNavBar>
+        <div className="pt-20 lg:pt-8 bg-[color:var(--primary-color)]">
+            <AdminNavBar />
             <div className="flex flex-col md:overflow-y-hidden md:h-[calc(88vh)] md:flex-row justify-center bg-[color:var(--primary-color)]">
                 <div className="flex-1 mx-6 mb-6 bg-[color:var(--primary-color)]">
                     <Image
@@ -20,7 +21,7 @@ function eventForm() {
                     <CreateEventForm />
                 </div>
             </div>
-        </AdminNavBar>
+        </div>
     );
 }
 

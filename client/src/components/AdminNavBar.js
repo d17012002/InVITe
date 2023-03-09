@@ -4,11 +4,11 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import AdminDropdown from "@/components/AdminDropdown";
 
-export default function NavBar({ children }) {
+export default function NavBar() {
     const router = useRouter();
 
     const adminIdCookie = getAdminToken();
-    console.log(adminIdCookie);
+    // console.log(adminIdCookie);
     const [adminData, setAdminData] = useState({});
 
     const fetchAdminData = async () => {
@@ -36,7 +36,7 @@ export default function NavBar({ children }) {
         // Admin Details fetched from API `/admin/details`
         try {
             const data = await response.json();
-            console.log(data);
+            // console.log(data);
             setAdminData(data);
         } catch (error) {
             console.error("Invalid JSON string:", error.message);

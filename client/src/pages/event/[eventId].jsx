@@ -43,7 +43,7 @@ function EventPage() {
         return <div onLoad={fetchEvent()}>loading...</div>;
     else
         return (
-            <div className="pt-20 lg:pt-8 ">
+            <div className="pt-20 lg:pt-8">
                 <UserNavBar />
                 <div className="flex flex-col items-center justify-center">
                     <Head>

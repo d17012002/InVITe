@@ -1,8 +1,11 @@
 import { getAdminToken } from "@/utils/getAdminToken";
+import { useRouter } from "next/router";
 import { useState } from "react";
 
 const CreateEvent = () => {
+    const router = useRouter();
     const admin_id = getAdminToken();
+    // const [message, setMessage] = useState("");
 
     const [formData, setFormData] = useState({
         name: "",
@@ -56,7 +59,13 @@ const CreateEvent = () => {
         );
         const data = await response.json();
         if (response.status === 200) {
+            // Clear form fields
+            // document.getElementById("event-form").reset();
+
+            // Show success message
             console.log(data);
+            alert("Event Created Successfully");
+            // setMessage("Event Created Successfully");
         } else {
             console.error(`Failed with status code ${response.status}`);
         }
@@ -75,7 +84,16 @@ const CreateEvent = () => {
                 <h1 className="text-2xl font-bold text-gray-700 mb-4">
                     Create an Event
                 </h1>
-                <form onSubmit={handleSubmit} className="space-y-8">
+                {/* {message && (
+                    <h1 className="rounded p-3 my-2 bg-green-200 text-green-600 font-medium">
+                        {message}
+                    </h1>
+                )} */}
+                <form
+                    id="event-form"
+                    onSubmit={handleSubmit}
+                    className="space-y-8"
+                >
                     <div>
                         <label
                             htmlFor="name"

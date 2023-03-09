@@ -23,7 +23,7 @@ const Registration = () => {
     }
 
     return (
-        <div className="pt-20 lg:pt-8">
+        <div className="pt-20 lg:pt-8 bg-[color:var(--primary-color)]">
             <AdminNavBar />
             <div className="container h-screen mx-auto my-4">
                 <div className="flex justify-between items-center mb-4">

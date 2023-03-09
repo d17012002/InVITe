@@ -2,6 +2,7 @@ import Dashboard_Filter from "@/components/Dashboard_Filter";
 import Popup_Filter from "@/components/Popup_Filter";
 import UserNavBar from "@/components/UserNavBar";
 import Image from "next/image";
+import { getUserToken } from "@/utils/getUserToken";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
@@ -12,19 +13,29 @@ function UserDashboard() {
     const router = useRouter();
     const picRatio = 0.606;
 
-    const [allEvents, setAllEvents] = useState([]);
+    const userIdCookie = getUserToken();
+    const [pastEvents, setPastEvents] = useState([]);
 
     const fetchAllEvents = async () => {
         const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/getallevents`
+            `${process.env.NEXT_PUBLIC_API_URL}/user/details`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    user_token: userIdCookie,
+                }),
+            }
         );
         if (!response.ok) {
             throw new Error(`${response.status} ${response.statusText}`);
         }
         try {
             const data = await response.json();
-            // console.log(data);
-            setAllEvents(data);
+            // console.log(data.registeredEvents);
+            setPastEvents(data.registeredEvents);
         } catch (error) {
             console.error("Invalid JSON string:", error.message);
         }
@@ -85,7 +96,7 @@ function UserDashboard() {
                                     Events
                                 </h2>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                                    <div
+                                    {/* <div
                                         onClick={() => {
                                             router.push("/event/123");
                                         }}
@@ -115,7 +126,7 @@ function UserDashboard() {
                                                     Mar 18-25
                                                 </p>
                                             </div>
-                                            {/* Star component */}
+                                            Star component
                                             <div className="flex flex-col items-center w-1/4">
                                                 <span className="w-full flex flex-row items-center">
                                                     <FaUsers />
@@ -128,16 +139,15 @@ function UserDashboard() {
                                                 </p>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    {allEvents.map((event) => (
+                                    </div> */}
+                                    {pastEvents.map((event) => (
                                         <div
                                             onClick={() => {
                                                 router.push(
                                                     `/event/${event.event_id}`
                                                 );
                                             }}
-                                            className="hover:scale-105 cursor-pointer transition-all mt-5 bg-[color:var(--white-color)] rounded-lg shadow-md px-3 py-3"
+                                            className="hover:scale-105 cursor-pointer transition-all mt-5 bg-[color:var(--white-color)] rounded-lg shadow-md px-3 py-3 grayscale opacity-80"
                                             key={event._id}
                                         >
                                             <div className="relative h-[25rem]">

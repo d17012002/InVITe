@@ -8,7 +8,7 @@ function EventPage() {
     const eventId = router.query.eventId;
 
     return (
-        <div className="pt-20 lg:pt-8">
+        <div className="pt-20 lg:pt-8 bg-[color:var(--primary-color)]">
             <AdminNavBar />
             <div className="flex flex-col items-center justify-center">
                 <Head>
@@ -18,7 +18,7 @@ function EventPage() {
                 <div className="relative h-40 sm:h-[25rem] overflow-hidden container shadow-lg">
                     <div className="event__image h-[25rem] container bg-cover bg-center filter blur hidden lg:block" />
                     {/* blurred image background */}
-                        {/* <Image
+                    {/* <Image
                             src={eventData.cover}
                             alt={eventData.name}
                             fill

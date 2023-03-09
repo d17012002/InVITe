@@ -1,8 +1,8 @@
+import UserDropdown from "@/components/UserDropdown";
 import { getUserToken } from "@/utils/getUserToken";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import UserDropdown from "@/components/UserDropdown";
 
 export default function NavBar() {
     const router = useRouter();
@@ -71,7 +71,9 @@ export default function NavBar() {
                     <nav className="text-sm">
                         <ul className="flex items-center">
                             <li
-                                // onClick={() => router.push("/")}
+                                onClick={() =>
+                                    router.push("/users/past_events")
+                                }
                                 className="mr-4 cursor-pointer"
                             >
                                 <a>Past Events</a>
