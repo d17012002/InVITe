@@ -9,6 +9,7 @@ const adminSchema = new mongoose.Schema(
     },
     email: {
       type: String,
+      unique: true
     },
     pass: {
       type: String,
@@ -16,7 +17,7 @@ const adminSchema = new mongoose.Schema(
     name: {
       type: String,
     },
-    eventCreated: [eventSchema],
+    eventCreated: [],
 
     expireAt: {
       type: Date,

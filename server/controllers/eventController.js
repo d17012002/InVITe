@@ -16,6 +16,7 @@ const postEvent = async (req, res) => {
   const Organizer = req.body.organizer;
 
   const adminId = req.body.admin_id;
+  console.log("Admin mil gaya: ", adminId);
 
   const secret = JWT_SECRET;
   const payload = {
@@ -36,26 +37,41 @@ const postEvent = async (req, res) => {
     cover: Cover,
     organizer: Organizer,
   });
+  
+  try{
+    new_event.save((error, success) => {
+      if (error) console.log(error);
+      else console.log("Saved::New Event::created.");
+    });
+  }
+  catch(err) {
+    console.log(err);
+  }
 
-  await new_event.save((error, success) => {
-    if (error) console.log(error);
-    else console.log("Saved::New Event::created.");
-  });
-
-  //adding this event into Admin created event
-  Event.find({ event_id: token }, async function (err, events) {
-    if (events.length !== 0) {
-      Admin.updateOne(
-        { admin_id: adminId },
-        { $push: { eventCreated: events[0] } },
-        function (err) {
-          if (err) {
-            console.log(err);
-          }
-        }
-      );
+  Admin.updateOne(
+    { admin_id: adminId },
+    {
+      $push: {
+        eventCreated: {
+          event_id: token,
+          name: Name,
+          venue: Venue,
+          date: Date,
+          time: Time,
+          description: Desc,
+          price: Price,
+          profile: Profile,
+          cover: Cover,
+          organizer: Organizer,
+        },
+      },
+    },
+    function (err) {
+      if (err) {
+        console.log(err);
+      }
     }
-  });
+  );
 
   res.status(200).send({ msg: "event created", event_id: token });
 };
