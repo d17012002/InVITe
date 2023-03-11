@@ -65,6 +65,7 @@ const CreateEvent = () => {
             // Show success message
             console.log(data);
             alert("Event Created Successfully");
+            router.push("/admin/dashboard");
             // setMessage("Event Created Successfully");
         } else {
             console.error(`Failed with status code ${response.status}`);
@@ -79,7 +80,7 @@ const CreateEvent = () => {
     };
 
     return (
-        <div className="flex h-full bg-white rounded-lg shadow-lg items-center">
+        <div className="flex h-full text-left bg-white rounded-lg shadow-lg items-center">
             <div className="p-8 w-full">
                 <h1 className="text-2xl font-bold text-gray-700 mb-4">
                     Create an Event

@@ -1,7 +1,7 @@
-import { getAdminToken } from "@/utils/getAdminToken";
 import AdminNavBar from "@/components/AdminNavBar";
 import Dashboard_Filter from "@/components/Dashboard_Filter";
 import Popup_Filter from "@/components/Popup_Filter";
+import { getAdminToken } from "@/utils/getAdminToken";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -66,7 +66,7 @@ function UserDashboard() {
             <AdminNavBar />
             <div className="flex m-auto">
                 <div className="flex mx-auto container ">
-                    <div className="flex m-auto gap-4 lg:gap-8 overflow-y-hidden h-[calc(88vh)]">
+                    <div className="flex m-auto gap-4 lg:gap-8 overflow-y-hidden w-full h-[calc(88vh)]">
                         {/* Render the regular filter for medium screens and above */}
                         <div className="hidden md:flex flex-col p-4 sticky top-0 w-1/6 md:w-1/4">
                             <Dashboard_Filter
@@ -97,107 +97,67 @@ function UserDashboard() {
                                     Events
                                 </h2>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                                    <div
-                                        onClick={() => {
-                                            router.push("/event/123");
-                                        }}
-                                        className="hover:scale-105 cursor-pointer transition-all mt-5 bg-[color:var(--white-color)] rounded-lg shadow-md px-3 py-3"
-                                        key="0"
-                                    >
-                                        <div className="relative h-[25rem]">
-                                            <Image
-                                                fill
-                                                className="object-cover h-full w-full rounded-md"
-                                                src="https://assets-in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:ote-V2VkLCA1IEFwciBvbndhcmRz,ots-29,otc-FFFFFF,oy-612,ox-24:q-80/et00319088-awvqxbtxsl-portrait.jpg"
-                                                alt=""
-                                                sizes="(min-width: 640px) 100vw, 50vw"
-                                                priority
-                                            />
-                                        </div>
-                                        <div className="flex flex-row justify-between items-start mt-4">
-                                            <div className="w-3/4 px-2">
-                                                <p className="text-sm text-gray-800 font-bold">
-                                                    Jo Bolta Hai Wohi Hota Hai
-                                                    Ft. Harsh Gujral
-                                                </p>
-                                                <p className="text-sm text-gray-800">
-                                                    Auditorium
-                                                </p>
-                                                <p className="text-sm text-gray-800">
-                                                    Mar 18-25
-                                                </p>
-                                            </div>
-                                            {/* Star component */}
-                                            <div className="flex flex-col items-center w-1/4">
-                                                <span className="w-full flex flex-row items-center">
-                                                    <FaUsers />
-                                                    <span className="ml-2 text-sm">
-                                                        4,92
-                                                    </span>
-                                                </span>
-                                                <p className="text-sm text-gray-800 mt-2">
-                                                    <strong>Rs. 100</strong>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {allEvents.map((event) => (
-                                        <div
-                                            onClick={() => {
-                                                router.push(
-                                                    `/event/${event.event_id}`
-                                                );
-                                            }}
-                                            className="hover:scale-105 cursor-pointer transition-all mt-5 bg-[color:var(--white-color)] rounded-lg shadow-md px-3 py-3"
-                                            key={event._id}
-                                        >
-                                            <div className="relative h-[25rem]">
-                                                {event.profile && (
-                                                    <Image
-                                                        fill
-                                                        className="object-cover h-full w-full rounded-md"
-                                                        src={event.profile}
-                                                        alt=""
-                                                        sizes="(min-width: 640px) 100vw, 50vw"
-                                                        priority
-                                                    />
-                                                )}
-                                            </div>
-                                            <div className="flex flex-row justify-between items-start mt-4">
-                                                <div className="px-2">
-                                                    <p className="text-sm text-gray-800 font-bold">
-                                                        {event.name.length > 30
-                                                            ? event.name.slice(
-                                                                  0,
-                                                                  30
-                                                              ) + "..."
-                                                            : event.name}
-                                                    </p>
-                                                    <p className="text-sm text-gray-800">
-                                                        {event.venue}
-                                                    </p>
-                                                    <p className="text-sm text-gray-800">
-                                                        {event.date}
-                                                    </p>
+                                    {allEvents.length === 0 ? (
+                                        <p>No events yet</p>
+                                    ) : (
+                                        allEvents.map((event) => (
+                                            <div
+                                                onClick={() => {
+                                                    router.push(
+                                                        `/event/${event.event_id}/adminevents`
+                                                    );
+                                                }}
+                                                className="hover:scale-105 cursor-pointer transition-all mt-5 bg-[color:var(--white-color)] rounded-lg shadow-md px-3 py-3"
+                                                key={event._id}
+                                            >
+                                                <div className="relative h-[25rem]">
+                                                    {event.profile && (
+                                                        <Image
+                                                            fill
+                                                            className="object-cover h-full w-full rounded-md"
+                                                            src={event.profile}
+                                                            alt=""
+                                                            sizes="(min-width: 640px) 100vw, 50vw"
+                                                            priority
+                                                        />
+                                                    )}
                                                 </div>
-                                                {/* Star component */}
-                                                <div className="flex flex-col justify-end items-center">
-                                                    <span className="w-full flex flex-row items-center">
-                                                        <FaUsers />
-                                                        <span className="ml-2 text-sm">
-                                                            4,92
+                                                <div className="flex flex-row justify-between items-start mt-4">
+                                                    <div className="px-2">
+                                                        <p className="text-sm text-gray-800 font-bold">
+                                                            {event.name.length >
+                                                            30
+                                                                ? event.name.slice(
+                                                                      0,
+                                                                      30
+                                                                  ) + "..."
+                                                                : event.name}
+                                                        </p>
+                                                        <p className="text-sm text-gray-800">
+                                                            {event.venue}
+                                                        </p>
+                                                        <p className="text-sm text-gray-800">
+                                                            {event.date}
+                                                        </p>
+                                                    </div>
+                                                    {/* Star component */}
+                                                    <div className="flex flex-col justify-end items-center">
+                                                        <span className="w-full flex flex-row items-center">
+                                                            <FaUsers />
+                                                            <span className="ml-2 text-sm">
+                                                                4,92
+                                                            </span>
                                                         </span>
-                                                    </span>
-                                                    <p className="text-sm text-gray-800 mt-2">
-                                                        <strong className="whitespace-nowrap">
-                                                            ₹ {event.price}
-                                                        </strong>
-                                                    </p>
+                                                        <p className="text-sm text-gray-800 mt-2">
+                                                            <strong className="whitespace-nowrap">
+                                                                ₹ {event.price}
+                                                            </strong>
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    ))}
+                                        ))
+                                    )}
                                 </div>
                             </div>
                         </div>

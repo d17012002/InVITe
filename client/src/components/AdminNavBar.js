@@ -73,10 +73,10 @@ export default function NavBar() {
                     <nav className="text-sm">
                         <ul className="flex items-center">
                             <li
-                                // onClick={() => router.push("/")}
+                                onClick={() => router.push("/admin/dashboard")}
                                 className="mr-4 cursor-pointer"
                             >
-                                <a>Past Events</a>
+                                <a>Dashboard</a>
                             </li>
                             <li
                                 onClick={() => router.push("/")}

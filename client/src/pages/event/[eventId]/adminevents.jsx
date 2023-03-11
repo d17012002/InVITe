@@ -1,10 +1,10 @@
-import UserNavBar from "@/components/UserNavBar";
+import AdminNavBar from "@/components/AdminNavBar";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-function EventPage() {
+function AdminEventPage() {
     const router = useRouter();
     const eventId = router.query.eventId;
     const [eventData, setEventData] = useState([]);
@@ -45,7 +45,7 @@ function EventPage() {
     else
         return (
             <div className="pt-20 lg:pt-8 bg-[color:var(--primary-color)]">
-                <UserNavBar />
+                <AdminNavBar />
                 <div className="flex flex-col items-center justify-center">
                     <Head>
                         <title>{eventData.name}</title>
@@ -61,10 +61,8 @@ function EventPage() {
                             blurDataURL={eventData.cover}
                             className="h-[25rem] container filter blur hidden lg:block object-cover"
                         />
-
                         <div className="absolute inset-0 w-full h-40 sm:h-[25rem] container">
                             <Image
-                                // src="https://assets-in.bmscdn.com/nmcms/events/banner/desktop/media-desktop-jo-bolta-hai-wohi-hota-hai-ft-harsh-gujral-0-2023-2-3-t-9-23-51.jpg"
                                 src={eventData.cover}
                                 alt="Event image"
                                 fill
@@ -112,12 +110,12 @@ function EventPage() {
                                     <button
                                         onClick={() =>
                                             router.push(
-                                                `/event/${eventId}/payment`
+                                                `/event/${event.event_id}/registration`
                                             )
                                         }
                                         className="px-6 py-2 bg-[color:var(--darker-secondary-color)] text-white rounded hover:bg-[color:var(--secondary-color)] focus:outline-none"
                                     >
-                                        Buy Tickets
+                                        Registrations
                                     </button>
                                 </div>
                             </div>
@@ -210,4 +208,4 @@ function EventPage() {
         );
 }
 
-export default EventPage;
+export default AdminEventPage;

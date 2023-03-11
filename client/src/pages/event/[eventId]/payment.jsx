@@ -2,11 +2,21 @@ import NavBar from "@/components/UserNavBar";
 import { getUserToken } from "@/utils/getUserToken";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import StripeCheckout from "react-stripe-checkout";
 
 export default function payment() {
+    
     const router = useRouter();
+
+    // const [eventDetails, setEventDetails] = useState({ name: "", price: "" });
+    const [name, setName] = useState("");
+    const [price, setPrice] = useState("");
+    const [product, setProduct] = useState({
+        name: "",
+        price: "",
+        description: "",
+    });
 
     const now = new Date();
     const future = new Date(now.getFullYear() + 2, now.getMonth());
@@ -18,18 +28,55 @@ export default function payment() {
 
     // Get Event-Id from URL
     const event_id = router.query.eventId;
-    console.log(event_id);
+    // console.log(event_id);
 
-    const [product] = useState({
-        name: "Event_Name",
-        price: 100,
-        description: "Pay Rs. 100 for the most awaited event, Event_Name",
-    });
+    useEffect(() => {
+        const fetchEvent = async () => {
+            try {
+            const response = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}/getevent`,
+                {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    event_id: event_id,
+                }),
+                }
+            );
+            if (response.ok) {
+                const data = await response.json();
+                setName(data.name);
+                setPrice(data.price);
+            } else {
+                throw new Error(`${response.status} ${response.statusText}`);
+            }
+            } catch (error) {
+            console.error("Error fetching event data:", error.message);
+            }
+        };
+
+        if (event_id) {
+            fetchEvent();
+        }
+    }, [event_id]);
+
+    useEffect(() => {
+    if (name && price && event_id) {
+        setProduct({
+        name: name,
+        price: price,
+        description: `Pay Rs. ${price} for the most awaited event, ${name}`,
+        });
+    }
+    }, [name, price, event_id]);
 
     const handleToken = async (event, token, addresses) => {
         // Fetching user_token cookie value in user_id
         const user_id = getUserToken();
-        console.log("Payment gateway cookie fetch - ", user_id);
+
+        // console.log("Payment gateway cookie fetch - ", user_id);
         try {
             const response = await fetch(
                 `${process.env.NEXT_PUBLIC_API_URL}/payment`,
@@ -49,10 +96,17 @@ export default function payment() {
             );
             const data = await response.json();
             console.log(data);
+            if (data.status === "success") {
+                router.push("/users/dashboard");
+            } else {
+                console.error(`Failed with status code ${response.status}`);
+            }
         } catch (error) {
             console.error(error);
         }
     };
+
+    
 
     return (
         <div className="pt-20 lg:pt-8">
