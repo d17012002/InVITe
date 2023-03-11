@@ -15,9 +15,7 @@ function FeaturesZigzag({ images }) {
                             One product, unlimited solutions
                         </h1>
                         <p className="text-xl text-gray-500">
-                            Excepteur sint occaecat cupidatat non proident, sunt
-                            in culpa qui officia deserunt mollit laborum —
-                            semper quis lectus nulla.
+                        Our platform provides a range of features, including event creation and the ability to take registrations, all while accommodating multiple admins.
                         </p>
                     </div>
 
@@ -45,16 +43,13 @@ function FeaturesZigzag({ images }) {
                             >
                                 <div className="md:pr-4 lg:pr-12 xl:pr-16">
                                     <div className="text-xl text-[color:var(--darker-secondary-color)] mb-2">
-                                        More speed. Less spend
+                                        More speed. High efficiency
                                     </div>
                                     <h3 className="h3 mb-3">
-                                        Keep projects on schedule
+                                        Keep events on schedule
                                     </h3>
                                     <p className="text-xl text-gray-500 mb-4">
-                                        Lorem ipsum dolor sit amet, consectetur
-                                        adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna
-                                        aliqua.
+                                    In order to organize an event, you must log in as an event manager. The platform owner can assign event managers, or you may use test credentials. After logging in, you can begin managing the event.
                                     </p>
                                     <ul className="text-lg text-gray-500 -mb-2">
                                         <li className="flex items-center mb-2">
@@ -62,22 +57,21 @@ function FeaturesZigzag({ images }) {
                                                 className="w-3 h-3 text-green-500 mr-2"
                                             />
                                             <span>
-                                                Duis aute irure dolor in
-                                                reprehenderit
+                                                You will have your own dashboard
                                             </span>
                                         </li>
                                         <li className="flex items-center mb-2">
                                             <FaCheck
                                                 className="w-3 h-3 text-green-500 mr-2"
                                             />
-                                            <span>Excepteur sint occaecat</span>
+                                            <span>Fill details and schedule your events</span>
                                         </li>
                                         <li className="flex items-center">
                                             <FaCheck
                                                 className="w-3 h-3 text-green-500 mr-2"
                                             />
                                             <span>
-                                                Amet consectetur adipiscing elit
+                                                Secure and quick access
                                             </span>
                                         </li>
                                     </ul>
@@ -107,16 +101,13 @@ function FeaturesZigzag({ images }) {
                             >
                                 <div className="md:pl-4 lg:pl-12 xl:pl-16">
                                     <div className="font-architects-daughter text-xl text-[color:var(--darker-secondary-color)] mb-2">
-                                        More speed. Less spend
+                                        Super easy. Quick booking
                                     </div>
                                     <h3 className="h3 mb-3">
-                                        Keep projects on schedule
+                                        Book your favourite shows
                                     </h3>
                                     <p className="text-xl text-gray-500 mb-4">
-                                        Lorem ipsum dolor sit amet, consectetur
-                                        adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna
-                                        aliqua.
+                                    On users dashboard, users can view all available events, select their preferred event, and proceed with the booking process.
                                     </p>
                                     <ul className="text-lg text-gray-500 -mb-2">
                                         <li className="flex items-center mb-2">
@@ -124,22 +115,21 @@ function FeaturesZigzag({ images }) {
                                                 className="w-3 h-3 text-green-500 mr-2"
                                             />
                                             <span>
-                                                Duis aute irure dolor in
-                                                reprehenderit
+                                                Generate online tickets for the event
                                             </span>
                                         </li>
                                         <li className="flex items-center mb-2">
                                             <FaCheck
                                                 className="w-3 h-3 text-green-500 mr-2"
                                             />
-                                            <span>Excepteur sint occaecat</span>
+                                            <span>Make online payment through cards</span>
                                         </li>
                                         <li className="flex items-center">
                                             <FaCheck
                                                 className="w-3 h-3 text-green-500 mr-2"
                                             />
                                             <span>
-                                                Amet consectetur adipiscing elit
+                                            Stay informed about the events you've registered for.
                                             </span>
                                         </li>
                                     </ul>
@@ -169,16 +159,13 @@ function FeaturesZigzag({ images }) {
                             >
                                 <div className="md:pr-4 lg:pr-12 xl:pr-16">
                                     <div className="font-architects-daughter text-xl text-[color:var(--darker-secondary-color)] mb-2">
-                                        More speed. Less spend
+                                        Less effort. More work
                                     </div>
                                     <h3 className="h3 mb-3">
-                                        Keep projects on schedule
+                                    Track check-in/check-out
                                     </h3>
                                     <p className="text-xl text-gray-500 mb-4">
-                                        Lorem ipsum dolor sit amet, consectetur
-                                        adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna
-                                        aliqua.
+                                    Effortlessly monitor event participants and their details with our platform, and simplify the check-in and check-out process with our convenient features. 
                                     </p>
                                     <ul className="text-lg text-gray-500 -mb-2">
                                         <li className="flex items-center mb-2">
@@ -186,22 +173,21 @@ function FeaturesZigzag({ images }) {
                                                 className="w-3 h-3 text-green-500 mr-2"
                                             />
                                             <span>
-                                                Duis aute irure dolor in
-                                                reprehenderit
+                                                Automate manual work
                                             </span>
                                         </li>
                                         <li className="flex items-center mb-2">
                                             <FaCheck
                                                 className="w-3 h-3 text-green-500 mr-2"
                                             />
-                                            <span>Excepteur sint occaecat</span>
+                                            <span>Improves the security at venue</span>
                                         </li>
                                         <li className="flex items-center">
                                             <FaCheck
                                                 className="w-3 h-3 text-green-500 mr-2"
                                             />
                                             <span>
-                                                Amet consectetur adipiscing elit
+                                                Keeping track of all attendees
                                             </span>
                                         </li>
                                     </ul>

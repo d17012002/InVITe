@@ -22,9 +22,7 @@ function HeroHome() {
                             </p>
                         </h1>
                         <p className="text-2xl text-gray-500 mb-8">
-                            Our landing page template works on all devices, so
-                            you only have to set it up once, and get beautiful
-                            results forever.
+                            "Bringing Your Events to Life: Simplified Registration, Seamless Management, and Easy Ticketing."
                         </p>
                         <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center">
                             <div>
