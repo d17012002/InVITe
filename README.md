@@ -34,10 +34,11 @@ Then navigate to the project's root directory. The project consists of three fol
 Before starting the servers, make sure to install the dependencies by running the command: <code>npm install</code> in all three folders.
 <br>
 
--   For the client-side, start the server by running the command: <code>npm run dev</code><br>
--   For the server-side, start the server by running the command: <code>nodemon index.js</code><br>
--   For the developer-side, start the server by running the command: <code>npm run dev</code><br>
-<br>
+- For the client-side, start the server by running the command: `<code>`npm run dev`</code><br>`
+- For the server-side, start the server by running the command: `<code>`nodemon index.js`</code><br>`
+- For the developer-side, start the server by running the command: `<code>`npm run dev`</code><br>`
+  `<br>`
+
 <h1>👉 How to use the site</h1>
 Our event management system has three main components:
 
@@ -54,37 +55,37 @@ Our team consists of:
 <ul>
   <li><strong>Anurag Kumar Singh:</strong>  
   Connect with Anurag on 
-  <a href="https://www.linkedin.com/in/anurag-kumar-singh/">
+  <a href="https://www.linkedin.com/in/anuragkumar17/">
   LinkedIn
   </a> and 
-  <a href="https://github.com/anuragkumarsingh6">
+  <a href="https://github.com/d17012002">
   GitHub
   </a>, or visit his 
-  <a href="https://anuragkumarsingh.netlify.app/">
+  <a href="https://d17012002.github.io/Protfolio-Sample/">
   personal website
   </a>.
   </li>
   <li><strong>Devanshu Yadav:</strong>
   Connect with Devanshu on 
-  <a href="https://www.linkedin.com/in/anurag-kumar-singh/">
+  <a href="https://www.linkedin.com/in/devanshuyadav16/">
   LinkedIn
   </a> and 
-  <a href="https://github.com/anuragkumarsingh6">
+  <a href="https://github.com/devanshuyadav">
   GitHub
   </a>, or visit his 
-  <a href="https://anuragkumarsingh.netlify.app/">
+  <a href="https://devanshuyadav.vercel.app/">
   personal website
   </a>.
   </li>
   <li><strong>Saksham Gupta:</strong>
   Connect with Saksham on 
-  <a href="https://www.linkedin.com/in/anurag-kumar-singh/">
+  <a href="https://www.linkedin.com/in/sakshguptavit/">
   LinkedIn
   </a> and 
-  <a href="https://github.com/anuragkumarsingh6">
+  <a href="https://github.com/sakshgupta">
   GitHub
   </a>, or visit his 
-  <a href="https://anuragkumarsingh.netlify.app/">
+  <a href="https://sakshgupta.vercel.app/">
   personal website
   </a>.
   </li>

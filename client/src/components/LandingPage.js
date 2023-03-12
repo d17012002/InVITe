@@ -2,10 +2,10 @@ import Developers from "@/components/Landing_Page_partials/Developers";
 import FeaturesZigZag from "@/components/Landing_Page_partials/FeaturesZigZag";
 import Header from "@/components/Landing_Page_partials/Header";
 import HeroHome from "@/components/Landing_Page_partials/HeroHome";
-import LandingPageImages from "@/utils/landing_page_images";
+import LandingPageDevelopers from "@/utils/landing_page_developers";
 import React from "react";
 
-const [feature1, feature2, feature3, dev1, dev2, dev3] = LandingPageImages;
+const [feature1, feature2, feature3, dev1, dev2, dev3] = LandingPageDevelopers;
 
 function LandingPage() {
     return (
