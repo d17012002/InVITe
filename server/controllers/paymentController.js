@@ -77,25 +77,35 @@ const payment = async (req, res) => {
       };
 
       console.log("All details before email: ", Details);
-      sendTicket(Details);
 
-      Event.updateOne(
-        { event_id: event.event_id },
-        {
-          $push: {
-            participants: {
-              name: docs[0].username,
-              email: docs[0].email,
-              passID: key,
-              regno: docs[0].reg_number,
-              entry: false,
-            },
-          },
-        },
-        function (err) {
-          if (err) {
-            console.log(err);
+      Event.findOne(
+        { event_id: event.event_id, participants: user.user_id },
+        function (err, doc) {
+          if (err) return handleError(err);
+          if (doc) {
+            console.log("Element already exists in array");
+            res.status(401).send({ msg: "alreadyregistered" });
           }
+
+          Event.updateOne(
+            { event_id: event.event_id },
+            {
+              $push: {
+                participants: {
+                  name: docs[0].username,
+                  email: docs[0].email,
+                  passID: key,
+                  regno: docs[0].reg_number,
+                  entry: false,
+                },
+              },
+            },
+            function (err) {
+              if (err) {
+                console.log(err);
+              }
+            }
+          );
         }
       );
     } else {
@@ -104,8 +114,6 @@ const payment = async (req, res) => {
     }
   });
 
-  //NOTE-
-  //add this user into events-> registerted people-> [(name, pass)] //no need to get from cookies
   Event.find({ event_id: event.event_id }, async function (err, events) {
     if (events.length !== 0) {
       User.updateOne(
@@ -121,6 +129,7 @@ const payment = async (req, res) => {
     }
   });
 
+  sendTicket(Details);
   res.send({ status });
 };
 
