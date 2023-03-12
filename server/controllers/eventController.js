@@ -106,8 +106,6 @@ const deleteEvent = async (req, res) => {
   const eventId = req.body.event_id;
   const adminId = req.body.admin_id;
 
-  console.log("Event id received that has to be deleted");
-
   Event.deleteOne({ event_id: eventId }, function (err) {
     if (err) return handleError(err);
     else {
@@ -128,9 +126,27 @@ const deleteEvent = async (req, res) => {
   res.status(200).send({msg: "success"});
 };
 
+
+const checkin = async(req, res) => {
+    const eventId = req.body.event_id;
+    const userList = req.body.checkInList;
+
+    for(let i=0; i<userList.length; i++) {
+        Event.updateOne({ event_id: eventId , 'participants.id': userList[i] }, { $set: { 'participants.$.entry': true } }, function (err) {
+            if (err) return handleError(err);
+            else {
+                console.log(`${userList[i]} :: checked-in`);
+            }
+        });
+    }
+
+    res.status(200).send({msg: 'success'});
+}
+
 module.exports = {
   postEvent,
   allEvents,
   particularEvent,
   deleteEvent,
+  checkin
 };
