@@ -31,12 +31,12 @@ To get started, download the zip file of the repository. Or use <br>
 <code>git clone https://github.com/d17012002/event-management</code><br>
 Then navigate to the project's root directory. The project consists of three folders: `client`, `server`, and `developer`.
 <br>
-Before starting the servers, make sure to install the dependencies by running the command: <code>npm install</code> in all three folders.
+Before starting the servers, make sure to install the dependencies by running the command: <code> npm install </code> in all three folders.
 <br>
 
-- For the client-side, start the server by running the command: `<code>`npm run dev`</code><br>`
-- For the server-side, start the server by running the command: `<code>`nodemon index.js`</code><br>`
-- For the developer-side, start the server by running the command: `<code>`npm run dev`</code><br>`
+- For the client-side, start the server by running the command: <code>npm run dev</code><br>
+- For the server-side, start the server by running the command: <code>nodemon index.js</code><br>
+- For the developer-side, start the server by running the command: <code>npm run dev</code><br>
   `<br>`
 
 <h1>👉 How to use the site</h1>
