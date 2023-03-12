@@ -65,7 +65,7 @@ function UserDashboard() {
             <UserNavBar />
             <div className="flex m-auto">
                 <div className="flex mx-auto container ">
-                    <div className="flex m-auto overflow-y-hidden w-full h-[calc(88vh)]">
+                    <div className="flex m-auto gap-4 lg:gap-8  overflow-y-hidden w-full h-[calc(88vh)]">
                         {/* Render the regular filter for medium screens and above */}
                         <div className="hidden md:flex flex-col p-4 sticky top-0 w-1/6 md:w-1/4">
                             <Dashboard_Filter
@@ -91,7 +91,7 @@ function UserDashboard() {
                         )}
                         {/* Render the main content of the dashboard */}
                         <div className="flex w-full md:w-3/4 mx-auto justify-between container">
-                            <div className="p-4 overflow-y-auto h-[calc(80vh)]">
+                            <div className="p-4 overflow-y-auto w-full h-[calc(80vh)]">
                                 <h2 className="text-lg font-medium mb-4">
                                     Events
                                 </h2>

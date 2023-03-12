@@ -92,7 +92,7 @@ function UserDashboard() {
                         )}
                         {/* Render the main content of the dashboard */}
                         <div className="flex w-full md:w-3/4 mx-auto justify-between container">
-                            <div className="p-4 overflow-y-auto h-[calc(80vh)]">
+                            <div className="p-4 overflow-y-auto w-full h-[calc(80vh)]">
                                 <h2 className="text-lg font-medium mb-4">
                                     Events
                                 </h2>

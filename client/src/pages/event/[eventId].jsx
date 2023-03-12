@@ -135,7 +135,14 @@ function EventPage() {
                                     <button className="px-6 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 focus:outline-none mr-4">
                                         Add to Wishlist
                                     </button>
-                                    <button className="px-6 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 focus:outline-none">
+                                    <button
+                                        onClick={() => {
+                                            navigator.clipboard.writeText(
+                                                window.location.href
+                                            );
+                                        }}
+                                        className="px-6 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 focus:outline-none"
+                                    >
                                         Share
                                     </button>
                                 </div>
@@ -191,13 +198,20 @@ function EventPage() {
                                                 <span className="w-1/3 text-center">
                                                     ₹{item.price}
                                                 </span>
-                                                <button className="w-1/3 bg-[color:var(--darker-secondary-color)] hover:bg-[color:var(--secondary-color)] text-white py-1 px-2 rounded-md text-sm transition duration-300 ease-in-out">
+                                                <button
+                                                    onClick={() =>
+                                                        router.push(
+                                                            `/event/${eventId}/payment`
+                                                        )
+                                                    }
+                                                    className="w-1/3 bg-[color:var(--darker-secondary-color)] hover:bg-[color:var(--secondary-color)] text-white py-1 px-2 rounded-md text-sm transition duration-300 ease-in-out"
+                                                >
                                                     Buy Now
                                                 </button>
                                             </li>
                                         ))}
                                     </ul>
-                                    <p className="text-sm text-gray-600 mt-6">
+                                    <p className="text-sm text-[color:var(--darker-secondary-color)] mt-6">
                                         *Caution: All ticket sales are final and
                                         non-refundable.
                                     </p>

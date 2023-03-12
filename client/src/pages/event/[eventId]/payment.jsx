@@ -98,7 +98,12 @@ export default function payment() {
             console.log(data);
             if (data.status === "success") {
                 router.push("/users/dashboard");
-            } else {
+            }
+            else if(data.status === "alreadyregistered"){
+                alert("User is already registered.");
+                router.push("/users/dashboard");
+            }
+            else {
                 console.error(`Failed with status code ${response.status}`);
             }
         } catch (error) {

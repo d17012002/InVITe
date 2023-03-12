@@ -1,4 +1,5 @@
 import AdminNavBar from "@/components/AdminNavBar";
+import { getAdminToken } from "@/utils/getAdminToken";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -8,6 +9,40 @@ function AdminEventPage() {
     const router = useRouter();
     const eventId = router.query.eventId;
     const [eventData, setEventData] = useState([]);
+    const createdAt = eventData.createdAt;
+    const date = new Date(createdAt);
+    const adminId = getAdminToken();
+
+    const dateString = date.toLocaleDateString();
+    const timeString = date.toLocaleTimeString("en-US", { hour12: false });
+
+    const deleteEvent = async () => {
+        try {
+            const response = await fetch(
+                `${process.env.NEXT_PUBLIC_API_URL}/deleteevent`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        event_id: eventId,
+                        admin_id: adminId,
+                    }),
+                }
+            );
+            if (response.ok) {
+                const data = await response.json();
+                if(data.msg == "success"){
+                    router.push("/admin/dashboard");
+                }
+            } else {
+                throw new Error(`${response.status} ${response.statusText}`);
+            }
+        } catch (error) {
+            console.error("Error fetching event data:", error.message);
+        }
+    };
 
     const fetchEvent = async () => {
         try {
@@ -26,7 +61,6 @@ function AdminEventPage() {
             if (response.ok) {
                 const data = await response.json();
                 setEventData(data);
-                console.log(eventData.name);
             } else {
                 throw new Error(`${response.status} ${response.statusText}`);
             }
@@ -110,7 +144,7 @@ function AdminEventPage() {
                                     <button
                                         onClick={() =>
                                             router.push(
-                                                `/event/${event.event_id}/registration`
+                                                `/event/${eventData.event_id}/registration`
                                             )
                                         }
                                         className="px-6 py-2 bg-[color:var(--darker-secondary-color)] text-white rounded hover:bg-[color:var(--secondary-color)] focus:outline-none"
@@ -133,7 +167,14 @@ function AdminEventPage() {
                                     <button className="px-6 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 focus:outline-none mr-4">
                                         Add to Wishlist
                                     </button>
-                                    <button className="px-6 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 focus:outline-none">
+                                    <button
+                                        onClick={() => {
+                                            navigator.clipboard.writeText(
+                                                window.location.href
+                                            );
+                                        }}
+                                        className="px-6 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 focus:outline-none"
+                                    >
                                         Share
                                     </button>
                                 </div>
@@ -162,42 +203,43 @@ function AdminEventPage() {
                                 </div>
                                 <div className="mb-4 bg-white px-6 py-4 rounded-lg shadow-md">
                                     <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                                        Ticket Prices
+                                        Event Overview
                                     </h3>
                                     <ul className="text-gray-600">
                                         {[
                                             {
-                                                type: "General*",
-                                                price: eventData.price,
+                                                type: "Total Registrations",
+                                                price: eventData.participants
+                                                    .length,
                                             },
                                             {
-                                                type: "VIP*",
-                                                price: 2 * eventData.price,
-                                            },
-                                            {
-                                                type: "VVIP*",
-                                                price: 4 * eventData.price,
+                                                type: "Event Created At",
+                                                price: `${dateString} at ${timeString}`,
                                             },
                                         ].map((item, index) => (
                                             <li
                                                 className="flex items-center h-16 py-1 rounded-md p-4 mb-2 hover:shadow-md"
                                                 key={index}
                                             >
-                                                <span className="w-1/3">
+                                                <span className="w-1/2">
                                                     {item.type}
                                                 </span>
-                                                <span className="w-1/3 text-center">
-                                                    ₹{item.price}
+                                                <span className="w-1/2 text-center">
+                                                    {item.price}
                                                 </span>
-                                                <button className="w-1/3 bg-[color:var(--darker-secondary-color)] hover:bg-[color:var(--secondary-color)] text-white py-1 px-2 rounded-md text-sm transition duration-300 ease-in-out">
-                                                    Buy Now
-                                                </button>
                                             </li>
                                         ))}
+                                        <li className="flex items-center h-16 py-1 rounded-md p-4 mb-2 hover:shadow-md">
+                                            <button
+                                                onClick={deleteEvent}
+                                                className="w-full bg-[color:var(--darker-secondary-color)] hover:bg-[color:var(--secondary-color)] text-white py-1 px-2 rounded-md text-sm transition duration-300 ease-in-out"
+                                            >
+                                                Delete this event
+                                            </button>
+                                        </li>
                                     </ul>
-                                    <p className="text-sm text-gray-600 mt-6">
-                                        *Caution: All ticket sales are final and
-                                        non-refundable.
+                                    <p className="text-sm text-[color:var(--darker-secondary-color)] mt-6">
+                                        *Caution: This action will permanently delete the event and all associated data. Are you sure you want to proceed?
                                     </p>
                                 </div>
                             </div>
