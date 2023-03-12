@@ -1,5 +1,4 @@
-
-<h1> Event Management System ✨</h1>
+<h1> InVITe | Event Management System</h1>
 Welcome to our automated event management system, where you can easily organize events, manage registrations, and book tickets, all with just a few clicks. This system provides a hassle-free experience for both event organizers and attendees, making event management a breeze.
 <br>
 
@@ -10,6 +9,7 @@ Welcome to our automated event management system, where you can easily organize 
 <li><strong>Ticket Booking:</strong> Enable attendees to book tickets for events online.</li>
 <li><strong>Email Notifications:</strong> Send automated emails for event registrations and bookings, which are sent directly to attendees' email addresses.</li>
 <li><strong>Attendee Tracking:</strong> Keep track of attendees and monitor check-in and check-out times.</li>
+<li><strong>Admin Management:</strong> Product managers can add admins that can create and manage events.</li>
 </ul>
 
 <h2>Technologies Used</h2>
@@ -27,18 +27,74 @@ Our event management system is built on a microservice architecture. This allows
 <br>
 <br>
 <h1>🚀 Getting Started</h1>
-To get started, download the zip file of the repository. Or use <code>git clone https://github.com/d17012002/event-management</code>.
-Then navigate to the project's root directory. The project consists of three folders: `client-side`, `server-side`, and `developer-side`.
-<br><br>
+To get started, download the zip file of the repository. Or use <br>
+<code>git clone https://github.com/d17012002/event-management</code><br>
+Then navigate to the project's root directory. The project consists of three folders: `client`, `server`, and `developer`.
+<br>
+Before starting the servers, make sure to install the dependencies by running the command: <code>npm install</code> in all three folders.
+<br>
 
-- For the client-side, start the server by running the command: <code>npm run dev</code><br>
-- For the server-side, start the server by running the command: <code>nodemon index.js</code><br>
-- For the developer-side, start the server by running the command: <code>npm start</code><br>
+-   For the client-side, start the server by running the command: <code>npm run dev</code><br>
+-   For the server-side, start the server by running the command: <code>nodemon index.js</code><br>
+-   For the developer-side, start the server by running the command: <code>npm run dev</code><br>
+<br>
+<h1>👉 How to use the site</h1>
+Our event management system has three main components:
 
-Make sure to install all the required node modules by running the command <code>npm install</code> in each of the three folders.
+<ul>
+  <li><strong>User:</strong> Users can sign in or sign up and access the user dashboard to view and register for events.</li>
+  <li><strong>Admin:</strong> Admins can log in to create events, view their events, and manage registrations for their events.</li>
+  <li><strong>Developer:</strong> Developers can access the developer site to create new admins (later this feature will be available only to product managers).</li>
+</ul>
 
-<h2>🙌 Contributions</h2>
+<br>
+<h1>👥 Our Team</h1>
+Our team consists of:
+
+<ul>
+  <li><strong>Anurag Kumar Singh:</strong>  
+  Connect with Anurag on 
+  <a href="https://www.linkedin.com/in/anurag-kumar-singh/">
+  LinkedIn
+  </a> and 
+  <a href="https://github.com/anuragkumarsingh6">
+  GitHub
+  </a>, or visit his 
+  <a href="https://anuragkumarsingh.netlify.app/">
+  personal website
+  </a>.
+  </li>
+  <li><strong>Devanshu Yadav:</strong>
+  Connect with Devanshu on 
+  <a href="https://www.linkedin.com/in/anurag-kumar-singh/">
+  LinkedIn
+  </a> and 
+  <a href="https://github.com/anuragkumarsingh6">
+  GitHub
+  </a>, or visit his 
+  <a href="https://anuragkumarsingh.netlify.app/">
+  personal website
+  </a>.
+  </li>
+  <li><strong>Saksham Gupta:</strong>
+  Connect with Saksham on 
+  <a href="https://www.linkedin.com/in/anurag-kumar-singh/">
+  LinkedIn
+  </a> and 
+  <a href="https://github.com/anuragkumarsingh6">
+  GitHub
+  </a>, or visit his 
+  <a href="https://anuragkumarsingh.netlify.app/">
+  personal website
+  </a>.
+  </li>
+</ul>
+<br>
+
+<h1>🙌 Contributions</h1>
 We welcome contributions to our project. If you have any suggestions or improvements, feel free to submit a pull request or open an issue.
+<br>
+<br>
 
-<h2>📜 License</h2>
+<h1>📜 License</h1>
 This project is licensed under the MIT License - see the LICENSE.md file for details.

@@ -17,7 +17,7 @@ const Images = [
     {
         id: 3,
         src: "/img/landing_page_images/dev-01.jpg",
-        title: "Anurag Kumar",
+        title: "Anurag Kumar Singh",
         role: "FullStack Dev",
         linkedinUrl: "https://www.linkedin.com/in/anuragkumar17/",
         githubUrl: "https://github.com/d17012002",
