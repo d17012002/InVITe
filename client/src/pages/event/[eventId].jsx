@@ -227,7 +227,7 @@ function EventPage() {
                                                             `/event/${eventId}/payment`
                                                         )
                                                     }
-                                                    className={`px-6 py-2 ${
+                                                    className={`px-3 py-2 ${
                                                         isUserRegistered
                                                             ? "bg-gray-700 hover:bg-gray-800"
                                                             : "bg-[color:var(--darker-secondary-color)] hover:bg-[color:var(--secondary-color)]"

@@ -176,6 +176,7 @@ const CreateEvent = () => {
                                 id="price"
                                 name="price"
                                 min="0"
+                                max="3000"
                                 className="adminDropDownInput"
                                 value={formData.price}
                                 onChange={handleChange}
