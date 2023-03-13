@@ -14,14 +14,17 @@ const eventRouter = require("./routes/eventRoutes")
 const checkInRouter = require("./routes/checkInRoutes")
 
 dotenv.config();
-
+console.log("in index - ", process.env.MONGO_ATLAS_URI);
 //database url
 mongoose
-  .connect("mongodb+srv://event:event123@cluster0.kihuz5y.mongodb.net/?retryWrites=true&w=majority")
-  .then(() => {})
-  .catch((err) => {
-    console.log(err);
-  });
+    .connect(process.env.MONGO_ATLAS_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
+    .then(() => {})
+    .catch((err) => {
+        console.log(err);
+    });
 
 require("./models/otpAuth");
 require("./models/user");

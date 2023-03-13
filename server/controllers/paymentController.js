@@ -3,6 +3,8 @@ const express = require("express");
 const app = express();
 const User = require("../models/user");
 const { Event } = require("../models/event");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
@@ -13,9 +15,7 @@ app.use(cookieParser());
 // );
 
 // test
-const stripe = require("stripe")(
-    "sk_test_51MchbUSHgjbJVeCEdGCirq8uGLo5Knir0um3cb2F39N2zn93vVS2KDhMC677E2R663FVJn6SZpQHAZ6ix5Yzexee00ecaOYnSG"
-);
+const stripe = require("stripe")(process.env.STRIPE_KEY);
 
 const uuid = require("uuid").v4;
 

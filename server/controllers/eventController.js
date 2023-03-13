@@ -1,8 +1,10 @@
 const { Event } = require("../models/event");
 const Admin = require("../models/admin");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const jwt = require("jsonwebtoken");
-const JWT_SECRET = "InVITe event super secret key here...";
+const JWT_SECRET = process.env.JWT_SECRET;
 
 const postEvent = async (req, res) => {
   const Name = req.body.name;

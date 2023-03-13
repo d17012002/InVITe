@@ -1,11 +1,13 @@
 const nodemailer = require("nodemailer");
+const dotenv = require("dotenv");
+dotenv.config();
 
 function sendCheckInMail(data) {
     let transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
-            user: "the4musketeeers@gmail.com",
-            pass: "jyestailmwokdibd",
+            user: process.env.NODE_MAILER_USER,
+            pass: process.env.NODE_MAILER_PASS,
         },
         tls: {
             rejectUnauthorized: false,
@@ -13,7 +15,7 @@ function sendCheckInMail(data) {
     });
 
     let mailOptions = {
-        from: "the4musketeeers@gmail.com",
+        from: process.env.NODE_MAILER_USER,
         to: data.email,
         subject: `${data.name} You've Checked In - InVITe`,
         html: `Dear ${data.name},<br><br>
