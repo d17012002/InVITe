@@ -1,52 +1,10 @@
 const { Event } = require("../models/event");
 const Admin = require("../models/admin");
-const User = require("../models/user");
-
+const dotenv = require("dotenv");
+dotenv.config();
 
 const jwt = require("jsonwebtoken");
-const JWT_SECRET = "InVITe event super secret key here...";
-
-const nodemailer = require("nodemailer");
-
-function sendCheckInMail(data) {
-    let transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-            user: "the4musketeeers@gmail.com",
-            pass: "jyestailmwokdibd",
-        },
-        tls: {
-            rejectUnauthorized: false,
-        },
-    });
-
-    let mailOptions = {
-        from: "the4musketeeers@gmail.com",
-        to: data.email,
-        subject: `${data.name} You've Checked In - InVITe`,
-        html: `Dear ${data.name},<br><br>
-           <strong>Congratulations, you've successfully checked in to our event! Have fun and do visit us again.</strong>.<br><br>
-           Name: ${data.name}<br>
-           Registration Number: ${data.regNo}<br>
-           Contact Number: ${data.number}<br><br>
-           If you have any questions or concerns, please don't hesitate to contact us:<br>
-           Anurag Singh: 2002anuragksingh@gmail.com<br>
-           Devanshu Yadav: devanshu.yadav2020@vitbhopal.ac.in<br>
-           Saksham Gupta: saksham.gupta2020@vitbhopal.ac.in<br><br>
-           Thank you for choosing InVITe!<br><br>
-           Best regards,<br>
-           The InVITe Team`,
-    };
-
-    transporter.sendMail(mailOptions, function (err, success) {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log("Checked In Email sent successfully");
-        }
-    });
-}
-
+const JWT_SECRET = process.env.JWT_SECRET;
 
 const postEvent = async (req, res) => {
   const Name = req.body.name;

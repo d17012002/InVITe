@@ -1,6 +1,8 @@
 const Admin = require("../models/admin");
 const jwt = require("jsonwebtoken");
-const JWT_SECRET = "InVITe admin super secret key here...";
+const dotenv = require("dotenv");
+dotenv.config();
+const JWT_SECRET = process.env.JWT_SECRET;
 
 const setAdmin = async (req, res) => {
     const secret = JWT_SECRET;
@@ -31,37 +33,33 @@ const adminAuth = async (req, res) => {
 
     Admin.find({ email: Email }, async function (err, docs) {
         if (docs.length === 0) {
-            return res.status(400).send({msg: "Admin access denied"});
+            return res.status(400).send({ msg: "Admin access denied" });
         } else if (Pass === docs[0].pass) {
             res.status(200).send({
                 msg: "Success",
                 admin_token: docs[0].admin_id,
             });
-        }
-        else{
+        } else {
             return res.status(400).send({ msg: "Email or Password is wrong" });
         }
     });
 };
 
-
-const adminDetails = async(req, res) => {
+const adminDetails = async (req, res) => {
     const admin_token = req.body.admin_id;
 
-    Admin.find({admin_id: admin_token}, async function(err, docs){
-        if(err) {
+    Admin.find({ admin_id: admin_token }, async function (err, docs) {
+        if (err) {
             console.log(err);
-            res.status(400).send({msg: "No such admin exists"});
-        }
-        else {
+            res.status(400).send({ msg: "No such admin exists" });
+        } else {
             res.status(200).send(docs[0]);
         }
-    })
-}
-
+    });
+};
 
 module.exports = {
     setAdmin,
     adminAuth,
-    adminDetails
+    adminDetails,
 };
