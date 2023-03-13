@@ -10,6 +10,7 @@ export default function NavBar() {
     const userIdCookie = getUserToken();
     const [userData, setUserData] = useState({});
 
+    // fetch the user data as soon as the page loads
     const fetchUserData = async () => {
         // If cookie was manually removed from browser
         if (!userIdCookie) {
@@ -71,9 +72,7 @@ export default function NavBar() {
                     <nav className="text-sm">
                         <ul className="flex items-center">
                             <li
-                                onClick={() =>
-                                    router.push("/users/dashboard")
-                                }
+                                onClick={() => router.push("/users/dashboard")}
                                 className="mr-4 cursor-pointer"
                             >
                                 <a>Dashboard</a>

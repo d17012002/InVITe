@@ -16,7 +16,28 @@ function AdminEventPage() {
     const dateString = date.toLocaleDateString();
     const timeString = date.toLocaleTimeString("en-US", { hour12: false });
 
+    // function to handle share button click
+    const share = () => {
+        if (navigator.share) {
+            navigator
+                .share({
+                    title: eventData.name,
+                    text: "Check out this event!",
+                    url: window.location.href,
+                })
+                .then(() => console.log("Successful share"))
+                .catch((error) => console.log("Error sharing", error));
+        }
+    };
+
+    // function to handle delete event button click
     const deleteEvent = async () => {
+        const confirmDelete = window.confirm(
+            "This action will permanently delete the event and all associated data. Do you want to continue?"
+        );
+        if (!confirmDelete) {
+            return;
+        }
         try {
             const response = await fetch(
                 `${process.env.NEXT_PUBLIC_API_URL}/deleteevent`,
@@ -44,6 +65,7 @@ function AdminEventPage() {
         }
     };
 
+    // function that fetches the event data on load
     const fetchEvent = async () => {
         try {
             const response = await fetch(
@@ -164,15 +186,8 @@ function AdminEventPage() {
                                     </p>
                                 </div>
                                 <div className="flex mt-4 md:mt-0">
-                                    <button className="px-6 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 focus:outline-none mr-4">
-                                        Add to Wishlist
-                                    </button>
                                     <button
-                                        onClick={() => {
-                                            navigator.clipboard.writeText(
-                                                window.location.href
-                                            );
-                                        }}
+                                        onClick={share}
                                         className="px-6 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 focus:outline-none"
                                     >
                                         Share
@@ -229,7 +244,7 @@ function AdminEventPage() {
                                                 </span>
                                             </li>
                                         ))}
-                                        <li className="flex items-center h-16 py-1 rounded-md p-4 mb-2 hover:shadow-md">
+                                        <li className="flex items-center h-16 py-1 rounded-md p-4 mb-2">
                                             <button
                                                 onClick={deleteEvent}
                                                 className="w-full bg-[color:var(--darker-secondary-color)] hover:bg-[color:var(--secondary-color)] text-white py-1 px-2 rounded-md text-sm transition duration-300 ease-in-out"
@@ -239,7 +254,9 @@ function AdminEventPage() {
                                         </li>
                                     </ul>
                                     <p className="text-sm text-[color:var(--darker-secondary-color)] mt-6">
-                                        *Caution: This action will permanently delete the event and all associated data. Are you sure you want to proceed?
+                                        *Caution: This action will permanently
+                                        delete the event and all associated
+                                        data. Are you sure you want to proceed?
                                     </p>
                                 </div>
                             </div>

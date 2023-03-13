@@ -172,6 +172,15 @@ export default function signin({ adminIdCookie }) {
                                     }
                                 />
 
+                                <p className="text-sm text-gray-700 mt-6">
+                                    *You have the option to designate yourself
+                                    as an admin for testing purposes by
+                                    following this {" "}
+                                    <a href="http://localhost:3001" target="_blank" className = "text-[color:var(--darker-secondary-color)]">
+                                        link.
+                                    </a>
+                                </p>
+
                                 <button
                                     type="submit"
                                     className="btn text-white bg-[color:var(--darker-secondary-color)] hover:bg-[color:var(--secondary-color)] w-full mt-4 mb-4 sm:w-auto sm:mb-0"

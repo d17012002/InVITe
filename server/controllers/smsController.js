@@ -13,10 +13,10 @@ function sendSMS(Email, otp) {
   });
 
   let mailOptions = {
-    from: "the4musketeeers@gmail.com",
-    to: Email,
-    subject: "One Time Password - InVITe✨",
-    html: `Do not share your secret otp with anyone. Otp will be valid for 5 mins only. <br><strong>OTP: ${otp}</strong><br><br>Thankyou for choosing us!<br><br>For any queries contact us at ☎:<br>Anurag Singh: 2002anuragksingh@gmail.com<br>Devanshu Yadav: devanshu.yadav2020@vitbhopal.ac.in<br>Saksham Gupta: saksham.gupta2020@vitbhopal.ac.in`,
+      from: "the4musketeeers@gmail.com",
+      to: Email,
+      subject: "One Time Password - InVITe",
+      html: `Please keep your OTP confidential and do not share it with anyone. The OTP will be valid for five minutes only. <br><strong>OTP: ${otp}</strong><br><br>Thank you for choosing InVITe!<br><br>If you have any questions, please contact us at:<br>Anurag Singh: 2002anuragksingh@gmail.com<br>Devanshu Yadav: devanshu.yadav2020@vitbhopal.ac.in<br>Saksham Gupta: saksham.gupta2020@vitbhopal.ac.in.`,
   };
 
   transporter.sendMail(mailOptions, function (err, success) {

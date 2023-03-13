@@ -1,4 +1,5 @@
 import UserNavBar from "@/components/UserNavBar";
+import { getUserToken } from "@/utils/getUserToken";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -7,8 +8,25 @@ import { useEffect, useState } from "react";
 function EventPage() {
     const router = useRouter();
     const eventId = router.query.eventId;
+    const userId = getUserToken();
     const [eventData, setEventData] = useState([]);
+    const [isUserRegistered, setIsUserRegistered] = useState(false);
 
+    // function to handle share button click
+    const share = () => {
+        if (navigator.share) {
+            navigator
+                .share({
+                    title: eventData.name,
+                    text: "Check out this event!",
+                    url: window.location.href,
+                })
+                .then(() => console.log("Successful share"))
+                .catch((error) => console.log("Error sharing", error));
+        }
+    };
+
+    // function that fetches the event data on load
     const fetchEvent = async () => {
         try {
             const response = await fetch(
@@ -26,7 +44,12 @@ function EventPage() {
             if (response.ok) {
                 const data = await response.json();
                 setEventData(data);
-                console.log(eventData.name);
+                // Check if the user's ID exists in the participants array
+                setIsUserRegistered(
+                    data.participants.some(
+                        (participant) => participant.id === userId
+                    )
+                );
             } else {
                 throw new Error(`${response.status} ${response.statusText}`);
             }
@@ -115,9 +138,16 @@ function EventPage() {
                                                 `/event/${eventId}/payment`
                                             )
                                         }
-                                        className="px-6 py-2 bg-[color:var(--darker-secondary-color)] text-white rounded hover:bg-[color:var(--secondary-color)] focus:outline-none"
+                                        className={`px-6 py-2 ${
+                                            isUserRegistered
+                                                ? "bg-gray-700 hover:bg-gray-800"
+                                                : "bg-[color:var(--darker-secondary-color)] hover:bg-[color:var(--secondary-color)]"
+                                        } text-white rounded focus:outline-none`}
+                                        disabled={isUserRegistered}
                                     >
-                                        Buy Tickets
+                                        {isUserRegistered
+                                            ? "Already Registered"
+                                            : "Buy Tickets"}
                                     </button>
                                 </div>
                             </div>
@@ -132,15 +162,8 @@ function EventPage() {
                                     </p>
                                 </div>
                                 <div className="flex mt-4 md:mt-0">
-                                    <button className="px-6 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 focus:outline-none mr-4">
-                                        Add to Wishlist
-                                    </button>
                                     <button
-                                        onClick={() => {
-                                            navigator.clipboard.writeText(
-                                                window.location.href
-                                            );
-                                        }}
+                                        onClick={share}
                                         className="px-6 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 focus:outline-none"
                                     >
                                         Share
@@ -204,9 +227,16 @@ function EventPage() {
                                                             `/event/${eventId}/payment`
                                                         )
                                                     }
-                                                    className="w-1/3 bg-[color:var(--darker-secondary-color)] hover:bg-[color:var(--secondary-color)] text-white py-1 px-2 rounded-md text-sm transition duration-300 ease-in-out"
+                                                    className={`px-6 py-2 ${
+                                                        isUserRegistered
+                                                            ? "bg-gray-700 hover:bg-gray-800"
+                                                            : "bg-[color:var(--darker-secondary-color)] hover:bg-[color:var(--secondary-color)]"
+                                                    } text-white rounded focus:outline-none`}
+                                                    disabled={isUserRegistered}
                                                 >
-                                                    Buy Now
+                                                    {isUserRegistered
+                                                        ? "Registered"
+                                                        : "Buy Tickets"}
                                                 </button>
                                             </li>
                                         ))}

@@ -14,7 +14,14 @@ function UserDashboard() {
 
     const [allEvents, setAllEvents] = useState([]);
     const adminIdCookie = getAdminToken();
-    // console.log(adminIdCookie);
+    const [popupFilterOpen, setPopupFilterOpen] = useState(false);
+    const [filterOptions, setFilterOptions] = useState({
+        keyword: "",
+        category: "",
+        dateRange: "",
+        price: [10, 100],
+    });
+    const [originalEvents, setOriginalEvents] = useState([]);
 
     const fetchAllEvents = async () => {
         const response = await fetch(
@@ -35,8 +42,8 @@ function UserDashboard() {
         // Admin Details fetched from API `/admin/details`
         try {
             const data = await response.json();
-            // console.log(data.eventCreated);
             setAllEvents(data.eventCreated);
+            setOriginalEvents(data.eventCreated);
         } catch (error) {
             console.error("Invalid JSON string:", error.message);
         }
@@ -46,19 +53,57 @@ function UserDashboard() {
         fetchAllEvents();
     }, []);
 
-    const [popupFilterOpen, setPopupFilterOpen] = useState(false);
-    const [filterOptions, setFilterOptions] = useState({
-        keyword: "",
-        category: "",
-        dateRange: "",
-        price: [10, 100],
-    });
-
+    // This function is called when the user applies the filter
     const handleFilterApply = () => {
-        // Perform the search/filter operation based on the filter options
-        // ...
-        console.log(filterOptions);
+        // Apply filters to events
+        const filteredEvents = allEvents.filter((event) => {
+            // Check if keyword filter matches
+            if (
+                filterOptions.keyword.toLowerCase() &&
+                !event.name
+                    .toLowerCase()
+                    .includes(filterOptions.keyword.toLowerCase())
+            ) {
+                return false;
+            }
+
+            // Check if date range filter matches
+            if (filterOptions.dateRange) {
+                const [startDate, endDate] = filterOptions.dateRange;
+                const eventDate = new Date(event.date);
+                if (
+                    eventDate < new Date(startDate) ||
+                    eventDate > new Date(endDate)
+                ) {
+                    return false;
+                }
+            }
+
+            // Check if price filter matches
+            if (
+                event.price < filterOptions.price[0] ||
+                event.price > filterOptions.price[1]
+            ) {
+                return false;
+            }
+
+            return true;
+        });
+
+        // Update allEvents state with filtered events
+        setAllEvents(filteredEvents.length > 0 ? filteredEvents : allEvents);
         setPopupFilterOpen(false); // Close the popup filter
+    };
+
+    const handleFilterClear = () => {
+        setFilterOptions({
+            keyword: "",
+            category: "",
+            dateRange: "",
+            price: [10, 100],
+        });
+        handleFilterApply();
+        setAllEvents(originalEvents);
     };
 
     return (
@@ -73,6 +118,7 @@ function UserDashboard() {
                                 filterOptions={filterOptions}
                                 setFilterOptions={setFilterOptions}
                                 handleFilterApply={handleFilterApply}
+                                handleFilterClear={handleFilterClear}
                             />
                         </div>
                         {/* Render the popup filter for small screens */}
@@ -83,6 +129,7 @@ function UserDashboard() {
                                         filterOptions={filterOptions}
                                         setFilterOptions={setFilterOptions}
                                         handleFilterApply={handleFilterApply}
+                                        handleFilterClear={handleFilterClear}
                                         handleClose={() =>
                                             setPopupFilterOpen(false)
                                         }

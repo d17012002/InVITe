@@ -4,24 +4,33 @@ import React from "react";
 import { GrFormClose } from "react-icons/gr";
 
 function Popup_Filter({
-    filterOptions,
+    filterOptions = {
+        keyword: "",
+        category: "",
+        dateRange: "",
+        price: [10, 100],
+    },
     setFilterOptions,
     handleFilterApply,
     handleClose,
+    handleFilterClear,
 }) {
-    // Handle input change for the keyword search
-    const handleKeywordChange = (e) => {
-        setFilterOptions({ ...filterOptions, keyword: e.target.value });
-    };
-
-    // Handle input change for the category filter
-    const handleCategoryChange = (e) => {
-        setFilterOptions({ ...filterOptions, category: e.target.value });
-    };
-
-    // Handle input change for the date range filter
-    const handleDateRangeChange = (e) => {
-        setFilterOptions({ ...filterOptions, dateRange: e.target.value });
+    // function to handle filter values
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        switch (name) {
+            case "keyword":
+                setFilterOptions({ ...filterOptions, keyword: value });
+                break;
+            case "category":
+                setFilterOptions({ ...filterOptions, category: value });
+                break;
+            case "dateRange":
+                setFilterOptions({ ...filterOptions, dateRange: value });
+                break;
+            default:
+                break;
+        }
     };
 
     // Handle input change for the status filter
@@ -58,8 +67,9 @@ function Popup_Filter({
                     <input
                         type="text"
                         id="keyword"
+                        name="keyword"
                         value={filterOptions.keyword}
-                        onChange={handleKeywordChange}
+                        onChange={handleInputChange}
                         className="filterInput"
                         placeholder="Search by keyword..."
                     />
@@ -74,8 +84,9 @@ function Popup_Filter({
                     </label>
                     <select
                         id="category"
+                        name="category"
                         value={filterOptions.category}
-                        onChange={handleCategoryChange}
+                        onChange={handleInputChange}
                         className="filterInput"
                     >
                         <option value="">Select a category...</option>
@@ -95,8 +106,9 @@ function Popup_Filter({
                     <input
                         type="date"
                         id="dateRange"
+                        name="dateRange"
                         value={filterOptions.dateRange}
-                        onChange={handleDateRangeChange}
+                        onChange={handleInputChange}
                         className="filterInput"
                     />
                 </div>
@@ -105,7 +117,7 @@ function Popup_Filter({
                     <Slider
                         range
                         min={0}
-                        max={300}
+                        max={3000}
                         step={10}
                         defaultValue={[10, 100]}
                         value={filterOptions.price}
@@ -123,6 +135,12 @@ function Popup_Filter({
                     Apply Filters
                 </button>
             </form>
+            <button
+                onClick={handleFilterClear}
+                className="w-full mt-2 text-white py-2 px-4 rounded-lg bg-gray-700 hover:bg-gray-800"
+            >
+                Clear Filters
+            </button>
         </div>
     );
 }

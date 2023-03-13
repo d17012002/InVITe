@@ -28,7 +28,6 @@ const Registration = () => {
                 );
                 if (response.ok) {
                     const data = await response.json();
-                    console.log(data.participants);
                     setUsers(data.participants);
                 } else {
                     throw new Error(
@@ -82,7 +81,7 @@ const Registration = () => {
             if (response.ok) {
                 const data = await response.json();
                 if (data.msg == "success") {
-                    router.reload();
+                    // router.reload();
                 }
             } else {
                 throw new Error(`${response.status} ${response.statusText}`);

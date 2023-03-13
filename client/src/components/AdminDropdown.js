@@ -7,10 +7,13 @@ export default function Dropdown({ adminData }) {
     const router = useRouter();
     const [showDropdown, setShowDropdown] = useState(false);
     const dropdownRef = useRef(null);
+
+    // function to handle dropdown toggle
     const toggleDropdown = () => {
         setShowDropdown(!showDropdown);
     };
 
+    // function to handle logout button click
     const handleLogout = () => {
         removeAdminToken();
         router.push("/");

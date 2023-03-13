@@ -11,6 +11,7 @@ export default function NavBar() {
     // console.log(adminIdCookie);
     const [adminData, setAdminData] = useState({});
 
+    // fetch the admin data as soon as the page loads
     const fetchAdminData = async () => {
         // If cookie was manually removed from browser
         if (!adminIdCookie) {

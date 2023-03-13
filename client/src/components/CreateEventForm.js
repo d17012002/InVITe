@@ -5,7 +5,6 @@ import { useState } from "react";
 const CreateEvent = () => {
     const router = useRouter();
     const admin_id = getAdminToken();
-    // const [message, setMessage] = useState("");
 
     const [formData, setFormData] = useState({
         name: "",
@@ -18,8 +17,11 @@ const CreateEvent = () => {
         description: "",
     });
 
-    const handleSubmit = async (e) => {
+    // function to handle the event form submission
+    const handleEventFormSubmit = async (e) => {
         e.preventDefault();
+
+        // Format date and time for server request
         const datetemp = new Date(formData.datetime);
         const formattedDate = datetemp.toLocaleDateString("en-IN", {
             year: "numeric",
@@ -33,6 +35,8 @@ const CreateEvent = () => {
         });
         const date = `${formattedDate}`;
         const time = `${formattedTime}`;
+
+        // Set up request body with form data and admin ID
         const requestBody = {
             name: formData.name,
             venue: formData.venue,
@@ -45,8 +49,8 @@ const CreateEvent = () => {
             cover: formData.cover != "" ? formData.cover : undefined,
             admin_id: admin_id,
         };
-        console.log(requestBody);
-        // server post request
+
+        // Send POST request to server with request body
         const response = await fetch(
             `${process.env.NEXT_PUBLIC_API_URL}/post/event`,
             {
@@ -59,15 +63,11 @@ const CreateEvent = () => {
         );
         const data = await response.json();
         if (response.status === 200) {
-            // Clear form fields
-            // document.getElementById("event-form").reset();
-
-            // Show success message
-            console.log(data);
+            // If request was successful, show success message and redirect to dashboard
             alert("Event Created Successfully");
             router.push("/admin/dashboard");
-            // setMessage("Event Created Successfully");
         } else {
+            // If request failed, log error message to console
             console.error(`Failed with status code ${response.status}`);
         }
     };
@@ -92,7 +92,7 @@ const CreateEvent = () => {
                 )} */}
                 <form
                     id="event-form"
-                    onSubmit={handleSubmit}
+                    onSubmit={handleEventFormSubmit}
                     className="space-y-8"
                 >
                     <div>

@@ -7,14 +7,17 @@ export default function Dropdown({ userData }) {
     const router = useRouter();
     const [showDropdown, setShowDropdown] = useState(false);
     const dropdownRef = useRef(null);
+
+    // function to handle dropdown toggle
     const toggleDropdown = () => {
         setShowDropdown(!showDropdown);
     };
 
+    // function to handle logout button click
     const handleLogout = () => {
         removeUserToken();
         router.push("/");
-    }
+    };
 
     // Attaches an event listener for the 'mousedown' event to detect a click outside the dropdown
     useEffect(() => {
@@ -92,9 +95,7 @@ export default function Dropdown({ userData }) {
                         onClick={handleLogout}
                         className="py-4 group hover:bg-[color:var(--darker-secondary-color)] transition-all ease-in-out"
                     >
-                        <button
-                            className="text-left w-full px-4 text-gray-800 group-hover:text-white transition-all ease-in-out"
-                        >
+                        <button className="text-left w-full px-4 text-gray-800 group-hover:text-white transition-all ease-in-out">
                             Logout
                         </button>
                     </div>
