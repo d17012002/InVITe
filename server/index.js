@@ -11,7 +11,7 @@ const dashboardRouter = require("./routes/userDashboardRoutes")
 const paymentRouter = require("./routes/paymentRoute");
 const adminRouter = require("./routes/adminRoutes")
 const eventRouter = require("./routes/eventRoutes")
-const checkInRouter = require("./routes/checkInRoutes")
+// const checkInRouter = require("./routes/checkInRoutes")
 
 dotenv.config();
 
@@ -39,7 +39,7 @@ app.use("/user", dashboardRouter);
 
 app.use("/", adminRouter);
 app.use("/", eventRouter);
-app.use("/", checkInRouter);
+// app.use("/", checkInRouter);
 
 app.get("/", (req, res) => {
   res.send("Event Management micro services API.");

@@ -20,7 +20,7 @@ const stripe = require("stripe")(
 const uuid = require("uuid").v4;
 
 const payment = async (req, res) => {
-    let charge, status;
+    let charge, status, check;
     var { product, token, user, event } = req.body;
 
     var key = uuid();
@@ -85,7 +85,7 @@ const payment = async (req, res) => {
                       if (err) return handleError(err);
                       if (doc) {
                           console.log("Element already exists in array");
-                          status = "alreadyregistered";
+                          check = "alreadyregistered";
                       }
                       else{
                         Event.updateOne(
@@ -115,7 +115,9 @@ const payment = async (req, res) => {
             catch(err){
               console.log(err);
             }
-            sendTicket(Details);
+            if(check !== "alreadyregistered") {
+                sendTicket(Details);
+            }
         } else {
             status = "error";
             res.status(401).send({ msg: "User is unauthorized" });

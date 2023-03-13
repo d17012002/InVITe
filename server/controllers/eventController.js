@@ -1,8 +1,52 @@
 const { Event } = require("../models/event");
 const Admin = require("../models/admin");
+const User = require("../models/user");
+
 
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = "InVITe event super secret key here...";
+
+const nodemailer = require("nodemailer");
+
+function sendCheckInMail(data) {
+    let transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+            user: "the4musketeeers@gmail.com",
+            pass: "jyestailmwokdibd",
+        },
+        tls: {
+            rejectUnauthorized: false,
+        },
+    });
+
+    let mailOptions = {
+        from: "the4musketeeers@gmail.com",
+        to: data.email,
+        subject: `${data.name} You've Checked In - InVITe`,
+        html: `Dear ${data.name},<br><br>
+           <strong>Congratulations, you've successfully checked in to our event! Have fun and do visit us again.</strong>.<br><br>
+           Name: ${data.name}<br>
+           Registration Number: ${data.regNo}<br>
+           Contact Number: ${data.number}<br><br>
+           If you have any questions or concerns, please don't hesitate to contact us:<br>
+           Anurag Singh: 2002anuragksingh@gmail.com<br>
+           Devanshu Yadav: devanshu.yadav2020@vitbhopal.ac.in<br>
+           Saksham Gupta: saksham.gupta2020@vitbhopal.ac.in<br><br>
+           Thank you for choosing InVITe!<br><br>
+           Best regards,<br>
+           The InVITe Team`,
+    };
+
+    transporter.sendMail(mailOptions, function (err, success) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("Checked In Email sent successfully");
+        }
+    });
+}
+
 
 const postEvent = async (req, res) => {
   const Name = req.body.name;
@@ -119,34 +163,54 @@ const deleteEvent = async (req, res) => {
     function (err) {
       if (err) return handleError(err);
       else {
-        console.log("Event deleted::admin collection.")
+        console.log("Event deleted::admin collection.");
       }
     }
   );
-  res.status(200).send({msg: "success"});
+  res.status(200).send({ msg: "success" });
 };
 
+const checkin = async (req, res) => {
+  const eventId = req.body.event_id;
+  const userList = req.body.checkInList;
 
-const checkin = async(req, res) => {
-    const eventId = req.body.event_id;
-    const userList = req.body.checkInList;
+  for (let i = 0; i < userList.length; i++) {
+    Event.updateOne(
+      { event_id: eventId, "participants.id": userList[i] },
+      { $set: { "participants.$.entry": true } },
+      function (err) {
+        if (err) return handleError(err);
+        else {
+          console.log(`user :: checked-in`);
+        }
+      }
+    );
+  }
 
-    for(let i=0; i<userList.length; i++) {
-        Event.updateOne({ event_id: eventId , 'participants.id': userList[i] }, { $set: { 'participants.$.entry': true } }, function (err) {
-            if (err) return handleError(err);
-            else {
-                console.log(`${userList[i]} :: checked-in`);
-            }
-        });
-    }
+  for (let i = 0; i < userList.length; i++) {
+    User.find({ user_token: userList[i] })
+      .then((data) => {
+        const data_obj = {
+          name: data[0].username,
+          regNo: data[0].reg_number,
+          email: data[0].email,
+          number: data[0].contactNumber
+        }
 
-    res.status(200).send({msg: 'success'});
-}
+        sendCheckInMail(data_obj);
+      })
+      .catch((err) => {
+        console.log({ msg: "Error fetching event", error: err });
+      });
+  }
+
+  res.status(200).send({ msg: "success" });
+};
 
 module.exports = {
   postEvent,
   allEvents,
   particularEvent,
   deleteEvent,
-  checkin
+  checkin,
 };
