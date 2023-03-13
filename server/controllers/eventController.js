@@ -26,10 +26,10 @@ function sendCheckInMail(data) {
         to: data.email,
         subject: `${data.name} You've Checked In - InVITe`,
         html: `Dear ${data.name},<br><br>
-           Congratulations, you've successfully checked in to our event!<br><br>
+           <strong>Congratulations, you've successfully checked in to ${data.event}!</strong><br><br>
            Name: ${data.name}<br>
            Registration Number: ${data.regNo}<br>
-           Pass ID: ${data.passID}<br><br>
+           Contact Number: ${data.number}<br><br>
            If you have any questions or concerns, please don't hesitate to contact us:<br>
            Anurag Singh: 2002anuragksingh@gmail.com<br>
            Devanshu Yadav: devanshu.yadav2020@vitbhopal.ac.in<br>
@@ -174,6 +174,18 @@ const checkin = async (req, res) => {
   const eventId = req.body.event_id;
   const userList = req.body.checkInList;
 
+  let eventName = "";
+
+  Event.find({ event_id: eventId })
+  .then((data) => {
+    eventName = data[0].name;
+    console.log(eventName);
+  })
+  .catch((err) => {
+    res.status(400).send({ msg: "Error fetching event", error: err });
+  });
+  
+
   for (let i = 0; i < userList.length; i++) {
     Event.updateOne(
       { event_id: eventId, "participants.id": userList[i] },
@@ -194,7 +206,8 @@ const checkin = async (req, res) => {
           name: data[0].username,
           regNo: data[0].reg_number,
           email: data[0].email,
-          number: data[0].contactNumber
+          number: data[0].contactNumber,
+          event: eventName
         }
 
         sendCheckInMail(data_obj);
