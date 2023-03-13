@@ -37,7 +37,7 @@ Before starting the servers, make sure to install the dependencies by running th
 - For the client-side, start the server by running the command: <code>npm run dev</code><br>
 - For the server-side, start the server by running the command: <code>nodemon index.js</code><br>
 - For the developer-side, start the server by running the command: <code>npm run dev</code><br>
-  `<br>`
+  <br>
 
 <h1>👉 How to use the site</h1>
 Our event management system has three main components:
