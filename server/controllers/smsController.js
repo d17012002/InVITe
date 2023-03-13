@@ -44,10 +44,10 @@ function sendTicket(Details) {
   });
 
   let mailOptions = {
-    from: process.env.NODE_MAILER_USER,
-    to: Details.email,
-    subject: `Online Event Pass for ${Details.event_name} - InVITe✨`,
-    html: `Thankyou <i>${Details.name}</i> for believing in us. We are all set and eagerly waiting for you to JOIN! <br> Your online pass has been generated. Do not share your pass with anyone else and carry this pass with yourself to the venue.<br><br><strong>Pass Number: ${Details.pass}</strong><br><br>Details:<br>Name: ${Details.name}<br>Amount Paid: ${Details.price}<br>Address: ${Details.address1} <br> City: ${Details.city} <br> PinCode: ${Details.zip}`
+      from: process.env.NODE_MAILER_USER,
+      to: Details.email,
+      subject: `Your Online Event Pass for ${Details.event_name} - InVITe✨`,
+      html: `Dear <i>${Details.name}</i>,<br><br>Thank you for registering for ${Details.event_name}! We are excited to have you join us and want to make sure that you have all the information you need to have a great time.<br><br>Your online pass has been generated and is ready for you to use. Please remember to keep this pass with you at all times during the event and do not share it with anyone else.<br><br><strong>Pass Number: ${Details.pass}</strong><br><br>Here are the details of your registration:<br>Name: ${Details.name}<br>Amount Paid: ${Details.price}<br>Address: ${Details.address1} <br> City: ${Details.city} <br> PinCode: ${Details.zip}<br><br>If you have any questions or concerns, please don't hesitate to reach out to us. We're here to help please contact us at:<br>Anurag Singh: 2002anuragksingh@gmail.com<br>Devanshu Yadav: devanshu.yadav2020@vitbhopal.ac.in<br>Saksham Gupta: saksham.gupta2020@vitbhopal.ac.in.<br><br>Best regards,<br>The InVITe Team`,
   };
 
   transporter.sendMail(mailOptions, function (err, success) {

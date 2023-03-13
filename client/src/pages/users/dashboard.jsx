@@ -8,7 +8,6 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { FaUsers } from "react-icons/fa";
 import { RxHamburgerMenu } from "react-icons/rx";
 
-
 function UserDashboard() {
     const router = useRouter();
     const picRatio = 0.606;
@@ -19,9 +18,8 @@ function UserDashboard() {
         keyword: "",
         category: "",
         dateRange: "",
-        price: [10, 100],
+        price: [10, 3000],
     });
-    const [originalEvents, setOriginalEvents] = useState([]);
 
     const fetchAllEvents = async () => {
         const response = await fetch(
@@ -32,9 +30,7 @@ function UserDashboard() {
         }
         try {
             const data = await response.json();
-            // console.log(data);
             setAllEvents(data);
-            setOriginalEvents(data);
         } catch (error) {
             console.error("Invalid JSON string:", error.message);
         }
@@ -44,10 +40,12 @@ function UserDashboard() {
         fetchAllEvents();
     }, []);
 
-    // This function is called when the user applies the filter
-    const handleFilterApply = () => {
-        // Apply filters to events
-        const filteredEvents = allEvents.filter((event) => {
+    // dont move this state becoz it needs allevents
+    const [filteredEvents, setFilteredEvents] = useState(allEvents);
+
+    // Update filteredEvents state whenever allEvents or filterOptions change
+    useEffect(() => {
+        const newFilteredEvents = allEvents.filter((event) => {
             // Check if keyword filter matches
             if (
                 filterOptions.keyword.toLowerCase() &&
@@ -60,12 +58,12 @@ function UserDashboard() {
 
             // Check if date range filter matches
             if (filterOptions.dateRange) {
-                const [startDate, endDate] = filterOptions.dateRange;
-                const eventDate = new Date(event.date);
-                if (
-                    eventDate < new Date(startDate) ||
-                    eventDate > new Date(endDate)
-                ) {
+                const date = filterOptions.dateRange;
+                // Split the date string into an array of substrings
+                const dateParts = event.date.split("/");
+                // Rearrange the array elements to get yyyy-mm-dd format
+                const formattedDate = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
+                if (formattedDate < date) {
                     return false;
                 }
             }
@@ -81,22 +79,19 @@ function UserDashboard() {
             return true;
         });
 
-        // Update allEvents state with filtered events
-        setAllEvents(filteredEvents.length > 0 ? filteredEvents : allEvents);
-        setPopupFilterOpen(false); // Close the popup filter
-    };
+        setFilteredEvents(newFilteredEvents);
+    }, [allEvents, filterOptions]);
 
     const handleFilterClear = () => {
         setFilterOptions({
             keyword: "",
             category: "",
             dateRange: "",
-            price: [10, 100],
+            price: [10, 3000],
         });
-        handleFilterApply();
-        setAllEvents(originalEvents);
+        setFilteredEvents(allEvents);
+        setPopupFilterOpen(false);
     };
-
 
     return (
         <div className="pt-20 lg:pt-8 overflow-y-hidden bg-[color:var(--primary-color)]">
@@ -109,7 +104,6 @@ function UserDashboard() {
                             <Dashboard_Filter
                                 filterOptions={filterOptions}
                                 setFilterOptions={setFilterOptions}
-                                handleFilterApply={handleFilterApply}
                                 handleFilterClear={handleFilterClear}
                             />
                         </div>
@@ -120,7 +114,6 @@ function UserDashboard() {
                                     <Popup_Filter
                                         filterOptions={filterOptions}
                                         setFilterOptions={setFilterOptions}
-                                        handleFilterApply={handleFilterApply}
                                         handleFilterClear={handleFilterClear}
                                         handleClose={() =>
                                             setPopupFilterOpen(false)
@@ -136,10 +129,10 @@ function UserDashboard() {
                                     Events
                                 </h2>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                                    {allEvents.length === 0 ? (
+                                    {filteredEvents.length === 0 ? (
                                         <p>No events yet</p>
                                     ) : (
-                                        allEvents.map((event) => (
+                                        filteredEvents.map((event) => (
                                             <div
                                                 onClick={() => {
                                                     router.push(

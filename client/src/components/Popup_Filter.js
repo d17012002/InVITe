@@ -8,10 +8,9 @@ function Popup_Filter({
         keyword: "",
         category: "",
         dateRange: "",
-        price: [10, 100],
+        price: [10, 3000],
     },
     setFilterOptions,
-    handleFilterApply,
     handleClose,
     handleFilterClear,
 }) {
@@ -38,14 +37,6 @@ function Popup_Filter({
         setFilterOptions({ ...filterOptions, price: [...value] });
     };
 
-    // Handle form submission
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Perform the search/filter operation based on the filter options
-        handleFilterApply();
-        handleClose();
-    };
-
     return (
         // Add filter options to the DOM element
         <div className="fixed top-0 left-0 right-0 bottom-0 z-50 mt-[8rem] bg-white p-4">
@@ -58,7 +49,7 @@ function Popup_Filter({
                     <GrFormClose className="h-6 w-6" />
                 </button>
             </div>
-            <form className="flex flex-col gap-y-3" onSubmit={handleSubmit}>
+            <form className="flex flex-col gap-y-3" onSubmit={handleClose}>
                 {/* Input to search through keyword */}
                 <div className="mb-2">
                     <label htmlFor="keyword" className="font-medium block mb-1">

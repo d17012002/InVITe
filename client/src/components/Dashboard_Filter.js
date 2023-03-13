@@ -1,16 +1,15 @@
-import React, { useState } from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
+import React, { useState } from "react";
 
 function Dashboard_Filter({
     filterOptions = {
         keyword: "",
         category: "",
         dateRange: "",
-        price: [10, 100],
+        price: [10, 3000],
     },
     setFilterOptions,
-    handleFilterApply,
     handleFilterClear,
 }) {
     // function to handle filter values
@@ -36,18 +35,11 @@ function Dashboard_Filter({
         setFilterOptions({ ...filterOptions, price: [...value] });
     };
 
-    // Handle form submission
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Perform the search/filter operation based on the filter options
-        handleFilterApply();
-    };
-
     return (
         // Add filter options to the DOM element
         <div>
             <h2 className="text-lg font-medium mb-2">Filter Options</h2>
-            <form className="flex flex-col gap-y-3" onSubmit={handleSubmit}>
+            <form className="flex flex-col gap-y-3">
                 {/* Input to search through keyword */}
                 <div className="mb-2">
                     <label htmlFor="keyword" className="font-medium block mb-1">
@@ -116,13 +108,6 @@ function Dashboard_Filter({
                         ₹{filterOptions.price[0]} - ₹{filterOptions.price[1]}
                     </p>
                 </div>
-                {/* Button to apply filters */}
-                <button
-                    type="submit"
-                    className="text-white py-2 px-4 rounded-lg bg-[color:var(--darker-secondary-color)] hover:bg-[color:var(--secondary-color)]"
-                >
-                    Apply Filters
-                </button>
             </form>
             <button
                 onClick={handleFilterClear}
