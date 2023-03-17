@@ -35,46 +35,46 @@ function Form() {
     return (
         <div className="form-container">
             <center>
+                <fieldset>
+                    <legend>Admin Registration</legend>
 
-            <fieldset>
-                <legend>Admin Registration</legend>
-
-            <form onSubmit={handleSubmit}>
-                <label>Enter your Email Address: </label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="xyz@gmail.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <br />
-                <label>Enter your Name: </label>
-                <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    placeholder="Admin name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                />
-                <br />
-                <label>Enter Password: </label>
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    placeholder="New password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    />
-                <br />
-                <span className="status">{message && <span>{message}</span>} </span>
-                <button type="submit">Submit</button>
-            </form>
-            </fieldset>
-            
+                    <form onSubmit={handleSubmit}>
+                        <label>Enter your Email Address: </label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="xyz@gmail.com"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <br />
+                        <label>Enter your Name: </label>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="Admin name"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                        />
+                        <br />
+                        <label>Enter Password: </label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="New password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <br />
+                        <span className="status">
+                            {message && <span>{message}</span>}{" "}
+                        </span>
+                        <button type="submit">Submit</button>
+                    </form>
+                </fieldset>
             </center>
         </div>
     );

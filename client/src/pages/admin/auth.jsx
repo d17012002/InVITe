@@ -175,8 +175,12 @@ export default function signin({ adminIdCookie }) {
                                 <p className="text-sm text-gray-700 mt-6">
                                     *You have the option to designate yourself
                                     as an admin for testing purposes by
-                                    following this {" "}
-                                    <a href="http://localhost:3001" target="_blank" className = "text-[color:var(--darker-secondary-color)]">
+                                    following this{" "}
+                                    <a
+                                        href="https://invite-developers.vercel.app/"
+                                        target="_blank"
+                                        className="text-[color:var(--darker-secondary-color)]"
+                                    >
                                         link.
                                     </a>
                                 </p>

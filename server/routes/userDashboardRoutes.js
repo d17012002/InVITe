@@ -4,5 +4,4 @@ const { userDetails } = require("../controllers/userDashboard");
 
 router.route("/details").post(userDetails);
 
-
 module.exports = router;

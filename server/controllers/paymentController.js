@@ -78,51 +78,51 @@ const payment = async (req, res) => {
 
             console.log("All details before email: ", Details);
 
-            try{
-              Event.findOne(
-                  { event_id: event.event_id, "participants.id": user.user_id },
-                  function (err, doc) {
-                      if (err) return handleError(err);
-                      if (doc) {
-                          console.log("Element already exists in array");
-                          check = "alreadyregistered";
-                      }
-                      else{
-                        Event.updateOne(
-                            { event_id: event.event_id },
-                            {
-                                $push: {
-                                    participants: {
-                                        id: user.user_id,
-                                        name: docs[0].username,
-                                        email: docs[0].email,
-                                        passID: key,
-                                        regno: docs[0].reg_number,
-                                        entry: false,
+            try {
+                Event.findOne(
+                    {
+                        event_id: event.event_id,
+                        "participants.id": user.user_id,
+                    },
+                    function (err, doc) {
+                        if (err) return handleError(err);
+                        if (doc) {
+                            console.log("Element already exists in array");
+                            check = "alreadyregistered";
+                        } else {
+                            Event.updateOne(
+                                { event_id: event.event_id },
+                                {
+                                    $push: {
+                                        participants: {
+                                            id: user.user_id,
+                                            name: docs[0].username,
+                                            email: docs[0].email,
+                                            passID: key,
+                                            regno: docs[0].reg_number,
+                                            entry: false,
+                                        },
                                     },
                                 },
-                            },
-                            function (err) {
-                                if (err) {
-                                    console.log(err);
+                                function (err) {
+                                    if (err) {
+                                        console.log(err);
+                                    }
                                 }
-                            }
-                        );
-                      }
-                  }
-              );
+                            );
+                        }
+                    }
+                );
+            } catch (err) {
+                console.log(err);
             }
-            catch(err){
-              console.log(err);
-            }
-            if(check !== "alreadyregistered") {
+            if (check !== "alreadyregistered") {
                 sendTicket(Details);
             }
         } else {
             status = "error";
             res.status(401).send({ msg: "User is unauthorized" });
         }
-        
     });
 
     Event.find({ event_id: event.event_id }, async function (err, events) {
@@ -140,7 +140,6 @@ const payment = async (req, res) => {
         }
     });
     res.send({ status });
-    
 };
 
 module.exports = {

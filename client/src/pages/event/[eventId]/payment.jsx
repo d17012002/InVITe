@@ -97,6 +97,7 @@ export default function payment() {
             const data = await response.json();
             console.log(data);
             if (data.status === "success") {
+                alert("Payment Successful");
                 router.push("/users/dashboard");
             }
             else if(data.status === "alreadyregistered"){

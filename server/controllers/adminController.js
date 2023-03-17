@@ -43,7 +43,6 @@ const adminAuth = async (req, res) => {
             return res.status(400).send({ msg: "Email or Password is wrong" });
         }
     });
-    
 };
 
 const adminDetails = async (req, res) => {
