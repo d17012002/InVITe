@@ -29,15 +29,30 @@ Our event management system is built on a microservice architecture. This allows
 <h1>🚀 Getting Started</h1>
 To get started, download the zip file of the repository. Or use <br>
 <code>git clone https://github.com/d17012002/event-management</code><br>
-Then navigate to the project's root directory. The project consists of three folders: `client`, `server`, and `developer`.
+Then navigate to the project's root directory. The project consists of three folders: <code>client</code>, <code>server</code>, and <code>developer</code>.
 <br>
-Before starting the servers, make sure to install the dependencies by running the command: <code> npm install </code> in all three folders.
+Before starting the servers, make sure to install the dependencies by running the command: <code>npm install</code> in all three folders.
 <br>
+<b>Note:</b> The following environment variables need to be set up before running the servers:<br>
 
-- For the client-side, start the server by running the command: <code>npm run dev</code><br>
-- For the server-side, start the server by running the command: <code>nodemon index.js</code><br>
-- For the developer-side, start the server by running the command: <code>npm run dev</code><br>
-  <br>
+<ul>
+<li>For the client-side, create a <code>.env.local</code> file in the <code>client</code> folder with the following variables:<br>
+<code>NEXT_PUBLIC_BASE_URL</code> - the base URL of the API server (e.g. <code>http://localhost:3000</code>)<br>
+<code>NEXT_PUBLIC_STRIPE_KEY</code> - the public key for your Stripe account<br>
+<code>NEXT_PUBLIC_API_URL</code> - the URL of the API server (e.g. <code>http://localhost:5000</code>)</li>
+<li>For the server-side, create a <code>.env</code> file in the <code>server</code> folder with the following variables:<br>
+<code>MONGO_ATLAS_URI</code> - the connection string for your MongoDB Atlas database<br>
+<code>STRIPE_KEY</code> - the secret key for your Stripe account<br>
+<code>NODE_MAILER_USER</code> - the email address to use for sending email notifications<br>
+<code>NODE_MAILER_PASS</code> - the password for the email address to use for sending email notifications<br>
+<code>JWT_SECRET</code> - the secret key to use for JWT token generation</li>
+</ul>
+<br>
+To start the servers:<br>
+For the client-side, start the server by running the command: <code>npm run dev</code><br>
+For the server-side, start the server by running the command: <code>nodemon index.js</code><br>
+For the developer-side, start the server by running the command: <code>npm run dev</code><br>
+<br>
 
 <h1>👉 How to use the site</h1>
 Our event management system has three main components:
