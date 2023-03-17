@@ -1,7 +1,9 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+
 const cors = require("cors");
+
 const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 const bodyParser = require('body-parser');
@@ -33,6 +35,7 @@ require("./models/event");
 
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
+
 app.use(cookieParser());
 app.use(cors());
 
@@ -42,7 +45,6 @@ app.use("/user", dashboardRouter);
 
 app.use("/", adminRouter);
 app.use("/", eventRouter);
-// app.use("/", checkInRouter);
 
 app.get("/", (req, res) => {
   res.send("Event Management micro services API.");
