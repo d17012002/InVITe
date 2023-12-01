@@ -9,9 +9,15 @@ function TeamSection({images: developers}) {
                 <br />
                 <br />
                 <div className="max-w-3xl mx-auto text-center pb-12 md:pb-16">
-                    <h2 className="h2 mb-4">Our super cool Developers</h2>
+                    <h2 className="h2 mb-4">
+                        Our{" "}
+                        <span className="text-[color:var(--secondary-color)]">
+                            super cool
+                        </span>{" "}
+                        Team
+                    </h2>
                 </div>
-                <div className="mt-10 grid grid-cols-1 gap-16 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="mt-10 grid grid-cols-1 gap-16 sm:grid-cols-2 lg:grid-cols-4">
                     {developers?.map((developer) => (
                         <div key={developer?.id} className="flex flex-col">
                             <div className="flex-shrink-0">

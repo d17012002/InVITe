@@ -18,7 +18,7 @@ function sendSMS(Email, otp) {
         from: process.env.NODE_MAILER_USER,
         to: Email,
         subject: "One Time Password - InVITe",
-        html: `Please keep your OTP confidential and do not share it with anyone. The OTP will be valid for five minutes only. <br><strong>OTP: ${otp}</strong><br><br>Thank you for choosing InVITe!<br><br>If you have any questions, please contact us at:<br>Anurag Singh: 2002anuragksingh@gmail.com<br>Devanshu Yadav: devanshu.yadav2020@vitbhopal.ac.in<br>Saksham Gupta: saksham.gupta2020@vitbhopal.ac.in.`,
+        html: `Please keep your OTP confidential and do not share it with anyone. The OTP will be valid for five minutes only. <br><strong>OTP: ${otp}</strong><br><br>Thank you for choosing InVITe!<br><br>If you have any questions, please contact us at:<br>Anurag Singh: 2002anuragksingh@gmail.com<br>Devanshu Yadav: devanshu.yadav2020@vitbhopal.ac.in<br>Saksham Gupta: sakshamgupta.dev@gmail.com<br>Lavanya Doohan: Lavanya.doohan@gmail.com`,
     };
 
     transporter.sendMail(mailOptions, function (err, success) {

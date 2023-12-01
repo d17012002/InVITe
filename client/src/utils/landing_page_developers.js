@@ -41,6 +41,14 @@ const Images = [
         githubUrl: "https://github.com/sakshgupta",
         websiteUrl: "https://sakshgupta.vercel.app/",
     },
+    {
+        id: 6,
+        src: "/img/landing_page_images/pm-01.jpg",
+        title: "Lavanya Doohan",
+        role: "Product Management",
+        linkedinUrl: "https://www.linkedin.com/in/lavanyadoohan/",
+        githubUrl: "https://github.com/Lavanyadoohan",
+    },
 ];
 
 export default Images;
