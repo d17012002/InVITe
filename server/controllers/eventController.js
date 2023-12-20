@@ -26,7 +26,7 @@ function sendCheckInMail(data) {
         to: data.email,
         subject: `${data.name} You've Checked In - InVITe`,
         html: `Dear ${data.name},<br><br>
-           <strong>Congratulations, you've successfully checked in to ${data.event}!</strong><br><br>
+           <strong>Congratulations, you've successfully checked in!</strong><br><br>
            Name: ${data.name}<br>
            Registration Number: ${data.regNo}<br>
            Contact Number: ${data.number}<br><br>
@@ -34,6 +34,7 @@ function sendCheckInMail(data) {
            Anurag Singh: 2002anuragksingh@gmail.com<br>
            Devanshu Yadav: devanshu.yadav2020@vitbhopal.ac.in<br>
            Saksham Gupta: saksham.gupta2020@vitbhopal.ac.in<br><br>
+           Lavanya Doohan: lavanya.doohan2020@vitbhopal.ac.in<br><br>
            Thank you for choosing InVITe!<br><br>
            Best regards,<br>
            The InVITe Team`,
